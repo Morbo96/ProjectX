@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const port = 8080;
 app.get("/", (req, res) => {
-    res.send("The sedulous hyena ate the antelope!");
+    res.send("wow!");
 });
 app.listen(port, (err) => {
     if (err) {
