@@ -25,9 +25,7 @@ import {
 
 @Table
 export class User extends Model<User> {
-  @Column(DataType.INTEGER)
-  id!: number;
-
+  
   @Column(DataType.TEXT)
   email!: string;
 

@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
-const sequelize = require("./model/domain/db");
+import sequelize from "./model/domain/db";
+import "reflect-metadata"
 import { User } from "./model/domain/entities/users";
 //const User = require("./model/domain/entities/users");
 
@@ -14,7 +15,7 @@ app.post("/", async (req: Request, res: Response) => {
   try {
     // const { login, passwordEncrypted } = req.body;
     // const user = await User.create({ login, passwordEncrypted });
-    const user = await User.create(req.body);
+    const user: User = await User.create(req.body);
     res.json(user);
   } catch (error) {
     console.log(error);
@@ -22,10 +23,11 @@ app.post("/", async (req: Request, res: Response) => {
   }
 });
 
-const start = async () => {
+const start = async ():Promise<void> => {
   try {
     await sequelize.authenticate();
     await sequelize.sync();
+    
     app.listen(port, () => {
       console.log(`server is listening on ${port}`);
     });
