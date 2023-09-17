@@ -1,33 +1,22 @@
 import express, { Request, Response } from "express";
 import sequelize from "./model/domain/db";
-import "reflect-metadata"
-import { User } from "./model/domain/entities/users";
-//const User = require("./model/domain/entities/users");
+import UserRoute from "./routes/userRouter";
+import { user } from "./model/domain/entities/users";
 
 const app = express();
 
-//app.use('/api', router);
+app.use("/api", UserRoute);
 app.use(express.json());
 
 const port = 3000;
 
-app.post("/", async (req: Request, res: Response) => {
+const start = async () => {
   try {
-    // const { login, passwordEncrypted } = req.body;
-    // const user = await User.create({ login, passwordEncrypted });
-    const user: User = await User.create(req.body);
-    res.json(user);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
-  }
-});
-
-const start = async ():Promise<void> => {
-  try {
-    await sequelize.authenticate();
+    await sequelize.authenticate().then(() => {
+      console.log("Connection has been established successfully.");
+    });
     await sequelize.sync();
-    
+
     app.listen(port, () => {
       console.log(`server is listening on ${port}`);
     });
@@ -37,3 +26,20 @@ const start = async ():Promise<void> => {
 };
 
 start();
+
+app.post("/", async (req: Request, res: Response) => {
+  try {
+    const createdUser = await user.create(req.body);
+    res.json(createdUser);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+app.get("/", async (req: Request, res: Response) => {
+  try {
+    const allUsers = await user.findAll();
+    res.json(allUsers);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
