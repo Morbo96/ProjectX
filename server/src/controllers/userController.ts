@@ -18,6 +18,14 @@ class UserController {
       res.status(500).json(error);
     }
   }
+  async getOneByID(req: Request, res: Response) {
+    try {
+      const oneUser = await user.findOne({where: {id: req.body.id} })
+      res.json(oneUser);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
 }
 
 export const userController = new UserController();

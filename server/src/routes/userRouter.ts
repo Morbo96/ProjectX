@@ -7,5 +7,6 @@ const UserRoute = Router();
 UserRoute.use(express.json())
 UserRoute.post("/users", userController.createUser);
 UserRoute.get("/users", userController.getAll);
+UserRoute.get("/users/id", userController.getOneByID);
 
 export default UserRoute;
