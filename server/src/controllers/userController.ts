@@ -1,5 +1,4 @@
-import { Request, Response } from "express";
-//import sequelize from "../model/domain/db";
+import express, { Request, Response } from "express";
 import { user } from "../model/domain/entities/users";
 
 class UserController {
