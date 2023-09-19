@@ -1,11 +1,13 @@
 import express, { Request, Response } from "express";
 import sequelize from "./model/domain/db";
 import UserRoute from "./routes/userRouter";
-import { user } from "./model/domain/entities/users";
+import { User } from "./model/domain/entities/users";
+import DailyTaskRoute from "./routes/dailyTaskRouter";
 
 const app = express();
 
 app.use("/api", UserRoute);
+app.use("/api", DailyTaskRoute);
 app.use(express.json());
 
 const port = 3000;
@@ -26,20 +28,3 @@ const start = async () => {
 };
 
 start();
-
-app.post("/", async (req: Request, res: Response) => {
-  try {
-    const createdUser = await user.create(req.body);
-    res.json(createdUser);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
-app.get("/", async (req: Request, res: Response) => {
-  try {
-    const allUsers = await user.findAll();
-    res.json(allUsers);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});

@@ -1,13 +1,23 @@
-import { DataType } from "sequelize-typescript";
-import sequelize from "../db";
+import { Model, Column,Table,BelongsTo, HasMany } from "sequelize-typescript";
+import { DailyTask } from "./dailyTasks";
 
-export const user = sequelize.define("User", {
-  // Model attributes are defined here
-  email: { type: DataType.STRING },
-  login: { type: DataType.STRING },
-  passwordEncrypted: { type: DataType.STRING },
-  name: { type: DataType.STRING },
-  money: { type: DataType.INTEGER },
-  diamonds: { type: DataType.INTEGER },
-});
+@Table
+
+export class User extends Model<User> {
+
+  @Column
+  email!:string;
+
+  @Column
+  login!:string
+
+  @Column
+  passwordEncrypted!:string
+
+  @Column
+  name!:string
+
+  @HasMany(()=> DailyTask)
+  dailyTasks?:DailyTask[];
+}
 
