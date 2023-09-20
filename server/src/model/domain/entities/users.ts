@@ -1,4 +1,4 @@
-import { Model, Column,Table,BelongsTo, HasMany } from "sequelize-typescript";
+import { Model, Column,Table, HasMany } from "sequelize-typescript";
 import { DailyTask } from "./dailyTasks";
 
 @Table
@@ -20,4 +20,3 @@ export class User extends Model<User> {
   @HasMany(()=> DailyTask)
   dailyTasks?:DailyTask[];
 }
-

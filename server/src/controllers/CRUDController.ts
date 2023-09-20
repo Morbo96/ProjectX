@@ -2,11 +2,19 @@ import express, { Request, Response } from "express";
 import { User } from "../model/domain/entities/users";
 import { NotEmpty, NotNull } from "sequelize-typescript";
 import { DailyTask } from "../model/domain/entities/dailyTasks";
+import { ItemServiceInterface } from "../model/services/interfaces/ItemServiceInterface";
 
-class UserController {
+export class CRUDController<T extends {}>{
+
+  itemService: ItemServiceInterface<T>;
+
+  constructor(service:ItemServiceInterface<T>){
+      this.itemService = service
+  }
+
   async createUser(req: Request, res: Response) {
     try {
-      const createdUser = await User.create(req.body);
+      const createdUser = await this.itemService.create(req.body);
       res.json(createdUser);
     } catch (error) {
       res.status(500).json(error);
@@ -30,6 +38,7 @@ class UserController {
       res.status(500).json(error);
     }
   }
+
   async getAllByTask(req: Request, res: Response) {
     try {
       const oneUser = await User.findAll({include: [DailyTask] })
@@ -41,4 +50,4 @@ class UserController {
   }
 }
 
-export const userController = new UserController();
+//export const crudController = CRUDController;
