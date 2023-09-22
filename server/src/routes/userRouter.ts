@@ -6,11 +6,11 @@ import { User } from "../model/domain/entities/users";
 import { CRUDController } from "../controllers/CRUDController";
 
 const UserRoute = Router();
-//const userController = new CRUDController(userService)
+//const userController = new CRUDController(userService)// если создавать контроллер здесь и потом использовать в методе, то все не работает
 
 
 UserRoute.use(express.json())
-//UserRoute.post("/users", crudController(userService).createUser);
+//UserRoute.get("/users", userController.getAll);// так не работает
 UserRoute.get("/users", userCRUDControllerHelper.getAllItems);
 
 export default UserRoute;
