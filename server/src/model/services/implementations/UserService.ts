@@ -3,8 +3,9 @@ import { User } from "../../domain/entities/users";
 import { ItemServiceInterface } from "../interfaces/ItemServiceInterface";
 import { UserServiceInterface } from "../interfaces/UserServiceInterface";
 
-export class UserService implements ItemServiceInterface<User>,UserServiceInterface<User>{
-    async itemExists (id:number) {
+class UserService implements ItemServiceInterface<User>{
+    
+  async itemExists (id:number) {
         try {
             const result = await User.findOne({where:{id}});
             
@@ -30,6 +31,18 @@ export class UserService implements ItemServiceInterface<User>,UserServiceInterf
 
           }
     }
+    async getAll(){
+      try {
+        const result = await User.findAll();
+        console.log(result)
+        return result;
+
+      } catch (error) {
+
+        return null;
+
+      }
+    }
     ////////////////////////////////////////////////////////////////////
     async create (user: User ){
       const createdUser = await User.create(user);
@@ -39,3 +52,4 @@ export class UserService implements ItemServiceInterface<User>,UserServiceInterf
 
     // export const find = async (id: number): Promise<Item> => items[id];
 }
+export const userService = new UserService()

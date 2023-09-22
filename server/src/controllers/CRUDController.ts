@@ -23,31 +23,31 @@ export class CRUDController<T extends {}>{
 
   async getAll(req: Request, res: Response) {
     try {
-      const allUsers = await User.findAll();
-      res.json(allUsers);
+      const allUsers = await this.itemService.getAll();
+      res.json({allUsers});
     } catch (error) {
       res.status(500).json(error);
     }
   }
 
-  async getOneByID(req: Request, res: Response) {
-    try {
-      const oneUser = await User.findOne({where: {id: req.body.id} })
-      res.json(oneUser);
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  }
+// async getByID(req: Request, res: Response) {
+//   try {
+//     const oneUser = await User.findOne({where: {id: req.body.id} })
+//     res.json(oneUser);
+//   } catch (error) {
+//     res.status(500).json(error);
+//   }
+// }
 
-  async getAllByTask(req: Request, res: Response) {
-    try {
-      const oneUser = await User.findAll({include: [DailyTask] })
-      res.json(oneUser);
-    } catch (error) {
-      console.log(error);
-      res.status(500).json(error);
-    }
-  }
+//   async getAllByTask(req: Request, res: Response) {
+//     try {
+//       const oneUser = await User.findAll({include: [DailyTask] })
+//       res.json(oneUser);
+//     } catch (error) {
+//       console.log(error);
+//       res.status(500).json(error);
+//     }
+//   }
 }
 
 //export const crudController = CRUDController;

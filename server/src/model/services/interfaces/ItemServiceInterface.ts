@@ -8,6 +8,8 @@ export interface ItemServiceInterface<T extends {}>{
 
     create:(item:T)=>Promise<T>
 
+    getAll:()=>Promise<T[] | null>
+
     // updateRange:(item:T[])=>Promise<boolean>
 
     // createRange:(item:T)=>Promise<boolean>
@@ -16,5 +18,4 @@ export interface ItemServiceInterface<T extends {}>{
 
     // deleteItem:(id:number) => Promise<boolean>
 
-    // getAllRecords:()=> Promise<T[]>
 }
