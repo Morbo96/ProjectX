@@ -1,5 +1,7 @@
-import { Model, Column,Table, HasMany } from "sequelize-typescript";
-import { DailyTask } from "./dailyTasks";
+import { Model, Column,Table, HasMany, HasOne } from "sequelize-typescript";
+import { DailyTask } from "./dailyTasks/dailyTasks";
+import { UserBank } from "./usersBanks";
+import { UserPet } from "./usersPets";
 
 @Table
 
@@ -19,4 +21,10 @@ export class User extends Model<User> {
 
   @HasMany(()=> DailyTask)
   dailyTasks?:DailyTask[];
+
+  @HasOne(()=>UserBank)
+  userBank?:UserBank;
+
+  @HasMany(()=> UserPet)
+  userPets?:UserPet[];
 }

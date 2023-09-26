@@ -1,7 +1,4 @@
-import express, { Request, Response } from "express";
-import { User } from "../model/domain/entities/users";
-import { NotEmpty, NotNull } from "sequelize-typescript";
-import { DailyTask } from "../model/domain/entities/dailyTasks";
+import { Request, Response } from "express";
 import { ItemServiceInterface } from "../model/services/interfaces/ItemServiceInterface";
 
 export class CRUDController<T extends {}>{
@@ -12,10 +9,10 @@ export class CRUDController<T extends {}>{
       this.itemService = service
   }
 
-  async createUser(req: Request, res: Response) {
+  async create(req: Request, res: Response) {
     try {
-      const createdUser = await this.itemService.create(req.body);
-      res.json(createdUser);
+      const createdItem = await this.itemService.create(req.body);
+      res.json(createdItem);
     } catch (error) {
       res.status(500).json(error);
     }
@@ -23,31 +20,38 @@ export class CRUDController<T extends {}>{
 
   async getAll(req: Request, res: Response) {
     try {
-      const allUsers = await this.itemService.getAll();
-      res.json({allUsers});
+      const allItems = await this.itemService.getAll();
+      res.json({allItems});
     } catch (error) {
       res.status(500).json(error);
     }
   }
 
-// async getByID(req: Request, res: Response) {
-//   try {
-//     const oneUser = await User.findOne({where: {id: req.body.id} })
-//     res.json(oneUser);
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// }
+  async getByID(req: Request, res: Response) {
+    try {
+      const oneItem = await this.itemService.getItemById(Number(req.params.id))//добавить проверку на число
+      res.json(oneItem);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
 
-//   async getAllByTask(req: Request, res: Response) {
-//     try {
-//       const oneUser = await User.findAll({include: [DailyTask] })
-//       res.json(oneUser);
-//     } catch (error) {
-//       console.log(error);
-//       res.status(500).json(error);
-//     }
-//   }
+  async delete(req: Request, res: Response) {
+    try {
+      const isSuccess = await this.itemService.deleteItem(req.body.id)
+      isSuccess ? res.status(201).json(true):res.status(500).json(false)
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+  
+  async update(req: Request, res: Response) {
+    try {
+      req.body.id = req.params.id// добавить проверку на число
+      const updatedItem = await this.itemService.update(req.body);
+      res.json(updatedItem);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
 }
-
-//export const crudController = CRUDController;

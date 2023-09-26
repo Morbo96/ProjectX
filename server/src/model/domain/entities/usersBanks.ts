@@ -3,13 +3,13 @@ import { User } from "./users";
 
 @Table
 
-export class DailyTask extends Model<DailyTask> {
+export class UserBank extends Model<UserBank> {
 
   @Column
-  name!:string;
+  money!:number;
 
   @Column
-  icon!:string;
+  diamonds!:number;
 
   @ForeignKey(()=>User)
   @Column
@@ -17,7 +17,6 @@ export class DailyTask extends Model<DailyTask> {
 
   @BelongsTo(()=>User)
   user!:User;
-
 
 }
 

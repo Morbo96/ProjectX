@@ -1,52 +1,91 @@
-import { Model } from "sequelize-typescript";
 import { User } from "../../domain/entities/users";
 import { ItemServiceInterface } from "../interfaces/ItemServiceInterface";
 import { UserServiceInterface } from "../interfaces/UserServiceInterface";
 
-class UserService implements ItemServiceInterface<User>{
+
+class UserService implements ItemServiceInterface<User>, UserServiceInterface{
     
   async itemExists (id:number) {
-        try {
-            const result = await User.findOne({where:{id}});
-            
-            return result ? true:false;
+    try {
+      const result = await User.findOne({where:{id}});
+        
+      return result ? true:false;
 
-          } catch (error) {
+    } catch (error) {
 
-            return false;
+      return false;
 
-          }
-    }
-    async update(item:User){
-        try {
-            const result = await User.findByPk(item.id);
-
-            await User.update(item,{where:item.id})
-
-            return true;
-
-          } catch (error) {
-
-            return false;
-
-          }
-    }
-    async getAll(){
-      try {
-        const result = await User.findAll();
-        console.log(result)
-        return result;
-      } catch (error) {
-        return null;
       }
     }
-    ////////////////////////////////////////////////////////////////////
-    async create (user: User ){
-      const createdUser = await User.create(user);
-      return createdUser;
-    }
-    // export const findAll = async (): Promise<Item[]> => Object.values(items);
 
-    // export const find = async (id: number): Promise<Item> => items[id];
+  async update(item:User){
+    try {
+      await User.update(item,{where:{id:item.id}})
+
+      const result = await User.findByPk(item.id)
+
+      return result;
+
+    } catch (error) {
+
+      console.log(error)
+
+      return null;
+
+      }
+    }
+
+  async getAll(){
+    try {
+      const result = await User.findAll();
+
+      return result;
+
+    } catch(error){
+
+      return null;
+
+      }
+    }
+
+  async getItemById (id:Number) {
+    try{
+      const result = await User.findOne({where:{id}})
+
+      return result;
+
+    } catch (error){
+
+      return null;
+
+    }
+  }
+
+  async create (user: User ){
+    try {
+      const result = await User.create(user);
+
+      return result;
+
+    } catch(error){
+      
+      return null;
+
+    }
+  }
+  
+  async deleteItem(id:Number){
+    try{
+      await User.destroy({where: {id}})
+
+      return true;
+
+    } catch(error){
+
+      return false;
+
+    }
+
+  }
 }
 export const userService = new UserService()
