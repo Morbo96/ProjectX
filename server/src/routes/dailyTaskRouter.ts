@@ -4,35 +4,24 @@ import { dailyTaskService } from "../model/services/implementations/DailyTaskSer
 import { CRUDController } from "../controllers/CRUDController";
 
 const DailyTaskRoute = Router();
-const dailyTaskController = new CRUDController(dailyTaskService)
+const crudController = new CRUDController(dailyTaskService)
 
 DailyTaskRoute.use(express.json());
 
-DailyTaskRoute.get("/dailytasks/id", getDailyTaskById);
-DailyTaskRoute.get("/dailytasks", getAllDailyTasks);
-DailyTaskRoute.post("/dailytasks",createDailyTask);
-DailyTaskRoute.patch("/dailytasks",updateDailyTask)
-DailyTaskRoute.delete("/dailytasks",deleteDailyTask);
+DailyTaskRoute.get("/dailytasks/id", (req:Request, res:Response)=>{
+    crudController.getByID(req,res)
+});
+DailyTaskRoute.get("/dailytasks", (req:Request, res:Response)=>{
+    crudController.getAll(req,res)
+});
+DailyTaskRoute.post("/dailytasks",(req:Request, res:Response)=>{
+    crudController.create(req,res)
+});
+DailyTaskRoute.patch("/dailytasks",(req:Request, res:Response)=>{
+    crudController.update(req,res)
+})
+DailyTaskRoute.delete("/dailytasks",(req:Request, res:Response)=>{
+    crudController.delete(req,res)
+});
 
 export default DailyTaskRoute;
-
-
-function getAllDailyTasks(req:Request, res:Response){
-    dailyTaskController.getAll(req, res)
-}
-
-function createDailyTask(req:Request, res:Response){
-    dailyTaskController.create(req, res)
-}
-
-function getDailyTaskById(req:Request, res:Response){
-    dailyTaskController.getByID(req, res)
-}
-
-function deleteDailyTask(req:Request, res:Response){
-    dailyTaskController.delete(req, res)
-}
-
-function updateDailyTask(req:Request, res:Response){
-    dailyTaskController.update(req, res)
-}
