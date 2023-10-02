@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ItemServiceInterface } from "../model/services/interfaces/ItemServiceInterface";
+import { ItemServiceInterface } from "../model/services/interfaces/CRUDServiceInterface";
 
 export class CRUDController<T extends {}>{
 
@@ -36,7 +36,7 @@ export class CRUDController<T extends {}>{
     }
   }
 
-  async delete(req: Request, res: Response) {
+  async delete(req: Request, res: Response) {// удаление каскадно
     try {
       const isSuccess = await this.itemService.deleteItem(req.body.id)
       isSuccess ? res.status(201).json(true):res.status(500).json(false)

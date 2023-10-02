@@ -9,42 +9,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.TaskHelper = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-const dailyTasks_1 = require("./dailyTasks/dailyTasks");
-const usersBanks_1 = require("./usersBanks");
-const usersPets_1 = require("./usersPets");
-let User = class User extends sequelize_typescript_1.Model {
+const tasks_1 = require("./tasks");
+const subtasks_1 = require("./subtasks");
+const goals_1 = require("./goals");
+const folders_1 = require("./folders");
+let TaskHelper = class TaskHelper extends sequelize_typescript_1.Model {
 };
-exports.User = User;
+exports.TaskHelper = TaskHelper;
 __decorate([
+    (0, sequelize_typescript_1.ForeignKey)(() => folders_1.Folder),
     sequelize_typescript_1.Column,
-    __metadata("design:type", String)
-], User.prototype, "email", void 0);
+    __metadata("design:type", Number)
+], TaskHelper.prototype, "folderId", void 0);
 __decorate([
+    (0, sequelize_typescript_1.ForeignKey)(() => goals_1.Goal),
     sequelize_typescript_1.Column,
-    __metadata("design:type", String)
-], User.prototype, "login", void 0);
+    __metadata("design:type", Number)
+], TaskHelper.prototype, "goalId", void 0);
 __decorate([
+    (0, sequelize_typescript_1.ForeignKey)(() => tasks_1.Task),
     sequelize_typescript_1.Column,
-    __metadata("design:type", String)
-], User.prototype, "passwordEncrypted", void 0);
+    __metadata("design:type", Number)
+], TaskHelper.prototype, "taskId", void 0);
 __decorate([
+    (0, sequelize_typescript_1.ForeignKey)(() => subtasks_1.Subtask),
     sequelize_typescript_1.Column,
-    __metadata("design:type", String)
-], User.prototype, "name", void 0);
-__decorate([
-    (0, sequelize_typescript_1.HasMany)(() => dailyTasks_1.DailyTask),
-    __metadata("design:type", Array)
-], User.prototype, "dailyTasks", void 0);
-__decorate([
-    (0, sequelize_typescript_1.HasOne)(() => usersBanks_1.UserBank),
-    __metadata("design:type", usersBanks_1.UserBank)
-], User.prototype, "userBank", void 0);
-__decorate([
-    (0, sequelize_typescript_1.HasMany)(() => usersPets_1.UserPet),
-    __metadata("design:type", Array)
-], User.prototype, "userPets", void 0);
-exports.User = User = __decorate([
+    __metadata("design:type", Number)
+], TaskHelper.prototype, "subtaskId", void 0);
+exports.TaskHelper = TaskHelper = __decorate([
     sequelize_typescript_1.Table
-], User);
+], TaskHelper);

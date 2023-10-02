@@ -1,5 +1,5 @@
 import { DailyTask } from "../../domain/entities/dailyTasks/dailyTasks";
-import { ItemServiceInterface } from "../interfaces/ItemServiceInterface";
+import { ItemServiceInterface } from "../interfaces/CRUDServiceInterface";
 import { DailyTaskServiceInterface } from "../interfaces/DailyTaskServiceInterface";
 
 class DailyTaskService implements ItemServiceInterface<DailyTask>, DailyTaskServiceInterface{

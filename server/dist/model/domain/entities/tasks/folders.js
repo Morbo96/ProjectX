@@ -9,42 +9,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.Folder = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-const dailyTasks_1 = require("./dailyTasks/dailyTasks");
-const usersBanks_1 = require("./usersBanks");
-const usersPets_1 = require("./usersPets");
-let User = class User extends sequelize_typescript_1.Model {
+const users_1 = require("../users");
+const goals_1 = require("./goals");
+let Folder = class Folder extends sequelize_typescript_1.Model {
 };
-exports.User = User;
+exports.Folder = Folder;
 __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", String)
-], User.prototype, "email", void 0);
+], Folder.prototype, "name", void 0);
 __decorate([
     sequelize_typescript_1.Column,
-    __metadata("design:type", String)
-], User.prototype, "login", void 0);
+    __metadata("design:type", Boolean)
+], Folder.prototype, "isSystem", void 0);
 __decorate([
+    (0, sequelize_typescript_1.ForeignKey)(() => users_1.User),
     sequelize_typescript_1.Column,
-    __metadata("design:type", String)
-], User.prototype, "passwordEncrypted", void 0);
+    __metadata("design:type", Number)
+], Folder.prototype, "userId", void 0);
 __decorate([
-    sequelize_typescript_1.Column,
-    __metadata("design:type", String)
-], User.prototype, "name", void 0);
+    (0, sequelize_typescript_1.BelongsTo)(() => users_1.User),
+    __metadata("design:type", users_1.User)
+], Folder.prototype, "user", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => dailyTasks_1.DailyTask),
+    (0, sequelize_typescript_1.HasMany)(() => goals_1.Goal),
     __metadata("design:type", Array)
-], User.prototype, "dailyTasks", void 0);
-__decorate([
-    (0, sequelize_typescript_1.HasOne)(() => usersBanks_1.UserBank),
-    __metadata("design:type", usersBanks_1.UserBank)
-], User.prototype, "userBank", void 0);
-__decorate([
-    (0, sequelize_typescript_1.HasMany)(() => usersPets_1.UserPet),
-    __metadata("design:type", Array)
-], User.prototype, "userPets", void 0);
-exports.User = User = __decorate([
+], Folder.prototype, "goals", void 0);
+exports.Folder = Folder = __decorate([
     sequelize_typescript_1.Table
-], User);
+], Folder);

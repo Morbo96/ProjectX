@@ -1,5 +1,5 @@
 
-export interface ItemServiceInterface<T extends {}>{
+export interface ItemServiceInterface<T>{
 
     itemExists:(id:number) => Promise<boolean>
 

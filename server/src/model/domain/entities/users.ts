@@ -1,4 +1,4 @@
-import { Model, Column,Table, HasMany, HasOne } from "sequelize-typescript";
+import { Model, Column,Table, HasMany, HasOne, Unique, NotNull, AllowNull } from "sequelize-typescript";
 import { DailyTask } from "./dailyTasks/dailyTasks";
 import { UserBank } from "./usersBanks";
 import { UserPet } from "./usersPets";
@@ -7,6 +7,7 @@ import { UserPet } from "./usersPets";
 
 export class User extends Model<User> {
 
+  @AllowNull(false)
   @Column
   email!:string;
 

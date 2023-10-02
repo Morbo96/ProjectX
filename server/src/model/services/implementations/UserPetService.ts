@@ -4,11 +4,11 @@ import { ItemServiceInterface } from "../interfaces/CRUDServiceInterface";
 import { UserServiceInterface } from "../interfaces/UserServiceInterface";
 
 
-class UserService implements ItemServiceInterface<User>, UserServiceInterface{
+class UserPetService implements ItemServiceInterface<UserPet>{
     
   async itemExists (id:number) {
     try {
-      const result = await User.findOne({where:{id}});
+      const result = await UserPet.findOne({where:{id}});
         
       return result ? true:false;
 
@@ -19,11 +19,11 @@ class UserService implements ItemServiceInterface<User>, UserServiceInterface{
       }
     }
 
-  async update(item:User){
+  async update(item:UserPet){
     try {
-      await User.update(item,{where:{id:item.id}})
+      await UserPet.update(item,{where:{id:item.id}})
 
-      const result = await User.findByPk(item.id)
+      const result = await UserPet.findByPk(item.id)
 
       return result;
 
@@ -38,7 +38,7 @@ class UserService implements ItemServiceInterface<User>, UserServiceInterface{
 
   async getAll(){
     try {
-      const result = await User.findAll();
+      const result = await UserPet.findAll();
 
       return result;
 
@@ -51,7 +51,7 @@ class UserService implements ItemServiceInterface<User>, UserServiceInterface{
 
   async getItemById (id:number) {
     try{
-      const result = await User.findOne({where:{id}})
+      const result = await UserPet.findOne({where:{id}})
 
       return result;
 
@@ -62,9 +62,9 @@ class UserService implements ItemServiceInterface<User>, UserServiceInterface{
     }
   }
 
-  async create (user: User ){
+  async create (userPet: UserPet ){
     try {
-      const result = await User.create(user);
+      const result = await UserPet.create(userPet);
 
       return result;
 
@@ -77,7 +77,7 @@ class UserService implements ItemServiceInterface<User>, UserServiceInterface{
   
   async deleteItem(id:number){
     try{
-      await User.destroy({where: {id}})
+      await UserPet.destroy({where: {id}})
 
       return true;
 
@@ -87,30 +87,5 @@ class UserService implements ItemServiceInterface<User>, UserServiceInterface{
 
     }
   }
-  async getByLogin(login:string){
-    try {
-      const result = await User.findOne({where:{login: login}});
-
-      return result;
-
-    } catch (error) {
-
-      return null;
-
-    }
-  }
-  async getUsersPets(userId:number){
-    try {
-
-      const result = await UserPet.findAll({where:{userId:userId}}) 
-
-      return result
-
-    } catch (error) {
-
-      return null
-      
-    }
-  }
 }
-export const userService = new UserService()
+export const userPetService = new UserPetService()

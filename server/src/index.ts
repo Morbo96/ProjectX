@@ -1,13 +1,15 @@
 import express, { Request, Response } from "express";
-import sequelize from "./model/domain/db";
+import sequelize from "./model/domain/dbConnection";
 import UserRoute from "./routes/userRouter";
 import { User } from "./model/domain/entities/users";
 import DailyTaskRoute from "./routes/dailyTaskRouter";
+import UserPetRoute from "./routes/userPetRouter";
 
 const app = express();
 
 app.use("/api", UserRoute);
 app.use("/api", DailyTaskRoute);
+app.use("/api",UserPetRoute)
 app.use(express.json());
 
 const port = 3000;

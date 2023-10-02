@@ -15,9 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const db_1 = __importDefault(require("./model/domain/db"));
 const userRouter_1 = __importDefault(require("./routes/userRouter"));
-const users_1 = require("./model/domain/entities/users");
+const dailyTaskRouter_1 = __importDefault(require("./routes/dailyTaskRouter"));
 const app = (0, express_1.default)();
 app.use("/api", userRouter_1.default);
+app.use("/api", dailyTaskRouter_1.default);
 app.use(express_1.default.json());
 const port = 3000;
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -35,21 +36,3 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 start();
-app.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const createdUser = yield users_1.user.create(req.body);
-        res.json(createdUser);
-    }
-    catch (error) {
-        res.status(500).json(error);
-    }
-}));
-app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const allUsers = yield users_1.user.findAll();
-        res.json(allUsers);
-    }
-    catch (error) {
-        res.status(500).json(error);
-    }
-}));

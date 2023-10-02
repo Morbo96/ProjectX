@@ -9,26 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userController = void 0;
-//import sequelize from "../model/domain/db";
-const users_1 = require("../model/domain/entities/users");
+exports.UserController = void 0;
+const UserService_1 = require("../model/services/implementations/UserService");
 class UserController {
-    create(req, res) {
+    getByLogin(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const createdUser = yield users_1.user.create(req.body);
-                res.json(createdUser);
-            }
-            catch (error) {
-                res.status(500).json(error);
-            }
-        });
-    }
-    getAll(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const allUsers = yield users_1.user.findAll();
-                res.json(allUsers);
+                console.log(req.body.login);
+                const oneItem = yield UserService_1.userService.getByLogin(req.body.login);
+                res.json(oneItem);
             }
             catch (error) {
                 res.status(500).json(error);
@@ -36,4 +25,4 @@ class UserController {
         });
     }
 }
-exports.userController = new UserController();
+exports.UserController = UserController;
