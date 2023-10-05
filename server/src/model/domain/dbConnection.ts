@@ -1,12 +1,12 @@
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize-typescript";
-import { User } from "./entities/users";
+import { User } from "./entities/user/users";
 import { DailyTask } from "./entities/dailyTasks/dailyTasks";
 import { DailySubtask } from "./entities/dailyTasks/dailySubtasks";
 import { DailySubtaskNotification } from "./entities/dailyTasks/dailySubtaskNotifications";
 import { DailySubtaskNotificationTime } from "./entities/dailyTasks/dailySubtaskNotificationTime";
-import { UserBank } from "./entities/usersBanks";
-import { UserPet } from "./entities/usersPets";
+import { UserBank } from "./entities/user/usersBanks";
+import { UserPet } from "./entities/user/usersPets";
 import { DailyTaskHelper } from "./entities/dailyTasks/dailyTaskHelper";
 import { Attachment } from "./entities/tasks/attachments";
 import { FolderInfo } from "./entities/tasks/folderInfos";

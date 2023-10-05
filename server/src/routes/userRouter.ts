@@ -5,10 +5,14 @@ import { CRUDController } from "../controllers/CRUDController";
 import { UserController } from "../controllers/UserController";
 
 const UserRoute = Router();
-const crudController = new CRUDController(userService)// переписать в стрелочные функции
+const crudController = new CRUDController(userService)
 const userController = new UserController
 
 UserRoute.use(express.json());
+
+UserRoute.get("/users/folders",(req:Request, res:Response)=>{
+    userController.getFolders(req,res)
+})
 
 UserRoute.get("/users/usersPet",(req:Request, res:Response)=>{
     userController.getUsersPet(req,res)

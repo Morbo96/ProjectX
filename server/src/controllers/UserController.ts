@@ -3,6 +3,24 @@ import { userService } from "../model/services/implementations/UserService";
 
 export class UserController{
 
+  async getFolders(req: Request, res: Response){
+    try {
+      const usersFolders = await userService.getFolders(req.body.id);
+      res.json(usersFolders);
+    } catch (error) {
+      res.status(500).json(error)  
+    }
+  } 
+
+  async getUsersPet(req: Request, res: Response){
+    try {
+      const usersPets = await userService.getUsersPets(req.body.id);
+      res.json(usersPets);
+    } catch (error) {
+      res.status(500).json(error)  
+    }
+  } 
+
   async getByLogin(req: Request, res: Response) {
     try {
       const oneItem = await userService.getByLogin(req.params.login)
@@ -11,11 +29,13 @@ export class UserController{
       res.status(500).json(error);
     }
   }
+
   async signIn(req: Request, res: Response){
     try {
       const user = await userService.getByLogin(req.body.login)
       if (user == null){
         res.status(500).json("Login or password incorrect")
+        return
       }
       else{
         const userPassword = user.passwordEncrypted
@@ -24,12 +44,14 @@ export class UserController{
         }
         else{
             res.status(500).json("Login or password incorrect")
+            return
         }
       }
     } catch (error) {
         res.status(500).json(error)
     }
   }
+
   async signUp(req: Request, res: Response){
     try {
       if(validateEmail(req.body.email) == null){
@@ -40,24 +62,17 @@ export class UserController{
         res.status(500).json("input login")
         return
       }
-      if(req.body.passwordEncrypted == null){
+      if(req.body.passwordEncrypted == null || req.body.passwordEncrypted == ""){
         res.status(500).json("input password")
         return
       }
       const user = await userService.create(req.body)
       res.status(200).json(user)
+
     } catch (error) {
-        res.status(500).json(error)
+      res.status(500).json(error)
     }
   }
-  async getUsersPet(req: Request, res: Response){
-    try {
-      const usersPets = await userService.getUsersPets(req.body.id);
-      res.json(usersPets);
-    } catch (error) {
-      res.status(500).json(error)  
-    }
-  } 
 }
 
 const validateEmail = (email:string) => {

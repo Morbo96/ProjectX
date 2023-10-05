@@ -1,12 +1,12 @@
-import { UserPet } from "../../domain/entities/user/usersPets";
+import { Folder } from "../../domain/entities/tasks/folders";
 import { ItemServiceInterface } from "../interfaces/CRUDServiceInterface";
 
 
-class UserPetService implements ItemServiceInterface<UserPet>{
+class FolderService implements ItemServiceInterface<Folder>{
     
   async itemExists (id:number) {
     try {
-      const result = await UserPet.findOne({where:{id}});
+      const result = await Folder.findOne({where:{id}});
         
       return result ? true:false;
 
@@ -17,11 +17,11 @@ class UserPetService implements ItemServiceInterface<UserPet>{
       }
     }
 
-  async update(item:UserPet){
+  async update(item:Folder){
     try {
-      await UserPet.update(item,{where:{id:item.id}})
+      await Folder.update(item,{where:{id:item.id}})
 
-      const result = await UserPet.findByPk(item.id)
+      const result = await Folder.findByPk(item.id)
 
       return result;
 
@@ -36,7 +36,7 @@ class UserPetService implements ItemServiceInterface<UserPet>{
 
   async getAll(){
     try {
-      const result = await UserPet.findAll();
+      const result = await Folder.findAll();
 
       return result;
 
@@ -49,7 +49,7 @@ class UserPetService implements ItemServiceInterface<UserPet>{
 
   async getItemById (id:number) {
     try{
-      const result = await UserPet.findOne({where:{id}})
+      const result = await Folder.findOne({where:{id}})
 
       return result;
 
@@ -60,9 +60,9 @@ class UserPetService implements ItemServiceInterface<UserPet>{
     }
   }
 
-  async create (userPet: UserPet ){
+  async create (folder: Folder ){
     try {
-      const result = await UserPet.create(userPet);
+      const result = await Folder.create(folder);
 
       return result;
 
@@ -75,7 +75,7 @@ class UserPetService implements ItemServiceInterface<UserPet>{
   
   async deleteItem(id:number){
     try{
-      await UserPet.destroy({where: {id}})
+      await Folder.destroy({where: {id}})
 
       return true;
 
@@ -86,4 +86,4 @@ class UserPetService implements ItemServiceInterface<UserPet>{
     }
   }
 }
-export const userPetService = new UserPetService()
+export const folderService = new FolderService()

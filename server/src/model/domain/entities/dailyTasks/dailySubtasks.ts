@@ -1,5 +1,5 @@
 import { Model, Column,Table,BelongsTo, ForeignKey, HasMany } from "sequelize-typescript";
-import { User } from "../users";
+import { User } from "../user/users";
 import { DailyTask } from "./dailyTasks";
 import { DailySubtaskNotification } from "./dailySubtaskNotifications";
 import { DailySubtaskNotificationTime } from "./dailySubtaskNotificationTime";

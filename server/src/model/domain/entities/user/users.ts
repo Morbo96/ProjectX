@@ -1,7 +1,8 @@
 import { Model, Column,Table, HasMany, HasOne, Unique, NotNull, AllowNull } from "sequelize-typescript";
-import { DailyTask } from "./dailyTasks/dailyTasks";
+import { DailyTask } from "../dailyTasks/dailyTasks";
 import { UserBank } from "./usersBanks";
 import { UserPet } from "./usersPets";
+import { Folder } from "../tasks/folders";
 
 @Table
 
@@ -19,6 +20,9 @@ export class User extends Model<User> {
 
   @Column
   name!:string
+
+  @HasMany(()=> Folder)
+  folders?:Folder[];
 
   @HasMany(()=> DailyTask)
   dailyTasks?:DailyTask[];

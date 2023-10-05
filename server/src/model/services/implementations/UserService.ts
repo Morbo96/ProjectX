@@ -1,11 +1,51 @@
-import { User } from "../../domain/entities/users";
-import { UserPet } from "../../domain/entities/usersPets";
+import { Folder } from "../../domain/entities/tasks/folders";
+import { User } from "../../domain/entities/user/users";
+import { UserPet } from "../../domain/entities/user/usersPets";
 import { ItemServiceInterface } from "../interfaces/CRUDServiceInterface";
 import { UserServiceInterface } from "../interfaces/UserServiceInterface";
 
 
 class UserService implements ItemServiceInterface<User>, UserServiceInterface{
     
+  async getByLogin(login:string){
+    try {
+      const result = await User.findOne({where:{login: login}});
+
+      return result;
+
+    } catch (error) {
+
+      return null;
+
+    }
+  }
+
+  async getUsersPets(userId:number){
+    try {
+      const result = await UserPet.findAll({where:{userId:userId}}) 
+
+      return result
+
+    } catch (error) {
+
+      return null
+      
+    }
+  }
+
+  async getFolders(userId:number){
+    try {
+      const result = await Folder.findAll({where:{userId:userId}}) 
+
+      return result
+
+    } catch (error) {
+      
+      return null
+
+    }
+  }
+
   async itemExists (id:number) {
     try {
       const result = await User.findOne({where:{id}});
@@ -85,31 +125,6 @@ class UserService implements ItemServiceInterface<User>, UserServiceInterface{
 
       return false;
 
-    }
-  }
-  async getByLogin(login:string){
-    try {
-      const result = await User.findOne({where:{login: login}});
-
-      return result;
-
-    } catch (error) {
-
-      return null;
-
-    }
-  }
-  async getUsersPets(userId:number){
-    try {
-
-      const result = await UserPet.findAll({where:{userId:userId}}) 
-
-      return result
-
-    } catch (error) {
-
-      return null
-      
     }
   }
 }

@@ -1,5 +1,5 @@
 import { Model, Column,Table,BelongsTo, ForeignKey } from "sequelize-typescript";
-import { User } from "../users";
+import { User } from "../user/users";
 import { Task } from "./tasks";
 import { Subtask } from "./subtasks";
 
