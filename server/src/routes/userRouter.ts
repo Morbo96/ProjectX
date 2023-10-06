@@ -10,6 +10,10 @@ const userController = new UserController
 
 UserRoute.use(express.json());
 
+UserRoute.patch("/users/:id/changePassword",(req:Request, res:Response)=>{
+    userController.changePassword(req,res)
+})
+
 UserRoute.get("/users/folders",(req:Request, res:Response)=>{
     userController.getFolders(req,res)
 })

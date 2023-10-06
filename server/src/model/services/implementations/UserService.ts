@@ -1,11 +1,11 @@
 import { Folder } from "../../domain/entities/tasks/folders";
 import { User } from "../../domain/entities/user/users";
 import { UserPet } from "../../domain/entities/user/usersPets";
-import { ItemServiceInterface } from "../interfaces/CRUDServiceInterface";
+import { CRUDServiceInterface } from "../interfaces/CRUDServiceInterface";
 import { UserServiceInterface } from "../interfaces/UserServiceInterface";
 
 
-class UserService implements ItemServiceInterface<User>, UserServiceInterface{
+class UserService implements CRUDServiceInterface<User>, UserServiceInterface{
     
   async getByLogin(login:string){
     try {
@@ -42,6 +42,25 @@ class UserService implements ItemServiceInterface<User>, UserServiceInterface{
     } catch (error) {
       
       return null
+
+    }
+  }
+
+  async changePassword(id:number, newPassword:string){// возможно нет смысла
+    try {
+      const result = await User.findByPk(id);
+
+      if (result == null) return false;
+
+      const oldPassword = result.passwordEncrypted
+
+      await result.update({passwordEncrypted: newPassword})
+
+      return oldPassword != result.passwordEncrypted;
+
+    } catch (error) {
+      
+      return false
 
     }
   }

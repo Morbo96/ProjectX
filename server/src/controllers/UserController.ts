@@ -3,6 +3,15 @@ import { userService } from "../model/services/implementations/UserService";
 
 export class UserController{
 
+  async changePassword(req: Request, res: Response){
+    try {
+      const isChanged = await userService.changePassword(Number(req.params.id), req.body.newPassword);
+      res.json(isChanged);
+    } catch (error) {
+      res.status(500).json(error)  
+    }
+  } 
+
   async getFolders(req: Request, res: Response){
     try {
       const usersFolders = await userService.getFolders(req.body.id);

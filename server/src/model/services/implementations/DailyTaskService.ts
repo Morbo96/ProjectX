@@ -1,7 +1,7 @@
 import { DailyTask } from "../../domain/entities/dailyTasks/dailyTasks";
-import { ItemServiceInterface } from "../interfaces/CRUDServiceInterface";
+import { CRUDServiceInterface } from "../interfaces/CRUDServiceInterface";
 
-class DailyTaskService implements ItemServiceInterface<DailyTask>{
+class DailyTaskService implements CRUDServiceInterface<DailyTask>{
     
   async itemExists(id:number) {
     try {

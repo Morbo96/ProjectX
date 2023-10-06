@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { ItemServiceInterface } from "../model/services/interfaces/CRUDServiceInterface";
+import { CRUDServiceInterface } from "../model/services/interfaces/CRUDServiceInterface";
 
 export class CRUDController<T extends {}>{
 
-  itemService: ItemServiceInterface<T>;
+  itemService: CRUDServiceInterface<T>;
 
-  constructor(service:ItemServiceInterface<T>){
+  constructor(service:CRUDServiceInterface<T>){
       this.itemService = service
   }
 

@@ -1,8 +1,8 @@
 import { UserPet } from "../../domain/entities/user/usersPets";
-import { ItemServiceInterface } from "../interfaces/CRUDServiceInterface";
+import { CRUDServiceInterface } from "../interfaces/CRUDServiceInterface";
 
 
-class UserPetService implements ItemServiceInterface<UserPet>{
+class UserPetService implements CRUDServiceInterface<UserPet>{
     
   async itemExists (id:number) {
     try {

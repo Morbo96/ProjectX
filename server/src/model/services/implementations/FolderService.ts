@@ -1,8 +1,8 @@
 import { Folder } from "../../domain/entities/tasks/folders";
-import { ItemServiceInterface } from "../interfaces/CRUDServiceInterface";
+import { CRUDServiceInterface } from "../interfaces/CRUDServiceInterface";
 
 
-class FolderService implements ItemServiceInterface<Folder>{
+class FolderService implements CRUDServiceInterface<Folder>{
     
   async itemExists (id:number) {
     try {
