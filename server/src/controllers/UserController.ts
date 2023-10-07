@@ -1,103 +1,112 @@
 import { Request, Response } from "express";
 import { userService } from "../model/services/implementations/UserService";
+import jwt, { Secret } from "jsonwebtoken";
 
-export class UserController{
-
-  async changePassword(req: Request, res: Response){
+export class UserController {
+  async changePassword(req: Request, res: Response) {
     try {
-      const isChanged = await userService.changePassword(Number(req.params.id), req.body.newPassword);
+      const isChanged = await userService.changePassword(
+        Number(req.params.id),
+        req.body.newPassword
+      );
       res.json(isChanged);
     } catch (error) {
-      res.status(500).json(error)  
+      res.status(500).json(error);
     }
-  } 
+  }
 
-  async getFolders(req: Request, res: Response){
+  async getFolders(req: Request, res: Response) {
     try {
       const usersFolders = await userService.getFolders(req.body.id);
       res.json(usersFolders);
     } catch (error) {
-      res.status(500).json(error)  
+      res.status(500).json(error);
     }
-  } 
+  }
 
-  async getUsersPet(req: Request, res: Response){
+  async getUsersPet(req: Request, res: Response) {
     try {
       const usersPets = await userService.getUsersPets(req.body.id);
       res.json(usersPets);
     } catch (error) {
-      res.status(500).json(error)  
+      res.status(500).json(error);
     }
-  } 
+  }
 
   async getByLogin(req: Request, res: Response) {
     try {
-      const oneItem = await userService.getByLogin(req.params.login)
+      const oneItem = await userService.getByLogin(req.params.login);
       res.json(oneItem);
     } catch (error) {
       res.status(500).json(error);
     }
   }
 
-  async signIn(req: Request, res: Response){
+  async signIn(req: Request, res: Response) {
     try {
-      const user = await userService.getByLogin(req.body.login)
-      if (user == null){
-        res.status(500).json("Login or password incorrect")
-        return
-      }
-      else{
-        const userPassword = user.passwordEncrypted
-        if (req.body.passwordEncrypted == userPassword){
-            res.status(200).json(user)
-        }
-        else{
-            res.status(500).json("Login or password incorrect")
-            return
+      const user = await userService.getByLogin(req.body.login);
+      if (user == null) {
+        res.status(500).json("Login or password incorrect");
+        return;
+      } else {
+        const userPassword = user.passwordEncrypted;
+        if (req.body.passwordEncrypted == userPassword) {
+          res.status(200).json(user);
+        } else {
+          res.status(500).json("Login or password incorrect");
+          return;
         }
       }
     } catch (error) {
-        res.status(500).json(error)
+      res.status(500).json(error);
     }
   }
 
-  async signUp(req: Request, res: Response){
+  async signUp(req: Request, res: Response) {
     try {
-      if(validateEmail(req.body.email) == null){
-        res.status(500).json("input correct email")
-        return
+      if (validateEmail(req.body.email) == null) {
+        res.status(500).json("input correct email");
+        return;
       }
-      if(validateLogin(req.body.login) == null){
-        res.status(500).json("input login")
-        return
+      if (validateLogin(req.body.login) == null) {
+        res.status(500).json("input login");
+        return;
       }
-      if(req.body.passwordEncrypted == null || req.body.passwordEncrypted == ""){
-        res.status(500).json("input password")
-        return
+      if (
+        req.body.passwordEncrypted == null ||
+        req.body.passwordEncrypted == ""
+      ) {
+        res.status(500).json("input password");
+        return;
       }
-      const user = await userService.create(req.body)
-      res.status(200).json(user)
-
+      const user = await userService.create(req.body);
+      const secret: Secret = process.env.JWT_ACCSESS_SECRET;
+      const token = await jwt.sign(
+        {
+          login: user.login,
+          password: user.passwordEncrypted,
+          name: user.name,
+        },
+        secret,
+        { expiresIn: "2 days" }
+      );
+      res.status(200).json(token);
     } catch (error) {
-      res.status(500).json(error)
+      res.status(500).json(error);
     }
   }
 }
 
-const validateEmail = (email:string) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
-
-const validateLogin = (login:string) => {
-return String(login)
+const validateEmail = (email: string) => {
+  return String(email)
     .toLowerCase()
     .match(
-    /^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\d.-]{3,19}$/
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 };
 
-
+const validateLogin = (login: string) => {
+  return String(login)
+    .toLowerCase()
+    .match(/^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\d.-]{3,19}$/);
+};
