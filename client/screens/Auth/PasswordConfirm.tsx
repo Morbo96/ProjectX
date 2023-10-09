@@ -1,23 +1,21 @@
 import React from 'react'
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { RootStackParamList } from "../interfaces"
-import { buttons, text, input } from "../styles/index"
-import { authSections, authExtensions } from "../styles/screens/authStyles"
+import { RootStackParamList } from "../../navigation/types"
+import { buttons, text, input, margin } from "../../styles/components"
+import { authSections, authExtensions } from "../../styles/screens/authStyles"
 import {
     View,
     TextInput,
     TouchableOpacity,
-    Image,
     Text,
-    StatusBar
 } from "react-native"
+import ScreenView from "../../components/ScreenView";
 
 type Props = NativeStackScreenProps<RootStackParamList, "passwordConfirm">
 
 function PasswordConfirm({ navigation }: Props):JSX.Element{
     return (
-        <View style={authSections.mainView}>
-            <StatusBar backgroundColor="transparent" translucent={true}/>
+        <ScreenView style={authSections.mainView}>
             <View style={[authSections.content, authExtensions.authContentHeight__50]}>
                 <Text style={text.headerLevel__3}>Подтвердите пароль</Text>
                 <View style={authSections.input}>
@@ -26,7 +24,7 @@ function PasswordConfirm({ navigation }: Props):JSX.Element{
                         secureTextEntry={true}
                         style={[
                             input.inputField,
-                            authExtensions.marginBottom__custom
+                            margin.mb_3
                         ]}
                     />
                     <TextInput
@@ -34,7 +32,7 @@ function PasswordConfirm({ navigation }: Props):JSX.Element{
                         secureTextEntry={true}
                         style={[
                             input.inputField,
-                            authExtensions.marginBottom__custom
+                            margin.mb_3
                         ]}
                     />
                     <TouchableOpacity
@@ -45,7 +43,7 @@ function PasswordConfirm({ navigation }: Props):JSX.Element{
                     </TouchableOpacity>
                 </View>
             </View>
-        </View>
+        </ScreenView>
     )
 }
 export default PasswordConfirm

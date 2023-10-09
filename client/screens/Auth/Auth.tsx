@@ -1,36 +1,33 @@
 import React from 'react'
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { RootStackParamList } from "../interfaces"
-import { buttons, text, input } from "../styles"
-import { authSections, authExtensions } from "../styles/screens/authStyles"
+import { RootStackParamList } from "../../navigation/types"
+import { buttons, text, input, margin } from "../../styles/components"
+import { authSections, authExtensions } from "../../styles/screens/authStyles"
 import {
     View,
     TextInput,
     TouchableOpacity,
     Image,
     Text,
-    StatusBar,
-    SafeAreaView
 } from "react-native"
+import ScreenView from "../../components/ScreenView";
 
 type Props = NativeStackScreenProps<RootStackParamList, "auth">
 
 function Auth({ navigation }: Props):JSX.Element{
     return (
-        <View style={authSections.mainView}>
-            <StatusBar backgroundColor="transparent" translucent={true}/>
-
+        <ScreenView style={authSections.mainView}>
             <View style={authSections.imageView}>
-                <Image source={require('../assets/images/auth.png')}/>
+                <Image source={require('../../assets/images/auth.png')}/>
             </View>
 
-            <View style={[authSections.content, authExtensions.authContentMarginTop]}>
+            <View style={[authSections.content, margin.mt_50]}>
                 <View style={authSections.input}>
                     <TextInput
                         placeholder="Логин"
                         style={[
                             input.inputField,
-                            authExtensions.marginBottom__custom
+                            margin.mb_3
                         ]}
                     />
 
@@ -39,7 +36,7 @@ function Auth({ navigation }: Props):JSX.Element{
                         secureTextEntry={true}
                         style={[
                             input.inputField,
-                            authExtensions.marginBottom__custom
+                            margin.mb_3
                         ]}
                     />
 
@@ -52,7 +49,7 @@ function Auth({ navigation }: Props):JSX.Element{
                 </View>
 
                 <View style={authSections.signButtons}>
-                    <TouchableOpacity style={[buttons.signWithGoogle, authExtensions.marginBottom__custom]}>
+                    <TouchableOpacity style={[buttons.signWithGoogle, margin.mb_3]}>
                         <Text style={text.signGoogle}>Продолжить с Google</Text>
                     </TouchableOpacity>
 
@@ -66,7 +63,7 @@ function Auth({ navigation }: Props):JSX.Element{
                     <Text style={text.link}>Зарегистрироваться</Text>
                 </View>
             </View>
-        </View>
+        </ScreenView>
     )
 }
 export default Auth

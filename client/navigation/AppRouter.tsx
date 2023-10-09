@@ -1,12 +1,12 @@
 import React from 'react'
 import {NavigationContainer} from '@react-navigation/native'
-import AuthStackNavigator  from './navigation/AuthStack'
+import AuthStackNavigator  from './AuthStack'
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {RootStackParamList} from "../interfaces";
-import TabNavigator from "./navigation/TabNavigator";
-import Auth from "../screens/Auth";
-import AuthCode from "../screens/AuthCode";
-import PasswordConfirm from "../screens/PasswordConfirm";
+import {RootStackParamList} from "./types";
+import TabNavigator from "./TabNavigator";
+import Auth from "../screens/Auth/Auth";
+import AuthCode from "../screens/Auth/AuthCode";
+import PasswordConfirm from "../screens/Auth/PasswordConfirm";
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 

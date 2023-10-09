@@ -1,9 +1,9 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Auth from '../../screens/Auth'
-import AuthCode from "../../screens/AuthCode";
-import {RootStackParamList} from "../../interfaces";
-import PasswordConfirm from "../../screens/PasswordConfirm";
+import Auth from '../screens/Auth/Auth'
+import AuthCode from "../screens/Auth/AuthCode";
+import {RootStackParamList} from "./types";
+import PasswordConfirm from "../screens/Auth/PasswordConfirm";
 
 const AuthStack = createNativeStackNavigator<RootStackParamList>()
 

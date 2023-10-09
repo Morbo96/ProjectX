@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { UIState } from './types'
-import {RootStackParamList} from "../../interfaces";
+import {RootStackParamList} from "../../navigation/types";
 
 export const initialState: UIState = {
 	pageTitle: null,

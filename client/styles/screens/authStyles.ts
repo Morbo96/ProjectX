@@ -48,17 +48,11 @@ export const authSections = StyleSheet.create({
 });
 
 export const authExtensions = StyleSheet.create({
-    authContentMarginTop:{
-        marginTop:"50%"
-    },
     authContentHeight__70:{
         height:"70%"
     },
     authContentHeight__50:{
         height:"50%"
-    },
-    marginBottom__custom:{
-        marginBottom:12
     },
     textLeft:{
         textAlign:"left"
