@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { userService } from "../model/services/implementations/usersServices/UserService";
-import jwt, { Secret } from "jsonwebtoken";
+import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 
 export class UserController {
 
@@ -41,7 +41,20 @@ export class UserController {
       } else {
         const userPassword = user.passwordEncrypted;
         if (req.body.passwordEncrypted == userPassword) {
-          res.status(200).json(user);
+          const secret: Secret = process.env.JWT_ACCSESS_SECRET;
+          const token = await jwt.sign(
+            {
+              login: user.login,
+              password: user.passwordEncrypted,
+              name: user.name,
+            },
+            secret,
+            { expiresIn: "1 days" }
+          );
+
+          console.log(await this.getIdByToken(token))
+          
+          res.status(200).json(token);
         } else {
           res.status(500).json("Login or password incorrect");
           return;
@@ -70,20 +83,17 @@ export class UserController {
         return;
       }
       const user = await userService.create(req.body);
-      const secret: Secret = process.env.JWT_ACCSESS_SECRET;
-      const token = await jwt.sign(
-        {
-          login: user.login,
-          password: user.passwordEncrypted,
-          name: user.name,
-        },
-        secret,
-        { expiresIn: "2 days" }
-      );
-      res.status(200).json(token);
+      
+      res.status(200).json(user);
     } catch (error) {
       res.status(500).json(error);
     }
+  }
+  async getIdByToken(token:string){
+    const payload = jwt.decode(token) as JwtPayload
+    const userLogin = payload.login
+    const foundUser = await userService.getByLogin(userLogin)
+    return foundUser.id
   }
 }
 

@@ -1,9 +1,24 @@
 import { Folder } from "../../../domain/entities/tasks/folders";
+import { Goal } from "../../../domain/entities/tasks/goals";
 import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
+import { FolderServiceInterface } from "../../interfaces/FolderServiceInterface";
 
 
-class FolderService implements CRUDServiceInterface<Folder>{
+class FolderService implements CRUDServiceInterface<Folder>,FolderServiceInterface{
     
+  async getGoals(folderId:number){
+    try {
+      const result = await Goal.findAll({where:{folderId:folderId}}) 
+
+      return result
+
+    } catch (error) {
+
+      return null
+      
+    }
+  }
+
   async itemExists (id:number) {
     try {
       const result = await Folder.findOne({where:{id}});

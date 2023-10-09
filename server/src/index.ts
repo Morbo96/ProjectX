@@ -22,8 +22,6 @@ const start = async () => {
     });
     await sequelize.sync();
 
-    //dropAllTables();
-
     app.listen(port, () => {
       console.log(`server is listening on ${port}`);
     });
