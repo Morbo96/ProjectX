@@ -1,8 +1,10 @@
-import { Folder } from "../../domain/entities/tasks/folders";
-import { User } from "../../domain/entities/user/users";
-import { UserPet } from "../../domain/entities/user/usersPets";
-import { CRUDServiceInterface } from "../interfaces/CRUDServiceInterface";
-import { UserServiceInterface } from "../interfaces/UserServiceInterface";
+import { Folder } from "../../../domain/entities/tasks/folders";
+import { User } from "../../../domain/entities/user/users";
+import { UserBank } from "../../../domain/entities/user/usersBanks";
+import { UserPet } from "../../../domain/entities/user/usersPets";
+import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
+import { UserServiceInterface } from "../../interfaces/UserServiceInterface";
+import { userBankService } from "./UserBankService";
 
 
 class UserService implements CRUDServiceInterface<User>, UserServiceInterface{
@@ -42,25 +44,6 @@ class UserService implements CRUDServiceInterface<User>, UserServiceInterface{
     } catch (error) {
       
       return null
-
-    }
-  }
-
-  async changePassword(id:number, newPassword:string){// возможно нет смысла
-    try {
-      const result = await User.findByPk(id);
-
-      if (result == null) return false;
-
-      const oldPassword = result.passwordEncrypted
-
-      await result.update({passwordEncrypted: newPassword})
-
-      return oldPassword != result.passwordEncrypted;
-
-    } catch (error) {
-      
-      return false
 
     }
   }
@@ -125,6 +108,12 @@ class UserService implements CRUDServiceInterface<User>, UserServiceInterface{
     try {
       const result = await User.create(user);
 
+      const relatedUserBank = UserBank.build({
+        userId:result.id,
+      })
+
+      await userBankService.create(relatedUserBank.toJSON());
+
       return result;
 
     } catch(error){
@@ -136,6 +125,8 @@ class UserService implements CRUDServiceInterface<User>, UserServiceInterface{
   
   async deleteItem(id:number){
     try{
+      await UserBank.destroy({where: {userId:id}})
+
       await User.destroy({where: {id}})
 
       return true;

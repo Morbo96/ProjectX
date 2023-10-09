@@ -1,7 +1,7 @@
 import express,{Request,Response} from "express";
 import { Router } from "express";
 import { CRUDController } from "../controllers/CRUDController";
-import { folderService } from "../model/services/implementations/FolderService";
+import { folderService } from "../model/services/implementations/tasksServices/FolderService";
 
 
 const FolderRoute = Router();

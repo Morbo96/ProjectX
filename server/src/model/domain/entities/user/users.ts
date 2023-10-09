@@ -8,13 +8,17 @@ import { Folder } from "../tasks/folders";
 
 export class User extends Model<User> {
 
+  //@Unique(true)
   @AllowNull(false)
   @Column
   email!:string;
 
+  //@Unique(true)
+  @AllowNull(false)
   @Column
   login!:string
 
+  @AllowNull(false)
   @Column
   passwordEncrypted!:string
 

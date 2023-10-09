@@ -10,6 +10,4 @@ export interface UserServiceInterface{
 
     getFolders:(userId:number) => Promise<Folder[]|null>
 
-    changePassword:(id:number, newPassword:string) => Promise<boolean>
-
 }

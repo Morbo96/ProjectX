@@ -1,12 +1,12 @@
-import { Folder } from "../../domain/entities/tasks/folders";
-import { CRUDServiceInterface } from "../interfaces/CRUDServiceInterface";
+import { Task } from "../../../domain/entities/tasks/tasks";
+import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
 
 
-class FolderService implements CRUDServiceInterface<Folder>{
+class TaskService implements CRUDServiceInterface<Task>{
     
   async itemExists (id:number) {
     try {
-      const result = await Folder.findOne({where:{id}});
+      const result = await Task.findOne({where:{id}});
         
       return result ? true:false;
 
@@ -17,11 +17,11 @@ class FolderService implements CRUDServiceInterface<Folder>{
       }
     }
 
-  async update(item:Folder){
+  async update(item:Task){
     try {
-      await Folder.update(item,{where:{id:item.id}})
+      await Task.update(item,{where:{id:item.id}})
 
-      const result = await Folder.findByPk(item.id)
+      const result = await Task.findByPk(item.id)
 
       return result;
 
@@ -36,7 +36,7 @@ class FolderService implements CRUDServiceInterface<Folder>{
 
   async getAll(){
     try {
-      const result = await Folder.findAll();
+      const result = await Task.findAll();
 
       return result;
 
@@ -49,7 +49,7 @@ class FolderService implements CRUDServiceInterface<Folder>{
 
   async getItemById (id:number) {
     try{
-      const result = await Folder.findOne({where:{id}})
+      const result = await Task.findOne({where:{id}})
 
       return result;
 
@@ -60,9 +60,9 @@ class FolderService implements CRUDServiceInterface<Folder>{
     }
   }
 
-  async create (folder: Folder ){
+  async create (task: Task ){
     try {
-      const result = await Folder.create(folder);
+      const result = await Task.create(task);
 
       return result;
 
@@ -75,7 +75,7 @@ class FolderService implements CRUDServiceInterface<Folder>{
   
   async deleteItem(id:number){
     try{
-      await Folder.destroy({where: {id}})
+      await Task.destroy({where: {id}})
 
       return true;
 
@@ -86,4 +86,4 @@ class FolderService implements CRUDServiceInterface<Folder>{
     }
   }
 }
-export const folderService = new FolderService()
+export const taskService = new TaskService()

@@ -1,12 +1,12 @@
-import { UserPet } from "../../domain/entities/user/usersPets";
-import { CRUDServiceInterface } from "../interfaces/CRUDServiceInterface";
+import { Subtask } from "../../../domain/entities/tasks/subtasks";
+import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
 
 
-class UserPetService implements CRUDServiceInterface<UserPet>{
+class SubtaskService implements CRUDServiceInterface<Subtask>{
     
   async itemExists (id:number) {
     try {
-      const result = await UserPet.findOne({where:{id}});
+      const result = await Subtask.findOne({where:{id}});
         
       return result ? true:false;
 
@@ -17,11 +17,11 @@ class UserPetService implements CRUDServiceInterface<UserPet>{
       }
     }
 
-  async update(item:UserPet){
+  async update(item:Subtask){
     try {
-      await UserPet.update(item,{where:{id:item.id}})
+      await Subtask.update(item,{where:{id:item.id}})
 
-      const result = await UserPet.findByPk(item.id)
+      const result = await Subtask.findByPk(item.id)
 
       return result;
 
@@ -36,7 +36,7 @@ class UserPetService implements CRUDServiceInterface<UserPet>{
 
   async getAll(){
     try {
-      const result = await UserPet.findAll();
+      const result = await Subtask.findAll();
 
       return result;
 
@@ -49,7 +49,7 @@ class UserPetService implements CRUDServiceInterface<UserPet>{
 
   async getItemById (id:number) {
     try{
-      const result = await UserPet.findOne({where:{id}})
+      const result = await Subtask.findOne({where:{id}})
 
       return result;
 
@@ -60,9 +60,9 @@ class UserPetService implements CRUDServiceInterface<UserPet>{
     }
   }
 
-  async create (userPet: UserPet ){
+  async create (subtask: Subtask ){
     try {
-      const result = await UserPet.create(userPet);
+      const result = await Subtask.create(subtask);
 
       return result;
 
@@ -75,7 +75,7 @@ class UserPetService implements CRUDServiceInterface<UserPet>{
   
   async deleteItem(id:number){
     try{
-      await UserPet.destroy({where: {id}})
+      await Subtask.destroy({where: {id}})
 
       return true;
 
@@ -86,4 +86,4 @@ class UserPetService implements CRUDServiceInterface<UserPet>{
     }
   }
 }
-export const userPetService = new UserPetService()
+export const subtaskService = new SubtaskService()

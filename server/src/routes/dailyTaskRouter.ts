@@ -1,6 +1,6 @@
 import express,{Request,Response} from "express";
 import { Router } from "express";
-import { dailyTaskService } from "../model/services/implementations/DailyTaskService";
+import { dailyTaskService } from "../model/services/implementations/dailyTasksServices/DailyTaskService";
 import { CRUDController } from "../controllers/CRUDController";
 
 const DailyTaskRoute = Router();

@@ -1,19 +1,21 @@
 import express, { Request, Response } from "express";
 import { Router } from "express";
-import { userService } from "../model/services/implementations/UserService";
+import { userService } from "../model/services/implementations/usersServices/UserService";
 import { CRUDController } from "../controllers/CRUDController";
 import { UserController } from "../controllers/UserController";
 import { userCheck } from "../middleware/UserCheck";
+import { userBankService } from "../model/services/implementations/usersServices/UserBankService";
 
 const UserRoute = Router();
 const crudController = new CRUDController(userService);
+const crudBANKcontroller = new CRUDController(userBankService);
 const userController = new UserController();
 
 UserRoute.use(express.json());
 
-UserRoute.patch("/users/:id/changePassword", (req: Request, res: Response) => {
-  userController.changePassword(req, res);
-});
+UserRoute.get("/users/banks", (req: Request, res: Response) => {
+    crudBANKcontroller.getAll(req, res);
+  });
 
 UserRoute.get("/users/folders", (req: Request, res: Response) => {
   userController.getFolders(req, res);
@@ -35,7 +37,7 @@ UserRoute.get("/users/:id", (req: Request, res: Response) => {
   crudController.getByID(req, res);
 });
 
-UserRoute.get("/users", userCheck, (req: Request, res: Response) => {
+UserRoute.get("/users",userCheck, (req: Request, res: Response) => {
   crudController.getAll(req, res);
 });
 

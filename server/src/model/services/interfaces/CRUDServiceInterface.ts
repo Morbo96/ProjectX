@@ -12,13 +12,6 @@ export interface CRUDServiceInterface<T>{
     getAll:()=>Promise<T[] | null>
 
     deleteItem:(id:number) => Promise<boolean>
-
-    // updateRange:(item:T[])=>Promise<boolean>
-
-    // createRange:(item:T)=>Promise<boolean>
-
-    
-
     
 
 }

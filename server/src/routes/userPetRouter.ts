@@ -1,6 +1,6 @@
 import express,{Request,Response} from "express";
 import { Router } from "express";
-import { userPetService } from "../model/services/implementations/UserPetService";
+import { userPetService } from "../model/services/implementations/usersServices/UserPetService";
 import { CRUDController } from "../controllers/CRUDController";
 
 
