@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
 import { userService } from "../model/services/implementations/usersServices/UserService";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 export class UserController {
-
-
   async getFolders(req: Request, res: Response) {
     try {
       const usersFolders = await userService.getFolders(req.body.id);
@@ -40,8 +39,15 @@ export class UserController {
         return;
       } else {
         const userPassword = user.passwordEncrypted;
-        if (req.body.passwordEncrypted == userPassword) {
+
+        let isMatch = await bcrypt.compare(
+          req.body.passwordEncrypted,
+          userPassword
+        );
+
+        if (isMatch) {
           const secret: Secret = process.env.JWT_ACCSESS_SECRET;
+
           const token = await jwt.sign(
             {
               login: user.login,
@@ -51,8 +57,6 @@ export class UserController {
             secret,
             { expiresIn: "1 days" }
           );
-
-          console.log(await this.getIdByToken(token))
 
           res.status(200).json(token);
         } else {
@@ -82,18 +86,25 @@ export class UserController {
         res.status(500).json("input password");
         return;
       }
+
+      req.body.passwordEncrypted = bcrypt.hashSync(
+        req.body.passwordEncrypted,
+        10
+      );
+
       const user = await userService.create(req.body);
-      
+
       res.status(200).json(user);
     } catch (error) {
       res.status(500).json(error);
     }
   }
-  async getIdByToken(token:string){
-    const payload = jwt.decode(token) as JwtPayload
-    const userLogin = payload.login
-    const foundUser = await userService.getByLogin(userLogin)
-    return foundUser.id
+
+  async getIdByToken(token: string) {
+    const payload = jwt.decode(token) as JwtPayload;
+    const userLogin = payload.login;
+    const foundUser = await userService.getByLogin(userLogin);
+    return foundUser.id;
   }
 }
 

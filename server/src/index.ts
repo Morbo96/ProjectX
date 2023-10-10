@@ -13,12 +13,12 @@ const app = express();
 
 app.use("/api", UserRoute);
 app.use("/api", DailyTaskRoute);
-app.use("/api",UserPetRoute)
-app.use("/api",GoalRoute)
-app.use("/api",FolderRoute)
-app.use("/api",TaskRoute)
-app.use("/api",SubtaskRoute)
-app.use("/api",DailySubtaskRoute)
+app.use("/api", UserPetRoute);
+app.use("/api", GoalRoute);
+app.use("/api", FolderRoute);
+app.use("/api", TaskRoute);
+app.use("/api", SubtaskRoute);
+app.use("/api", DailySubtaskRoute);
 app.use(express.json());
 
 const port = 3000;
@@ -44,4 +44,3 @@ function dropAllTables() {
   sequelize.drop();
   console.log("All tables dropped");
 }
-
