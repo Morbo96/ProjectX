@@ -12,6 +12,7 @@ export class CRUDController<T extends {}>{
   async create(req: Request, res: Response) {
     try {
       const createdItem = await this.itemService.create(req.body);
+      if (createdItem == null) res.status(500)
       res.json(createdItem);
     } catch (error) {
       res.status(500).json(error);

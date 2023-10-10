@@ -1,7 +1,7 @@
-// import { Task } from "../../domain/entities/tasks/tasks"
+import { Task } from "../../domain/entities/tasks/tasks"
 
-// export interface FolderServiceInterface{
+export interface GoalServiceInterface{
     
-//     getGoals:(folderId:number) => Promise<Goal[]| null>
+    getTasks:(goalId:number) => Promise<Task[]| null>
 
-// }
+}

@@ -53,7 +53,7 @@ export class UserController {
           );
 
           console.log(await this.getIdByToken(token))
-          
+
           res.status(200).json(token);
         } else {
           res.status(500).json("Login or password incorrect");

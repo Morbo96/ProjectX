@@ -1,9 +1,24 @@
+import { Subtask } from "../../../domain/entities/tasks/subtasks";
 import { Task } from "../../../domain/entities/tasks/tasks";
 import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
+import { TaskServiceInterface } from "../../interfaces/TaskServiceInterface";
 
 
-class TaskService implements CRUDServiceInterface<Task>{
+class TaskService implements CRUDServiceInterface<Task>,TaskServiceInterface{
     
+  async getSubtasks(taskId:number){
+    try {
+      const result = await Subtask.findAll({where:{taskId:taskId}}) 
+
+      return result
+
+    } catch (error) {
+
+      return null
+      
+    }
+  }
+  
   async itemExists (id:number) {
     try {
       const result = await Task.findOne({where:{id}});

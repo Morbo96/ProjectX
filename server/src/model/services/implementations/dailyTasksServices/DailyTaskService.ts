@@ -1,8 +1,23 @@
+import { DailySubtask } from "../../../domain/entities/dailyTasks/dailySubtasks";
 import { DailyTask } from "../../../domain/entities/dailyTasks/dailyTasks";
 import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
+import { DailyTaskServiceInterface } from "../../interfaces/DailytaskServiceInterface";
 
-class DailyTaskService implements CRUDServiceInterface<DailyTask>{
+class DailyTaskService implements CRUDServiceInterface<DailyTask>,DailyTaskServiceInterface{
     
+  async getDailysubtasks(dailyTaskId:number){
+    try {
+      const result = await DailySubtask.findAll({where:{dailyTaskId:dailyTaskId}}) 
+
+      return result
+
+    } catch (error) {
+
+      return null
+      
+    }
+  }
+  
   async itemExists(id:number) {
     try {
       const result = await DailyTask.findOne({where:{id}});

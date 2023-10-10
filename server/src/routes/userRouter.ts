@@ -8,14 +8,9 @@ import { userBankService } from "../model/services/implementations/usersServices
 
 const UserRoute = Router();
 const crudController = new CRUDController(userService);
-const crudBANKcontroller = new CRUDController(userBankService);
 const userController = new UserController();
 
 UserRoute.use(express.json());
-
-UserRoute.get("/users/banks", (req: Request, res: Response) => {
-    crudBANKcontroller.getAll(req, res);
-  });
 
 UserRoute.get("/users/folders", (req: Request, res: Response) => {
   userController.getFolders(req, res);

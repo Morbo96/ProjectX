@@ -1,6 +1,7 @@
-import { Model, Column,Table,BelongsTo, ForeignKey, HasMany } from "sequelize-typescript";
+import { Model, Column,Table,BelongsTo, ForeignKey, HasMany, HasOne } from "sequelize-typescript";
 import { User } from "../user/users";
 import { Goal } from "./goals";
+import { FolderInfo } from "./folderInfos";
 
 @Table
 
@@ -21,6 +22,10 @@ export class Folder extends Model<Folder> {
 
   @HasMany(()=>Goal)
   goals?:Goal[]
+
+  @HasOne(()=>FolderInfo)
+  folderInfo!:FolderInfo
+  
 
 }
 

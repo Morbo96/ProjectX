@@ -1,5 +1,6 @@
 import { Folder } from "../../../domain/entities/tasks/folders";
 import { Goal } from "../../../domain/entities/tasks/goals";
+import { User } from "../../../domain/entities/user/users";
 import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
 import { FolderServiceInterface } from "../../interfaces/FolderServiceInterface";
 
@@ -77,6 +78,7 @@ class FolderService implements CRUDServiceInterface<Folder>,FolderServiceInterfa
 
   async create (folder: Folder ){
     try {
+
       const result = await Folder.create(folder);
 
       return result;

@@ -32,7 +32,7 @@ export class User extends Model<User> {
   dailyTasks?:DailyTask[];
 
   @HasOne(()=>UserBank)
-  userBank?:UserBank;
+  userBank!:UserBank;
 
   @HasMany(()=> UserPet)
   userPets?:UserPet[];

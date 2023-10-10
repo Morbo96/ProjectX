@@ -1,4 +1,4 @@
-import { Model, Column,Table,BelongsTo, ForeignKey, HasMany } from "sequelize-typescript";
+import { Model, Column,Table,BelongsTo, ForeignKey, HasMany, HasOne } from "sequelize-typescript";
 import { User } from "../user/users";
 import { DailyTask } from "./dailyTasks";
 import { DailySubtaskNotification } from "./dailySubtaskNotifications";
@@ -21,8 +21,8 @@ export class DailySubtask extends Model<DailySubtask> {
   @BelongsTo(()=>DailyTask)
   dailyTask!:DailyTask;
 
-  @HasMany(()=>DailySubtaskNotification)
-  dailySubtaskNotifications?:DailySubtaskNotification[]
+  @HasOne(()=>DailySubtaskNotification)
+  dailySubtaskNotifications?:DailySubtaskNotification
 
   @HasMany(()=>DailySubtaskNotificationTime)
   dailySubtaskNotificationsTime?:DailySubtaskNotification[]

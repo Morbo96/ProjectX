@@ -1,6 +1,7 @@
 import { Model, Column,Table,BelongsTo, ForeignKey, HasMany, HasOne } from "sequelize-typescript";
 import { Task } from "./tasks";
 import { SubtaskInfo } from "./subtaskInfos";
+import { Attachment } from "./attachments";
 
 @Table
 
@@ -21,6 +22,9 @@ export class Subtask extends Model<Subtask> {
 
   @HasOne(()=>SubtaskInfo)
   substaskInfo?:SubtaskInfo
+
+  @HasMany(()=>Attachment)
+  attachemnts?:Attachment[]
 
 }
 

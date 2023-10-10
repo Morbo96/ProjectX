@@ -11,7 +11,7 @@ export class DailySubtaskNotification extends Model<DailySubtaskNotification> {
   description!:string;
 
   @Column
-  time!:Date;
+  hasCertainTime!:boolean;
 
   @Column
   periodDate!:Date;

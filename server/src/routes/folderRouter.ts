@@ -2,12 +2,18 @@ import express,{Request,Response} from "express";
 import { Router } from "express";
 import { CRUDController } from "../controllers/CRUDController";
 import { folderService } from "../model/services/implementations/tasksServices/FolderService";
+import { FolderController } from "../controllers/FolderController";
 
 
 const FolderRoute = Router();
 const crudController = new CRUDController(folderService)
+const folderController = new FolderController()
 
 FolderRoute.use(express.json());
+
+FolderRoute.get("/folders/goals", (req:Request, res:Response)=>{
+    folderController.getGoals(req,res)
+});
 
 FolderRoute.get("/folders/:id", (req:Request, res:Response)=>{
     crudController.getByID(req,res)

@@ -18,5 +18,14 @@ export class FolderInfo extends Model<FolderInfo> { // Нужен ли BelongsTo
   @Column
   folderId!:number;
 
+  @BelongsTo(()=>Folder,'previousFolderId')
+  previousFolder:Folder;
+
+  @BelongsTo(()=>Folder,'nextFolderId')// возможно не нужно
+  nextFolder:Folder;
+
+  @BelongsTo(()=>Folder,'folderId')
+  folder:Folder;
+
 }
 
