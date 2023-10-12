@@ -1,8 +1,8 @@
 import { rootApi } from '../root.api'
 import {
-	loginRequest,
+	//loginRequest,
 	loginResponse,
-	loginTransformResponse, resetRequest, resetResponse
+	loginTransformResponse,resetResponse, resetRequest,
 } from './types'
 
 export const authApi = rootApi
@@ -10,14 +10,14 @@ export const authApi = rootApi
 		addTagTypes: ['Auth']
 	}).injectEndpoints({
 		endpoints: builder => ({
-			login: builder.mutation<loginResponse, loginRequest>({
-				query: credentials => ({
-					url: '/api/api-token-auth/',
-					method: 'POST',
-					body: { ...credentials }
-				}),
-				transformResponse: (response: loginTransformResponse) => response.token
-			}),
+			// login: builder.mutation<loginResponse, loginRequest>({
+			// 	query: credentials => ({
+			// 		url: '/api/api-token-auth/',
+			// 		method: 'POST',
+			// 		body: { ...credentials }
+			// 	}),
+			// 	transformResponse: (response: loginTransformResponse) => response.token
+			// }),
 			reset: builder.mutation<resetResponse, resetRequest>({
 				query: credentials => ({
 					url: '/v1/auth/reset',
@@ -28,4 +28,4 @@ export const authApi = rootApi
 		})
 	})
 
-export const { useLoginMutation, useResetMutation } = authApi
+export const { useResetMutation } = authApi
