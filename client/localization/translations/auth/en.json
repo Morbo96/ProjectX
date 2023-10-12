@@ -1,0 +1,11 @@
+{
+  "authScope": {
+    "loginPlaceholder": "Login",
+    "passwordPlaceholder": "Password",
+    "signIn": "Sing in",
+    "signGoogle": "Continue with Google",
+    "signApple": "Continue with Apple",
+    "registrationTitle": "Don't have an account?",
+    "registrationLink": "Sign up"
+  }
+}

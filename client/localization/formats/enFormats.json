@@ -1,0 +1,4 @@
+{
+  "date": "{{date, MM/DD/YYYY}}",
+  "price": "{{value, currency}}"
+}
