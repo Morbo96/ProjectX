@@ -29,6 +29,7 @@ const start = async () => {
       console.log("Connection has been established successfully.");
     });
     await sequelize.sync();
+    //dropAllTables();
 
     app.listen(port, () => {
       console.log(`server is listening on ${port}`);

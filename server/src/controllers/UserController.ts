@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { userService } from "../model/services/implementations/usersServices/UserService";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { generateAccessToken, getUSerByToken } from "../utils/UserUtils";
 
 export class UserController {
   async getFolders(req: Request, res: Response) {
@@ -31,6 +32,18 @@ export class UserController {
     }
   }
 
+  async logout(req: Request, res: Response) {
+    try {
+      const accessToken = req.header("Bearer");
+      const user = await getUSerByToken(accessToken);
+      user.refreshToken = null;
+      await userService.update(user.toJSON());
+      res.status(200).json("Successfull logout");
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+
   async signIn(req: Request, res: Response) {
     try {
       const user = await userService.getByLogin(req.body.login);
@@ -46,19 +59,24 @@ export class UserController {
         );
 
         if (isMatch) {
-          const secret: Secret = process.env.JWT_ACCSESS_SECRET;
-
-          const token = await jwt.sign(
+          const accessToken = await generateAccessToken(user);
+          const refreshSecret: Secret = process.env.JWT_REFRESH_SECRET;
+          const refreshToken = await jwt.sign(
             {
               login: user.login,
               password: user.passwordEncrypted,
               name: user.name,
             },
-            secret,
-            { expiresIn: "1 days" }
+            refreshSecret
           );
 
-          res.status(200).json(token);
+          user.refreshToken = refreshToken;
+          const changedUser = await userService.update(user.toJSON());
+          //console.log(changedUser);
+
+          res
+            .status(200)
+            .json({ accessToken: accessToken, refreshToken: refreshToken });
         } else {
           res.status(500).json("Login or password incorrect");
           return;
@@ -98,13 +116,6 @@ export class UserController {
     } catch (error) {
       res.status(500).json(error);
     }
-  }
-
-  async getIdByToken(token: string) {
-    const payload = jwt.decode(token) as JwtPayload;
-    const userLogin = payload.login;
-    const foundUser = await userService.getByLogin(userLogin);
-    return foundUser.id;
   }
 }
 

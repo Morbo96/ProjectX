@@ -30,6 +30,19 @@ __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", Number)
 ], FolderInfo.prototype, "folderId", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => folders_1.Folder, 'previousFolderId'),
+    __metadata("design:type", folders_1.Folder)
+], FolderInfo.prototype, "previousFolder", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => folders_1.Folder, 'nextFolderId') // возможно не нужно
+    ,
+    __metadata("design:type", folders_1.Folder)
+], FolderInfo.prototype, "nextFolder", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => folders_1.Folder, 'folderId'),
+    __metadata("design:type", folders_1.Folder)
+], FolderInfo.prototype, "folder", void 0);
 exports.FolderInfo = FolderInfo = __decorate([
     sequelize_typescript_1.Table
 ], FolderInfo);

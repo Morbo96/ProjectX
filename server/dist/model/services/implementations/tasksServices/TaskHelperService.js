@@ -9,68 +9,76 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CRUDController = void 0;
-class CRUDController {
-    constructor(service) {
-        this.itemService = service;
-    }
-    create(req, res) {
+exports.taskHelperService = void 0;
+const taskHelper_1 = require("../../../domain/entities/tasks/taskHelper");
+class TaskHelperService {
+    itemExists(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const createdItem = yield this.itemService.create(req.body);
-                if (createdItem == null)
-                    res.status(500);
-                res.json(createdItem);
+                const result = yield taskHelper_1.TaskHelper.findOne({ where: { id } });
+                return result ? true : false;
             }
             catch (error) {
-                res.status(500).json(error);
+                return false;
             }
         });
     }
-    getAll(req, res) {
+    update(item) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const allItems = yield this.itemService.getAll();
-                res.json({ allItems });
+                yield taskHelper_1.TaskHelper.update(item, { where: { id: item.id } });
+                const result = yield taskHelper_1.TaskHelper.findByPk(item.id);
+                return result;
             }
             catch (error) {
-                res.status(500).json(error);
+                console.log(error);
+                return null;
             }
         });
     }
-    getByID(req, res) {
+    getAll() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const oneItem = yield this.itemService.getItemById(Number(req.params.id)); //добавить проверку на число
-                res.json(oneItem);
+                const result = yield taskHelper_1.TaskHelper.findAll();
+                return result;
             }
             catch (error) {
-                res.status(500).json(error);
+                return null;
             }
         });
     }
-    delete(req, res) {
+    getItemById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const isSuccess = yield this.itemService.deleteItem(req.body.id);
-                isSuccess ? res.status(201).json(true) : res.status(500).json(false);
+                const result = yield taskHelper_1.TaskHelper.findOne({ where: { id } });
+                return result;
             }
             catch (error) {
-                res.status(500).json(error);
+                return null;
             }
         });
     }
-    update(req, res) {
+    create(taskHelper) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                req.body.id = req.params.id; // добавить проверку на число
-                const updatedItem = yield this.itemService.update(req.body);
-                res.json(updatedItem);
+                const result = yield taskHelper_1.TaskHelper.create(taskHelper);
+                return result;
             }
             catch (error) {
-                res.status(500).json(error);
+                return null;
+            }
+        });
+    }
+    deleteItem(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield taskHelper_1.TaskHelper.destroy({ where: { id } });
+                return true;
+            }
+            catch (error) {
+                return false;
             }
         });
     }
 }
-exports.CRUDController = CRUDController;
+exports.taskHelperService = new TaskHelperService();

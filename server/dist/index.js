@@ -13,20 +13,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const db_1 = __importDefault(require("./model/domain/db"));
+const dbConnection_1 = __importDefault(require("./model/domain/dbConnection"));
 const userRouter_1 = __importDefault(require("./routes/userRouter"));
 const dailyTaskRouter_1 = __importDefault(require("./routes/dailyTaskRouter"));
+const userPetRouter_1 = __importDefault(require("./routes/userPetRouter"));
+const folderRouter_1 = __importDefault(require("./routes/folderRouter"));
+const goalRouter_1 = __importDefault(require("./routes/goalRouter"));
+const taskRouter_1 = __importDefault(require("./routes/taskRouter"));
+const subtaskRouter_1 = __importDefault(require("./routes/subtaskRouter"));
+const dailySubtaskRouter_1 = __importDefault(require("./routes/dailySubtaskRouter"));
 const app = (0, express_1.default)();
 app.use("/api", userRouter_1.default);
 app.use("/api", dailyTaskRouter_1.default);
+app.use("/api", userPetRouter_1.default);
+app.use("/api", goalRouter_1.default);
+app.use("/api", folderRouter_1.default);
+app.use("/api", taskRouter_1.default);
+app.use("/api", subtaskRouter_1.default);
+app.use("/api", dailySubtaskRouter_1.default);
 app.use(express_1.default.json());
 const port = 3000;
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield db_1.default.authenticate().then(() => {
+        yield dbConnection_1.default.authenticate().then(() => {
             console.log("Connection has been established successfully.");
         });
-        yield db_1.default.sync();
+        yield dbConnection_1.default.sync();
         app.listen(port, () => {
             console.log(`server is listening on ${port}`);
         });
@@ -36,3 +48,7 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 start();
+function dropAllTables() {
+    dbConnection_1.default.drop();
+    console.log("All tables dropped");
+}

@@ -11,8 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Folder = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-const users_1 = require("../users");
+const users_1 = require("../user/users");
 const goals_1 = require("./goals");
+const folderInfos_1 = require("./folderInfos");
 let Folder = class Folder extends sequelize_typescript_1.Model {
 };
 exports.Folder = Folder;
@@ -37,6 +38,10 @@ __decorate([
     (0, sequelize_typescript_1.HasMany)(() => goals_1.Goal),
     __metadata("design:type", Array)
 ], Folder.prototype, "goals", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasOne)(() => folderInfos_1.FolderInfo),
+    __metadata("design:type", folderInfos_1.FolderInfo)
+], Folder.prototype, "folderInfo", void 0);
 exports.Folder = Folder = __decorate([
     sequelize_typescript_1.Table
 ], Folder);

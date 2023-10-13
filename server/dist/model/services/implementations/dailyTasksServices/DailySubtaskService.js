@@ -9,68 +9,76 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CRUDController = void 0;
-class CRUDController {
-    constructor(service) {
-        this.itemService = service;
-    }
-    create(req, res) {
+exports.dailySubtaskService = void 0;
+const dailySubtasks_1 = require("../../../domain/entities/dailyTasks/dailySubtasks");
+class DailySubtaskService {
+    itemExists(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const createdItem = yield this.itemService.create(req.body);
-                if (createdItem == null)
-                    res.status(500);
-                res.json(createdItem);
+                const result = yield dailySubtasks_1.DailySubtask.findOne({ where: { id } });
+                return result ? true : false;
             }
             catch (error) {
-                res.status(500).json(error);
+                return false;
             }
         });
     }
-    getAll(req, res) {
+    update(item) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const allItems = yield this.itemService.getAll();
-                res.json({ allItems });
+                yield dailySubtasks_1.DailySubtask.update(item, { where: { id: item.id } });
+                const result = yield dailySubtasks_1.DailySubtask.findByPk(item.id);
+                return result;
             }
             catch (error) {
-                res.status(500).json(error);
+                console.log(error);
+                return null;
             }
         });
     }
-    getByID(req, res) {
+    getAll() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const oneItem = yield this.itemService.getItemById(Number(req.params.id)); //добавить проверку на число
-                res.json(oneItem);
+                const result = yield dailySubtasks_1.DailySubtask.findAll();
+                return result;
             }
             catch (error) {
-                res.status(500).json(error);
+                return null;
             }
         });
     }
-    delete(req, res) {
+    getItemById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const isSuccess = yield this.itemService.deleteItem(req.body.id);
-                isSuccess ? res.status(201).json(true) : res.status(500).json(false);
+                const result = yield dailySubtasks_1.DailySubtask.findOne({ where: { id } });
+                return result;
             }
             catch (error) {
-                res.status(500).json(error);
+                return null;
             }
         });
     }
-    update(req, res) {
+    create(dailySubtask) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                req.body.id = req.params.id; // добавить проверку на число
-                const updatedItem = yield this.itemService.update(req.body);
-                res.json(updatedItem);
+                const result = yield dailySubtasks_1.DailySubtask.create(dailySubtask);
+                return result;
             }
             catch (error) {
-                res.status(500).json(error);
+                return null;
+            }
+        });
+    }
+    deleteItem(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield dailySubtasks_1.DailySubtask.destroy({ where: { id } });
+                return true;
+            }
+            catch (error) {
+                return false;
             }
         });
     }
 }
-exports.CRUDController = CRUDController;
+exports.dailySubtaskService = new DailySubtaskService();

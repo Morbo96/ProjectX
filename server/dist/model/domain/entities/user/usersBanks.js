@@ -9,33 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DailySubtaskNotification = void 0;
+exports.UserBank = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-const dailySubtasks_1 = require("./dailySubtasks");
-let DailySubtaskNotification = class DailySubtaskNotification extends sequelize_typescript_1.Model {
+const users_1 = require("./users");
+let UserBank = class UserBank extends sequelize_typescript_1.Model {
 };
-exports.DailySubtaskNotification = DailySubtaskNotification;
+exports.UserBank = UserBank;
 __decorate([
-    sequelize_typescript_1.Column,
-    __metadata("design:type", String)
-], DailySubtaskNotification.prototype, "description", void 0);
-__decorate([
-    sequelize_typescript_1.Column,
-    __metadata("design:type", Boolean)
-], DailySubtaskNotification.prototype, "hasCertainTime", void 0);
-__decorate([
-    sequelize_typescript_1.Column,
-    __metadata("design:type", Date)
-], DailySubtaskNotification.prototype, "periodDate", void 0);
-__decorate([
-    (0, sequelize_typescript_1.ForeignKey)(() => dailySubtasks_1.DailySubtask),
+    (0, sequelize_typescript_1.Default)(0),
+    (0, sequelize_typescript_1.Min)(0),
     sequelize_typescript_1.Column,
     __metadata("design:type", Number)
-], DailySubtaskNotification.prototype, "dailySubtaskId", void 0);
+], UserBank.prototype, "money", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => dailySubtasks_1.DailySubtask),
-    __metadata("design:type", dailySubtasks_1.DailySubtask)
-], DailySubtaskNotification.prototype, "dailySubtask", void 0);
-exports.DailySubtaskNotification = DailySubtaskNotification = __decorate([
+    (0, sequelize_typescript_1.Default)(0),
+    (0, sequelize_typescript_1.Min)(0),
+    sequelize_typescript_1.Column,
+    __metadata("design:type", Number)
+], UserBank.prototype, "diamonds", void 0);
+__decorate([
+    (0, sequelize_typescript_1.ForeignKey)(() => users_1.User),
+    sequelize_typescript_1.Column,
+    __metadata("design:type", Number)
+], UserBank.prototype, "userId", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => users_1.User),
+    __metadata("design:type", users_1.User)
+], UserBank.prototype, "user", void 0);
+exports.UserBank = UserBank = __decorate([
     sequelize_typescript_1.Table
-], DailySubtaskNotification);
+], UserBank);

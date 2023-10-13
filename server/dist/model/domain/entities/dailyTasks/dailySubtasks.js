@@ -35,8 +35,8 @@ __decorate([
     __metadata("design:type", dailyTasks_1.DailyTask)
 ], DailySubtask.prototype, "dailyTask", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => dailySubtaskNotifications_1.DailySubtaskNotification),
-    __metadata("design:type", Array)
+    (0, sequelize_typescript_1.HasOne)(() => dailySubtaskNotifications_1.DailySubtaskNotification),
+    __metadata("design:type", dailySubtaskNotifications_1.DailySubtaskNotification)
 ], DailySubtask.prototype, "dailySubtaskNotifications", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => dailySubtaskNotificationTime_1.DailySubtaskNotificationTime),

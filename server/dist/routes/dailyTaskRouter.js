@@ -5,29 +5,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const express_2 = require("express");
-const DailyTaskService_1 = require("../model/services/implementations/DailyTaskService");
+const DailyTaskService_1 = require("../model/services/implementations/dailyTasksServices/DailyTaskService");
 const CRUDController_1 = require("../controllers/CRUDController");
+const DailytaskController_1 = require("../controllers/DailytaskController");
 const DailyTaskRoute = (0, express_2.Router)();
-const dailyTaskController = new CRUDController_1.CRUDController(DailyTaskService_1.dailyTaskService);
+const crudController = new CRUDController_1.CRUDController(DailyTaskService_1.dailyTaskService);
+const dailytaskController = new DailytaskController_1.DailytaskController;
 DailyTaskRoute.use(express_1.default.json());
-DailyTaskRoute.get("/dailytasks/id", getDailyTaskById);
-DailyTaskRoute.get("/dailytasks", getAllDailyTasks);
-DailyTaskRoute.post("/dailytasks", createDailyTask);
-DailyTaskRoute.patch("/dailytasks", updateDailyTask);
-DailyTaskRoute.delete("/dailytasks", deleteDailyTask);
+DailyTaskRoute.get("/dailytasks/dailySubtasks", (req, res) => {
+    dailytaskController.getDailysubtasks(req, res);
+});
+DailyTaskRoute.get("/dailytasks/:id", (req, res) => {
+    crudController.getByID(req, res);
+});
+DailyTaskRoute.get("/dailytasks", (req, res) => {
+    crudController.getAll(req, res);
+});
+DailyTaskRoute.post("/dailytasks", (req, res) => {
+    crudController.create(req, res);
+});
+DailyTaskRoute.patch("/dailytasks/:id", (req, res) => {
+    crudController.update(req, res);
+});
+DailyTaskRoute.delete("/dailytasks", (req, res) => {
+    crudController.delete(req, res);
+});
 exports.default = DailyTaskRoute;
-function getAllDailyTasks(req, res) {
-    dailyTaskController.getAll(req, res);
-}
-function createDailyTask(req, res) {
-    dailyTaskController.create(req, res);
-}
-function getDailyTaskById(req, res) {
-    dailyTaskController.getByID(req, res);
-}
-function deleteDailyTask(req, res) {
-    dailyTaskController.delete(req, res);
-}
-function updateDailyTask(req, res) {
-    dailyTaskController.update(req, res);
-}

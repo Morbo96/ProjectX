@@ -32,8 +32,12 @@ UserRoute.get("/users/:id", (req: Request, res: Response) => {
   crudController.getByID(req, res);
 });
 
-UserRoute.get("/users",userCheck, (req: Request, res: Response) => {
+UserRoute.get("/users", (req: Request, res: Response) => {
   crudController.getAll(req, res);
+});
+
+UserRoute.patch("/users/logout", userCheck, (req: Request, res: Response) => {
+  userController.logout(req, res);
 });
 
 UserRoute.post("/users", (req: Request, res: Response) => {

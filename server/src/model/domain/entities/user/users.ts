@@ -1,39 +1,49 @@
-import { Model, Column,Table, HasMany, HasOne, Unique, NotNull, AllowNull } from "sequelize-typescript";
+import {
+  Model,
+  Column,
+  Table,
+  HasMany,
+  HasOne,
+  Unique,
+  NotNull,
+  AllowNull,
+} from "sequelize-typescript";
 import { DailyTask } from "../dailyTasks/dailyTasks";
 import { UserBank } from "./usersBanks";
 import { UserPet } from "./usersPets";
 import { Folder } from "../tasks/folders";
 
 @Table
-
 export class User extends Model<User> {
-
-  //@Unique(true)
+  @Unique(true)
   @AllowNull(false)
   @Column
-  email!:string;
+  email!: string;
 
-  //@Unique(true)
+  @Unique(true)
   @AllowNull(false)
   @Column
-  login!:string
+  login!: string;
 
   @AllowNull(false)
   @Column
-  passwordEncrypted!:string
+  passwordEncrypted!: string;
 
   @Column
-  name!:string
+  name!: string;
 
-  @HasMany(()=> Folder)
-  folders?:Folder[];
+  @Column
+  refreshToken!: string;
 
-  @HasMany(()=> DailyTask)
-  dailyTasks?:DailyTask[];
+  @HasMany(() => Folder)
+  folders?: Folder[];
 
-  @HasOne(()=>UserBank)
-  userBank!:UserBank;
+  @HasMany(() => DailyTask)
+  dailyTasks?: DailyTask[];
 
-  @HasMany(()=> UserPet)
-  userPets?:UserPet[];
+  @HasOne(() => UserBank)
+  userBank!: UserBank;
+
+  @HasMany(() => UserPet)
+  userPets?: UserPet[];
 }

@@ -13,6 +13,7 @@ exports.Subtask = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const tasks_1 = require("./tasks");
 const subtaskInfos_1 = require("./subtaskInfos");
+const attachments_1 = require("./attachments");
 let Subtask = class Subtask extends sequelize_typescript_1.Model {
 };
 exports.Subtask = Subtask;
@@ -37,6 +38,10 @@ __decorate([
     (0, sequelize_typescript_1.HasOne)(() => subtaskInfos_1.SubtaskInfo),
     __metadata("design:type", subtaskInfos_1.SubtaskInfo)
 ], Subtask.prototype, "substaskInfo", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => attachments_1.Attachment),
+    __metadata("design:type", Array)
+], Subtask.prototype, "attachemnts", void 0);
 exports.Subtask = Subtask = __decorate([
     sequelize_typescript_1.Table
 ], Subtask);

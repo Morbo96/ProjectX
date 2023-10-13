@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DailyTask = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-const users_1 = require("../users");
+const users_1 = require("../user/users");
 const dailySubtasks_1 = require("./dailySubtasks");
 let DailyTask = class DailyTask extends sequelize_typescript_1.Model {
 };
@@ -24,6 +24,10 @@ __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", String)
 ], DailyTask.prototype, "icon", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", Number)
+], DailyTask.prototype, "complicity", void 0);
 __decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => users_1.User),
     sequelize_typescript_1.Column,
