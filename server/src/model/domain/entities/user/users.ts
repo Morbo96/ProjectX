@@ -40,6 +40,9 @@ export class User extends Model<User> {
   @Column
   name!: string;
 
+  @Column
+  refreshToken!: string;
+
   @HasMany(() => Folder)
   folders?: Folder[];
 
