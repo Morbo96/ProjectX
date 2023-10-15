@@ -17,7 +17,7 @@ export class Subtask extends Model<Subtask> {
   @Column
   taskId!:number;
 
-  @BelongsTo(()=>Task)
+  @BelongsTo(()=>Task,{onDelete: 'cascade'})
   task!:Task;
 
   @HasOne(()=>SubtaskInfo)

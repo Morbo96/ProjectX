@@ -11,6 +11,11 @@ const folderController = new FolderController()
 
 FolderRoute.use(express.json());
 
+
+FolderRoute.patch("/folders/toChild", (req:Request, res:Response)=>{//FUTURE for child-parent association between Folders
+    folderController.createChildAssociation(req,res)
+});
+
 FolderRoute.get("/folders/goals", (req:Request, res:Response)=>{
     folderController.getGoals(req,res)
 });

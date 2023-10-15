@@ -9,13 +9,14 @@ import { UserBank } from "./entities/user/usersBanks";
 import { UserPet } from "./entities/user/usersPets";
 import { DailyTaskHelper } from "./entities/dailyTasks/dailyTaskHelper";
 import { Attachment } from "./entities/tasks/attachments";
-import { FolderInfo } from "./entities/tasks/folderInfos";
 import { Folder } from "./entities/tasks/folders";
 import { Goal } from "./entities/tasks/goals";
 import { SubtaskInfo } from "./entities/tasks/subtaskInfos";
 import { Subtask } from "./entities/tasks/subtasks";
 import { TaskHelper } from "./entities/tasks/taskHelper";
 import { Task } from "./entities/tasks/tasks";
+import { FolderParent } from "./entities/tasks/folderParent";
+import { FolderChild } from "./entities/tasks/folderChild";
 
 dotenv.config();
 
@@ -28,7 +29,7 @@ const sequelize = new Sequelize({
   database: process.env.DB_NAME,
   models: [User, DailyTask, DailySubtask,DailyTaskHelper,
           DailySubtaskNotification,DailySubtaskNotificationTime,
-          UserBank,UserPet,Attachment,FolderInfo,Folder,Goal,
+          UserBank,UserPet,Attachment,FolderParent,FolderChild,Folder,Goal,
           SubtaskInfo,Subtask,TaskHelper,Task],
   logging: false,
 });

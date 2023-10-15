@@ -12,7 +12,7 @@ export class Attachment extends Model<Attachment> {
   @Column
   subtaskId!:number;
 
-  @BelongsTo(()=>Subtask)
+  @BelongsTo(()=>Subtask,{onDelete: 'cascade'})
   subtask!:Subtask;
 }
 

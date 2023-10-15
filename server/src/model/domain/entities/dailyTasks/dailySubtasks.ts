@@ -18,7 +18,7 @@ export class DailySubtask extends Model<DailySubtask> {
   @Column
   dailyTaskId!:number;
 
-  @BelongsTo(()=>DailyTask)
+  @BelongsTo(()=>DailyTask,{onDelete: 'cascade'})
   dailyTask!:DailyTask;
 
   @HasOne(()=>DailySubtaskNotification)

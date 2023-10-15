@@ -14,7 +14,7 @@ export class DailySubtaskNotificationTime extends Model<DailySubtaskNotification
   @Column
   dailySubtaskId!:number;
 
-  @BelongsTo(()=>DailySubtask)
+  @BelongsTo(()=>DailySubtask,{onDelete: 'cascade'})
   dailySubtask!:DailySubtask;
 
 }

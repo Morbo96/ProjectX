@@ -133,6 +133,8 @@ class UserService implements CRUDServiceInterface<User>, UserServiceInterface{
 
     } catch(error){
 
+      console.log(error)
+
       return false;
 
     }

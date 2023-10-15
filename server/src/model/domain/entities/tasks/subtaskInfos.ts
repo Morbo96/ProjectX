@@ -20,7 +20,7 @@ export class SubtaskInfo extends Model<SubtaskInfo> {
   @Column
   subtaskId!:number;
 
-  @BelongsTo(()=>Subtask)
+  @BelongsTo(()=>Subtask,{onDelete: 'cascade'})
   subtask!:Subtask;
 
 }

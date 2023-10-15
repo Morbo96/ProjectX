@@ -96,6 +96,8 @@ class TaskService implements CRUDServiceInterface<Task>,TaskServiceInterface{
 
     } catch(error){
 
+      console.log(error)
+
       return false;
 
     }

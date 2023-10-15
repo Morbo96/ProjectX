@@ -16,7 +16,7 @@ export class Task extends Model<Task> {
   @Column
   goalId!:number;
 
-  @BelongsTo(()=>Goal)
+  @BelongsTo(()=>Goal,{onDelete: 'cascade'})
   goal!:Goal;
 
   @HasMany(()=>Subtask)

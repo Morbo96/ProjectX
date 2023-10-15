@@ -18,7 +18,7 @@ export class DailyTask extends Model<DailyTask> {
   @Column
   userId!:number;
 
-  @BelongsTo(()=>User)
+  @BelongsTo(()=>User,{onDelete: 'cascade'})
   user!:User;
 
   @HasMany(()=>DailySubtask)

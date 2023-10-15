@@ -19,7 +19,7 @@ export class Goal extends Model<Goal> {
   @Column
   folderId!:number;
 
-  @BelongsTo(()=>Folder)
+  @BelongsTo(()=>Folder,{onDelete: 'cascade'})
   folder!:Folder;
 
   @HasMany(()=>Task)
