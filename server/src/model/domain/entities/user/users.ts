@@ -24,7 +24,7 @@ import {
 export class User extends Model<User> {
   @Unique(true)
   @AllowNull(false)
-  @IsEmail // для будущей валидации модели на уровне её создания
+  @IsEmail //FUTURE для будущей валидации модели на уровне её создания
   @Column
   email!: string;
 
@@ -55,7 +55,7 @@ export class User extends Model<User> {
   @HasMany(() => UserPet)
   userPets?: UserPet[];
 
-  @ValidationFailed // для будущей валидации модели на уровне её создания
+  @ValidationFailed //FUTURE для будущей валидации модели на уровне её создания
   static validationFailedHook(instance: User, options: any, error: any) {
     console.log(error.message);
   }

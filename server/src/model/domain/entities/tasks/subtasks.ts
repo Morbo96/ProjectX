@@ -21,7 +21,7 @@ export class Subtask extends Model<Subtask> {
   task!:Task;
 
   @HasOne(()=>SubtaskInfo)
-  substaskInfo?:SubtaskInfo
+  subtaskInfo!:SubtaskInfo
 
   @HasMany(()=>Attachment)
   attachemnts?:Attachment[]

@@ -11,9 +11,6 @@ export class DailyTask extends Model<DailyTask> {
   @Column
   icon!:string;
 
-  @Column
-  complicity!:number
-
   @ForeignKey(()=>User)
   @Column
   userId!:number;

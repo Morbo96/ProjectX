@@ -1,4 +1,4 @@
-import { Model, Column,Table,BelongsTo, ForeignKey } from "sequelize-typescript";
+import { Model, Column,Table,BelongsTo, ForeignKey, Default } from "sequelize-typescript";
 import { User } from "../user/users";
 import { Task } from "./tasks";
 import { Subtask } from "./subtasks";
@@ -8,11 +8,16 @@ import { Subtask } from "./subtasks";
 export class SubtaskInfo extends Model<SubtaskInfo> {
 
   @Column
-  deadline!:Date;
+  dateStart!:Date;
 
+  @Column
+  dateEnd!:Date;
+
+  @Default(0)
   @Column
   orderNumber!:number;
 
+  @Default(false)
   @Column
   completed!:boolean
 

@@ -12,7 +12,7 @@ export class FolderController {
     }
   }
 
-  async getGoals(req: Request, res: Response) {
+  async getGoals(req: Request, res: Response) {//
     try {
       const foldersGoals = await folderService.getGoals(req.body.id);
       res.json(foldersGoals);

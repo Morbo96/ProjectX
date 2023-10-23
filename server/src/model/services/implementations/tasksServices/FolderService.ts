@@ -10,17 +10,18 @@ class FolderService implements CRUDServiceInterface<Folder>,FolderServiceInterfa
   //FUTURE for child-parent association between Folders
   async createChildAssociation(folderId:number,childId:number){ 
     try {
-      const result = await Folder.findOne({where:{id:folderId}}) 
+      const result = await Folder.findOne({where:{id:folderId}})
 
-      const childFolder = await Folder.findOne({where:{id:childId}}) 
+      const childFolder = await Folder.findOne({where:{id:childId}})
 
       result.$add('child',childFolder)
 
-      const parentFolder = await Folder.findOne({where:{id:folderId},include: [{model:Folder,as: 'children', where: {id:childId}}]}) 
+      const parentFolder = await Folder.findOne({where:{id:folderId},include: [{model:Folder,as: 'children', where: {id:childId}}]})
 
       return parentFolder
 
     } catch (error) {
+
       console.log(error)
 
       return null
