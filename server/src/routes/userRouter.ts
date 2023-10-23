@@ -5,6 +5,9 @@ import { CRUDController } from "../controllers/CRUDController";
 import { UserController } from "../controllers/UserController";
 import { userCheck } from "../middleware/UserCheck";
 import { userBankService } from "../model/services/implementations/usersServices/UserBankService";
+import { signUpSchema } from "../middleware/validations/SighUpSchema";
+import { validateRequest } from "../middleware/ValidateRequest";
+import { signInSchema } from "../middleware/validations/SignInSchema";
 
 const UserRoute = Router();
 const crudController = new CRUDController(userService);
@@ -20,13 +23,23 @@ UserRoute.get("/users/usersPet", (req: Request, res: Response) => {
   userController.getUsersPet(req, res);
 });
 
-UserRoute.get("/users/signIn", (req: Request, res: Response) => {
-  userController.signIn(req, res);
-});
+UserRoute.get(
+  "/users/signIn",
+  signInSchema,
+  validateRequest,
+  (req: Request, res: Response) => {
+    userController.signIn(req, res);
+  }
+);
 
-UserRoute.post("/users/signUp", (req: Request, res: Response) => {
-  userController.signUp(req, res);
-});
+UserRoute.post(
+  "/users/signUp",
+  signUpSchema,
+  validateRequest,
+  (req: Request, res: Response) => {
+    userController.signUp(req, res);
+  }
+);
 
 UserRoute.get("/users/:id", (req: Request, res: Response) => {
   crudController.getByID(req, res);

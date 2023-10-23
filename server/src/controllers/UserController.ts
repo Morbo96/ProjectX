@@ -89,22 +89,6 @@ export class UserController {
 
   async signUp(req: Request, res: Response) {
     try {
-      if (validateEmail(req.body.email) == null) {
-        res.status(500).json("input correct email");
-        return;
-      }
-      if (validateLogin(req.body.login) == null) {
-        res.status(500).json("input login");
-        return;
-      }
-      if (
-        req.body.passwordEncrypted == null ||
-        req.body.passwordEncrypted == ""
-      ) {
-        res.status(500).json("input password");
-        return;
-      }
-
       req.body.passwordEncrypted = bcrypt.hashSync(
         req.body.passwordEncrypted,
         10
@@ -118,17 +102,3 @@ export class UserController {
     }
   }
 }
-
-const validateEmail = (email: string) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-};
-
-const validateLogin = (login: string) => {
-  return String(login)
-    .toLowerCase()
-    .match(/^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\d.-]{3,19}$/);
-};
