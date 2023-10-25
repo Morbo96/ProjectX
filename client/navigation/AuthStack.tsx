@@ -1,31 +1,31 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Auth from '../screens/Auth/Auth'
-import AuthCode from "../screens/Auth/AuthCode";
+import Auth from '../screens/auth/Auth'
+import AuthCode from "../screens/auth/AuthCode";
 import {RootStackParamList} from "./types";
-import PasswordConfirm from "../screens/Auth/PasswordConfirm";
+import PasswordConfirm from "../screens/auth/PasswordConfirm";
 
-const AuthStack = createNativeStackNavigator<RootStackParamList>()
+const Stack = createNativeStackNavigator<RootStackParamList>()
 
-function AuthStackNavigator():JSX.Element {
+function AuthStack():JSX.Element {
   return (
-      <AuthStack.Navigator screenOptions={{headerShown: false}}>
-            <AuthStack.Screen
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen
                 name="auth"
                 component={ Auth }
             />
 
-            <AuthStack.Screen
+            <Stack.Screen
               name="code"
               component={ AuthCode }
             />
 
-            <AuthStack.Screen
+            <Stack.Screen
               name="passwordConfirm"
               component={ PasswordConfirm }
             />
-      </AuthStack.Navigator>
+      </Stack.Navigator>
   )
 }
 
-export default AuthStackNavigator
+export default AuthStack

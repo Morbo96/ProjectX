@@ -159,6 +159,9 @@ export const margin = StyleSheet.create({
     mr_50:{
         marginRight:"50%"
     },
+    m_0:{
+        margin: 0
+    },
     m_1:{
         margin: marginStartValue
     },
@@ -314,6 +317,9 @@ export const padding = StyleSheet.create({
     pr_50:{
         paddingRight:"50%"
     },
+    p_0:{
+        padding: 0
+    },
     p_1:{
         padding: paddingStartValue
     },
@@ -344,4 +350,58 @@ export const padding = StyleSheet.create({
     p_50:{
         padding:"50%"
     },
+})
+
+const textStartSize = 4
+
+export const textSize=StyleSheet.create({
+    standard:{
+        fontSize:textStartSize*4
+    },
+    size_1:{
+        fontSize:textStartSize*3
+    },
+    size_2:{
+        fontSize:textStartSize*5
+    },
+    size_3:{
+        fontSize:textStartSize*6
+    },
+    size_4:{
+        fontSize:textStartSize*7
+    },
+    size_5:{
+        fontSize:textStartSize*8
+    },
+    size_6:{
+        fontSize:textStartSize*9
+    }
+})
+
+export const headers=StyleSheet.create({
+    header_1:{
+        fontWeight:"700",
+        fontSize: 36,
+        color: "black"
+    },
+    header_2:{
+        fontWeight:"700",
+        fontSize: 32,
+        color: "black"
+    },
+    header_3:{
+        fontWeight:"500",
+        fontSize: 28,
+        color: "black"
+    },
+    header_3__bolder:{
+        fontWeight:"700",
+        fontSize: 28,
+        color: "black"
+    },
+    header_4:{
+        fontWeight:"500",
+        fontSize: 24,
+        color: "black"
+    }
 })

@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native'
 import { Dimensions } from 'react-native';
 
-const deviceHeight = Dimensions.get('window').height;
+const deviceSize = Dimensions.get('screen');
 
 export const authSections = StyleSheet.create({
     mainView: {
-        height:"100%",
-        width:"100%",
+        height:deviceSize.height,
+        width:deviceSize.width,
         display: "flex",
         flexDirection:"column",
         justifyContent: "center",

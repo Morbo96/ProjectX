@@ -12,7 +12,7 @@ export const text = StyleSheet.create({
     },
     buttonText:{
         fontFamily: font,
-        fontSize:21,
+        fontSize:20,
         color:white,
         fontWeight:"700",
     },
@@ -33,18 +33,6 @@ export const text = StyleSheet.create({
         fontSize:20,
         color:white,
         fontWeight:"700"
-    },
-    headerLevel__4:{
-        fontFamily:font,
-        fontWeight:"500",
-        fontSize:24,
-        color:black
-    },
-    headerLevel__3:{
-        fontFamily:font,
-        fontWeight:"700",
-        fontSize:32,
-        color:black
     }
 
 })

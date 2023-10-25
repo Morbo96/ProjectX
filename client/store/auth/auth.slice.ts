@@ -17,14 +17,14 @@ const authSlice = createSlice({
 			return initialState
 		}
 	},
-	extraReducers: (builder) => {
-		builder.addMatcher(
-			authApi.endpoints.login.matchFulfilled,
-			(state, {payload: token}: setTokenPayload) => {
-				state.token = token
-			}
-		)
-	}
+	//extraReducers: (builder) => {
+	//	builder.addMatcher(
+	//		authApi.endpoints.login.matchFulfilled,
+	//		(state, {payload: token}: setTokenPayload) => {
+	//			state.token = token
+	//		}
+	//	)
+	//}
 })
 
 export const authReducer = authSlice.reducer
