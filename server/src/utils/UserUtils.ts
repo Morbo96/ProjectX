@@ -16,7 +16,7 @@ export async function generateAccessToken(user: User) {
   return accessToken;
 }
 
-export async function getUSerByToken(token: string) {
+export async function getUserByToken(token: string) {
   const payload = jwt.decode(token) as JwtPayload;
   const userLogin = payload.login;
   const foundUser = await userService.getByLogin(userLogin);

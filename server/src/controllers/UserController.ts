@@ -2,9 +2,18 @@ import { Request, Response } from "express";
 import { userService } from "../model/services/implementations/usersServices/UserService";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { generateAccessToken, getUSerByToken } from "../utils/UserUtils";
+import { generateAccessToken, getUserByToken } from "../utils/UserUtils";
 
 export class UserController {
+  async getDailyTasks(req: Request, res: Response) {
+    try {
+      const usersDailyTasks = await userService.getDailyTasks(req.body.id);
+      res.json(usersDailyTasks);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+
   async getFolders(req: Request, res: Response) {
     try {
       const usersFolders = await userService.getFolders(req.body.id);
@@ -35,7 +44,7 @@ export class UserController {
   async logout(req: Request, res: Response) {
     try {
       const accessToken = req.header("Bearer");
-      const user = await getUSerByToken(accessToken);
+      const user = await getUserByToken(accessToken);
       user.refreshToken = null;
       await userService.update(user.toJSON());
       res.status(200).json("Successfull logout");
@@ -83,6 +92,7 @@ export class UserController {
         }
       }
     } catch (error) {
+      console.log(error);
       res.status(500).json(error);
     }
   }

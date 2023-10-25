@@ -15,11 +15,15 @@ const userController = new UserController();
 
 UserRoute.use(express.json());
 
-UserRoute.get("/users/folders", (req: Request, res: Response) => {
+UserRoute.get("/users/dailyTasks", userCheck, (req: Request, res: Response) => {
+  userController.getDailyTasks(req, res);
+});
+
+UserRoute.get("/users/folders", userCheck, (req: Request, res: Response) => {
   userController.getFolders(req, res);
 });
 
-UserRoute.get("/users/usersPet", (req: Request, res: Response) => {
+UserRoute.get("/users/usersPet", userCheck, (req: Request, res: Response) => {
   userController.getUsersPet(req, res);
 });
 

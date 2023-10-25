@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { goalService } from "../model/services/implementations/tasksServices/GoalService";
 
 export class GoalController {
-
   async getTasks(req: Request, res: Response) {
     try {
       const goalsTasks = await goalService.getTasks(req.body.id);

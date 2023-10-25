@@ -1,3 +1,4 @@
+import { DailyTask } from "../../../domain/entities/dailyTasks/dailyTasks";
 import { Folder } from "../../../domain/entities/tasks/folders";
 import { User } from "../../../domain/entities/user/users";
 import { UserBank } from "../../../domain/entities/user/usersBanks";
@@ -19,6 +20,19 @@ class UserService implements CRUDServiceInterface<User>, UserServiceInterface{
 
       return null;
 
+    }
+  }
+
+  async getDailyTasks(userId:number){
+    try {
+      const result = await DailyTask.findAll({where:{userId:userId}}) 
+
+      return result
+
+    } catch (error) {
+
+      return null
+      
     }
   }
 
