@@ -4,154 +4,129 @@ import { User } from "../../../domain/entities/user/users";
 import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
 import { FolderServiceInterface } from "../../interfaces/FolderServiceInterface";
 
-
-class FolderService implements CRUDServiceInterface<Folder>,FolderServiceInterface{
-  
+class FolderService
+  implements CRUDServiceInterface<Folder>, FolderServiceInterface
+{
   //FUTURE for child-parent association between Folders
-  async createChildAssociation(folderId:number,childId:number){ 
+  async createChildAssociation(folderId: number, childId: number) {
     try {
-      const result = await Folder.findOne({where:{id:folderId}})
+      const result = await Folder.findOne({ where: { id: folderId } });
 
-      const childFolder = await Folder.findOne({where:{id:childId}})
+      const childFolder = await Folder.findOne({ where: { id: childId } });
 
-      result.$add('child',childFolder)
+      result.$add("child", childFolder);
 
-      const parentFolder = await Folder.findOne({where:{id:folderId},include: [{model:Folder,as: 'children', where: {id:childId}}]})
+      const parentFolder = await Folder.findOne({
+        where: { id: folderId },
+        include: [{ model: Folder, as: "children", where: { id: childId } }],
+      });
 
-      return parentFolder
-
+      return parentFolder;
     } catch (error) {
+      console.log(error);
 
-      console.log(error)
-
-      return null
-      
+      return null;
     }
   }
-  async getParentFolders(folderId:number){
+  async getParentFolders(folderId: number) {
     try {
-      const result = await Folder.findAll({where:{id:folderId},include:Folder}) 
+      const result = await Folder.findAll({
+        where: { id: folderId },
+        include: Folder,
+      });
 
-      return result
-
+      return result;
     } catch (error) {
-
-      return null
-      
+      return null;
     }
   }
-  async getChildFolders(folderId:number){
+  async getChildFolders(folderId: number) {
     try {
-      const result = await Folder.findAll({where:{id:folderId}}) 
+      const result = await Folder.findAll({ where: { id: folderId } });
 
-      return result
-
+      return result;
     } catch (error) {
-
-      return null
-      
+      return null;
     }
   }
   // future end block
 
-  async getGoals(folderId:number){
+  async getGoals(folderId: number) {
     try {
-      const result = await Goal.findAll({where:{folderId:folderId}}) 
+      const result = await Goal.findAll({ where: { folderId: folderId } });
 
-      return result
-
+      return result;
     } catch (error) {
-
-      return null
-      
+      return null;
     }
   }
 
-  async itemExists (id:number) {
+  async itemExists(id: number) {
     try {
-      const result = await Folder.findOne({where:{id}});
-        
-      return result ? true:false;
+      const result = await Folder.findOne({ where: { id } });
 
+      return result ? true : false;
     } catch (error) {
-
       return false;
-
-      }
     }
+  }
 
-  async update(item:Folder){
+  async update(item: Folder) {
     try {
-      await Folder.update(item,{where:{id:item.id}})
+      await Folder.update(item, { where: { id: item.id } });
 
-      const result = await Folder.findByPk(item.id)
+      const result = await Folder.findByPk(item.id);
 
       return result;
-
     } catch (error) {
-
-      console.log(error)
+      console.log(error);
 
       return null;
-
-      }
     }
+  }
 
-  async getAll(){
+  async getAll() {
     try {
       const result = await Folder.findAll();
 
       return result;
-
-    } catch(error){
-
+    } catch (error) {
       return null;
-
-      }
-    }
-
-  async getItemById (id:number) {
-    try{
-      const result = await Folder.findOne({where:{id}})
-
-      return result;
-
-    } catch (error){
-
-      return null;
-
     }
   }
 
-  async create (folder: Folder ){
+  async getItemById(id: number) {
     try {
+      const result = await Folder.findOne({ where: { id } });
 
+      return result;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async create(folder: Folder) {
+    try {
       const result = await Folder.create(folder);
 
       return result;
+    } catch (error) {
+      console.log(error);
 
-    } catch(error){
-
-      console.log(error)
-      
       return null;
-
     }
   }
-  
-  async deleteItem(id:number){
-    try{
-      await Folder.destroy({where: {id}})
+
+  async deleteItem(id: number) {
+    try {
+      await Folder.destroy({ where: { id } });
 
       return true;
-
-    } catch(error){
-      
-      console.log(error)
+    } catch (error) {
+      console.log(error);
 
       return false;
-
     }
   }
 }
-export const folderService = new FolderService()
+export const folderService = new FolderService();
