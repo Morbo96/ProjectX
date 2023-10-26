@@ -1,15 +1,10 @@
-import * as React from 'react';
-import {Animated, Text, I18nManager} from 'react-native';
-import {TabView, SceneMap, TabBar, SceneRendererProps} from 'react-native-tab-view';
-import Daily from "../screens/main/daily/Daily";
-import TaskPreview from "../screens/main/task/TaskPreview";
-import {bottomTabViewStyles} from "../styles/components/bottomTabViewStyles";
-import {State} from "react-native-gesture-handler";
-
-const renderScene = SceneMap({
-    daily: Daily,
-    task: TaskPreview
-});
+import * as React from 'react'
+import {Animated, Text, I18nManager} from 'react-native'
+import {TabView, SceneMap, TabBar, SceneRendererProps} from 'react-native-tab-view'
+import Daily from "../screens/main/daily/Daily"
+import TaskPreview from "../screens/main/task/TaskPreview"
+import {bottomTabViewStyles} from "../styles/components/bottomTabViewStyles"
+import {State} from "react-native-gesture-handler"
 
 const renderIndicator = (
     props: SceneRendererProps & {
@@ -60,7 +55,7 @@ const renderTabBar = (props:any) => (
 );
 
 const BottomTabView = () => {
-    const [index, setIndex] = React.useState(0);
+    const [index, setIndex] = React.useState(0)
     const [routes] = React.useState([
         { key: 'first', title: 'Рекомендации' },
         { key: 'second', title: 'Задачи' },

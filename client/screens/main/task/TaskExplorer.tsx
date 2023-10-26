@@ -14,13 +14,13 @@ import {goalScreen, taskScreen} from "../../../styles/screens/components/taskScr
 import TaskCard from "../../../components/task_layout/TaskCard";
 
 type Props = {
-    navigation: NativeStackScreenProps<RootStackParamList, "goalEditor">
+    navigation: NativeStackScreenProps<RootStackParamList, "taskExplorer">
 }
 
-function GoalEditor({ navigation }: Props):JSX.Element{
+function TaskExplorer({ navigation }: Props):JSX.Element{
     return (
         <ScreenView style={taskScreen.mainView}>
-            <TouchableOpacity style={[flex.d_flex, flex.flex_row, flex.align_center, padding.pr_4]} onPress={()=>navigation.navigation.goBack()}>
+            <TouchableOpacity style={[flex.d_flex, flex.flex_row, flex.align_center, padding.pr_4]} onPress={()=>navigation.goBack()}>
                 <Image source={require("../../../assets/icons/back-button.png")}/>
                 <Text style={[headers.header_3__bolder, {width:"75%"}]}>Создание цели</Text>
                 <Image style={[{maxWidth:8, maxHeight:32}, margin.ml_10]} source={require("../../../assets/icons/expand-more.png")}/>
@@ -42,4 +42,4 @@ function GoalEditor({ navigation }: Props):JSX.Element{
         </ScreenView>
     )
 }
-export default GoalEditor
+export default TaskExplorer

@@ -13,8 +13,8 @@ export type RootStackParamList = {
     taskPreview:undefined,
     pomodoro: undefined,
     dailySubtaskEditor: undefined,
-    goalEditor:undefined,
-    goalSubtask:undefined
+    taskExplorer:undefined,
+    subtaskEditor:undefined
 };
 
 export interface Navigation {

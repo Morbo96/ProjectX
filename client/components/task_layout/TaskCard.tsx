@@ -13,7 +13,11 @@ const TaskCard = () => {
                 multiline={true}
             />
             <View style={[flex.d_flex, flex.flex_column, flex.align_start]}>
-                <TaskCardDataItem completed={false} title={"Название подзадачи"} description={"А тут будет ее содержимое"}/>
+                <TaskCardDataItem
+                    completed={false}
+                    title={"Название подзадачи"}
+                    description={"А тут будет ее содержимое"}
+                />
             </View>
         </View>
     )

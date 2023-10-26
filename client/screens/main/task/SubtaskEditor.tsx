@@ -2,8 +2,7 @@ import React from 'react'
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { RootStackParamList } from "../../../navigation/types"
 import {
-    Text,
-    View,
+    Text, View,
     TouchableOpacity,
     Image, TextInput
 } from "react-native"
@@ -12,21 +11,31 @@ import {flex, headers, margin, padding} from "../../../styles/components";
 import {goalScreen, subtaskEditScreen, taskScreen} from "../../../styles/screens/components/taskScreenStyles";
 
 type Props = {
-    navigation: NativeStackScreenProps<RootStackParamList, "goalSubtask">
+    navigation: NativeStackScreenProps<RootStackParamList, "subtaskEditor">
 }
 
-function GoalSubtask({ navigation }: Props):JSX.Element{
+function SubtaskEditor({ navigation }: Props):JSX.Element{
     return (
         <ScreenView style={taskScreen.mainView}>
             <View>
-                <TouchableOpacity style={[flex.d_flex, flex.flex_row, flex.align_center, padding.pr_4]} onPress={()=>navigation.navigation.goBack()}>
+                <TouchableOpacity
+                    style={[
+                        flex.d_flex, flex.flex_row,
+                        flex.align_center,
+                        padding.pr_4
+                    ]}
+                    onPress={()=>navigation.goBack()}
+                >
                     <Image source={require("../../../assets/icons/back-button.png")}/>
                     <TextInput
                         style={[headers.header_3__bolder, {width:"75%"}]}
                         placeholder={"Название подзадачи"}
                         multiline={true}
                     />
-                    <Image style={[{maxWidth:8, maxHeight:32}, margin.ml_10]} source={require("../../../assets/icons/expand-more.png")}/>
+                    <Image
+                        style={[{maxWidth:8, maxHeight:32}, margin.ml_10]}
+                        source={require("../../../assets/icons/expand-more.png")}
+                    />
                 </TouchableOpacity>
                 <View style={[{paddingLeft:55}]}>
                     <View style={[flex.d_flex, flex.flex_column]}>
@@ -44,4 +53,4 @@ function GoalSubtask({ navigation }: Props):JSX.Element{
         </ScreenView>
     )
 }
-export default GoalSubtask
+export default SubtaskEditor
