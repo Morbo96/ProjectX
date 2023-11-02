@@ -1,3 +1,4 @@
+import { handleError } from "../../../../utils/ErrorHandler";
 import { Folder } from "../../../domain/entities/tasks/folders";
 import { Goal } from "../../../domain/entities/tasks/goals";
 import { User } from "../../../domain/entities/user/users";
@@ -23,8 +24,6 @@ class FolderService
 
       return parentFolder;
     } catch (error) {
-      console.log(error);
-
       return null;
     }
   }
