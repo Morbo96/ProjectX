@@ -11,23 +11,23 @@ export class DailySubtaskController {
         req.body.dailySubtask
       );
 
-      req.body.dailySubtaskNotification.dailySubtaskId = newDailySubtask.id;
+      if (req.body.dailySubtaskNotification != null) {
+        req.body.dailySubtaskNotification.dailySubtaskId = newDailySubtask.id;
 
-      const newDailySubtaskNotification = await newDailySubtask.$create(
-        "dailySubtaskNotification",
-        req.body.dailySubtaskNotification
-      );
+        const newDailySubtaskNotification = await newDailySubtask.$create(
+          "dailySubtaskNotification",
+          req.body.dailySubtaskNotification
+        );
 
-      await newDailySubtaskNotification.$create(
-        "dailySubtaskNotificationTime",
-        req.body.dailySubtaskNotificationTime
-      );
+        await newDailySubtaskNotification.$create(
+          "dailySubtaskNotificationTime",
+          req.body.dailySubtaskNotificationTime
+        );
+      }
 
       const foundDailySubtask = await DailySubtask.findOne({
         where: { id: newDailySubtask.id },
-        include: [
-          { model: DailySubtaskNotification, include: [{ all: true }] },
-        ],
+        include: [{ all: true, include: [{ all: true }] }],
       });
 
       res.json(foundDailySubtask);
