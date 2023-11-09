@@ -1,27 +1,34 @@
-import { Model, Column,Table,BelongsTo, ForeignKey } from "sequelize-typescript";
+import {
+  Model,
+  Column,
+  Table,
+  BelongsTo,
+  ForeignKey,
+  HasMany,
+} from "sequelize-typescript";
 import { User } from "../user/users";
 import { DailyTask } from "./dailyTasks";
 import { DailySubtask } from "./dailySubtasks";
+import { DailySubtaskNotificationTime } from "./dailySubtaskNotificationTime";
 
 @Table
-
 export class DailySubtaskNotification extends Model<DailySubtaskNotification> {
+  @Column
+  description!: string;
 
   @Column
-  description!:string;
+  hasCertainTime!: boolean;
 
   @Column
-  hasCertainTime!:boolean;
+  periodDate!: Date;
 
+  @ForeignKey(() => DailySubtask)
   @Column
-  periodDate!:Date;
+  dailySubtaskId!: number;
 
-  @ForeignKey(()=>DailySubtask)
-  @Column
-  dailySubtaskId!:number;
+  @BelongsTo(() => DailySubtask, { onDelete: "cascade" })
+  dailySubtask!: DailySubtask;
 
-  @BelongsTo(()=>DailySubtask,{onDelete: 'cascade'})
-  dailySubtask!:DailySubtask;
-
+  @HasMany(() => DailySubtaskNotificationTime)
+  dailySubtaskNotificationTimes?: DailySubtaskNotificationTime[];
 }
-
