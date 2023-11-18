@@ -3,6 +3,7 @@ import { userService } from "../model/services/implementations/usersServices/Use
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { generateAccessToken, getUserByToken } from "../utils/UserUtils";
+import { User } from "../model/domain/entities/user/users";
 
 export class UserController {
   async getDailyTasks(req: Request, res: Response) {
@@ -68,24 +69,9 @@ export class UserController {
         );
 
         if (isMatch) {
-          const accessToken = await generateAccessToken(user);
-          const refreshSecret: Secret = process.env.JWT_REFRESH_SECRET;
-          const refreshToken = await jwt.sign(
-            {
-              login: user.login,
-              password: user.passwordEncrypted,
-              name: user.name,
-            },
-            refreshSecret
-          );
-
-          user.refreshToken = refreshToken;
-          const changedUser = await userService.update(user.toJSON());
-          //console.log(changedUser);
-
           res
             .status(200)
-            .json({ accessToken: accessToken, refreshToken: refreshToken });
+            .json({ accessToken: await this.signAccessToken(user) });
         } else {
           res.status(500).json("Login or password incorrect");
           return;
@@ -106,9 +92,27 @@ export class UserController {
 
       const user = await userService.create(req.body);
 
-      res.status(200).json(user);
+      res
+        .status(200)
+        .json({ user: user, accessToken: await this.signAccessToken(user) });
     } catch (error) {
       res.status(500).json(error);
     }
+  }
+  async signAccessToken(user: User) {
+    const accessToken = await generateAccessToken(user);
+    const refreshSecret: Secret = process.env.JWT_REFRESH_SECRET;
+    const refreshToken = await jwt.sign(
+      {
+        login: user.login,
+        password: user.passwordEncrypted,
+        name: user.name,
+      },
+      refreshSecret
+    );
+
+    user.refreshToken = refreshToken;
+    const changedUser = await userService.update(user.toJSON());
+    return accessToken;
   }
 }

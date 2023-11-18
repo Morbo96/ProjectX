@@ -8,7 +8,6 @@ import GoalRoute from "./routes/goalRouter";
 import TaskRoute from "./routes/taskRouter";
 import SubtaskRoute from "./routes/subtaskRouter";
 import DailySubtaskRoute from "./routes/dailySubtaskRouter";
-import { handleError } from "./utils/ErrorHandler";
 
 const app = express();
 
