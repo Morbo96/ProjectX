@@ -13,6 +13,50 @@ exports.folderService = void 0;
 const folders_1 = require("../../../domain/entities/tasks/folders");
 const goals_1 = require("../../../domain/entities/tasks/goals");
 class FolderService {
+    //FUTURE for child-parent association between Folders
+    createChildAssociation(folderId, childId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield folders_1.Folder.findOne({ where: { id: folderId } });
+                const childFolder = yield folders_1.Folder.findOne({ where: { id: childId } });
+                result.$add("child", childFolder);
+                const parentFolder = yield folders_1.Folder.findOne({
+                    where: { id: folderId },
+                    include: [{ model: folders_1.Folder, as: "children", where: { id: childId } }],
+                });
+                return parentFolder;
+            }
+            catch (error) {
+                return null;
+            }
+        });
+    }
+    getParentFolders(folderId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield folders_1.Folder.findAll({
+                    where: { id: folderId },
+                    include: folders_1.Folder,
+                });
+                return result;
+            }
+            catch (error) {
+                return null;
+            }
+        });
+    }
+    getChildFolders(folderId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield folders_1.Folder.findAll({ where: { id: folderId } });
+                return result;
+            }
+            catch (error) {
+                return null;
+            }
+        });
+    }
+    // future end block
     getGoals(folderId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -77,6 +121,7 @@ class FolderService {
                 return result;
             }
             catch (error) {
+                console.log(error);
                 return null;
             }
         });
@@ -88,6 +133,7 @@ class FolderService {
                 return true;
             }
             catch (error) {
+                console.log(error);
                 return false;
             }
         });

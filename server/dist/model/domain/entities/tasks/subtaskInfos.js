@@ -18,12 +18,18 @@ exports.SubtaskInfo = SubtaskInfo;
 __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", Date)
-], SubtaskInfo.prototype, "deadline", void 0);
+], SubtaskInfo.prototype, "dateStart", void 0);
 __decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", Date)
+], SubtaskInfo.prototype, "dateEnd", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Default)(0),
     sequelize_typescript_1.Column,
     __metadata("design:type", Number)
 ], SubtaskInfo.prototype, "orderNumber", void 0);
 __decorate([
+    (0, sequelize_typescript_1.Default)(false),
     sequelize_typescript_1.Column,
     __metadata("design:type", Boolean)
 ], SubtaskInfo.prototype, "completed", void 0);
@@ -33,7 +39,7 @@ __decorate([
     __metadata("design:type", Number)
 ], SubtaskInfo.prototype, "subtaskId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => subtasks_1.Subtask),
+    (0, sequelize_typescript_1.BelongsTo)(() => subtasks_1.Subtask, { onDelete: 'cascade' }),
     __metadata("design:type", subtasks_1.Subtask)
 ], SubtaskInfo.prototype, "subtask", void 0);
 exports.SubtaskInfo = SubtaskInfo = __decorate([

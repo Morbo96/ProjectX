@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userService = void 0;
+const dailyTasks_1 = require("../../../domain/entities/dailyTasks/dailyTasks");
 const folders_1 = require("../../../domain/entities/tasks/folders");
 const users_1 = require("../../../domain/entities/user/users");
 const usersBanks_1 = require("../../../domain/entities/user/usersBanks");
@@ -20,6 +21,17 @@ class UserService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield users_1.User.findOne({ where: { login: login } });
+                return result;
+            }
+            catch (error) {
+                return null;
+            }
+        });
+    }
+    getDailyTasks(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield dailyTasks_1.DailyTask.findAll({ where: { userId: userId } });
                 return result;
             }
             catch (error) {
@@ -118,6 +130,7 @@ class UserService {
                 return true;
             }
             catch (error) {
+                console.log(error);
                 return false;
             }
         });

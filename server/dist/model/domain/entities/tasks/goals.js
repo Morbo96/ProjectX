@@ -34,7 +34,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Goal.prototype, "folderId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => folders_1.Folder),
+    (0, sequelize_typescript_1.BelongsTo)(() => folders_1.Folder, { onDelete: 'cascade' }),
     __metadata("design:type", folders_1.Folder)
 ], Goal.prototype, "folder", void 0);
 __decorate([

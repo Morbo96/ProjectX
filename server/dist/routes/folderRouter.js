@@ -12,6 +12,9 @@ const FolderRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(FolderService_1.folderService);
 const folderController = new FolderController_1.FolderController();
 FolderRoute.use(express_1.default.json());
+FolderRoute.patch("/folders/toChild", (req, res) => {
+    folderController.createChildAssociation(req, res);
+});
 FolderRoute.get("/folders/goals", (req, res) => {
     folderController.getGoals(req, res);
 });

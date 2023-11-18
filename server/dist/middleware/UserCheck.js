@@ -14,18 +14,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userCheck = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const UserUtils_1 = require("../utils/UserUtils");
 const userCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const token = req.header("Bearer");
-    if (!token) {
+    let accessToken = req.header("Bearer");
+    if (!accessToken) {
         res.status(500).json("No token found");
         return;
     }
     try {
-        yield jsonwebtoken_1.default.verify(token, process.env.JWT_ACCESS_SECRET);
+        yield jsonwebtoken_1.default.verify(accessToken, process.env.JWT_ACCESS_SECRET);
+        req.body.id = (yield (0, UserUtils_1.getUserByToken)(accessToken)).id;
         next();
     }
     catch (error) {
-        res.status(400).json("Invalid Token");
+        const err = error;
+        if (err.message == "jwt expired") {
+            const user = yield (0, UserUtils_1.getUserByToken)(accessToken);
+            if (user.refreshToken) {
+                yield jsonwebtoken_1.default.verify(user.refreshToken, process.env.JWT_REFRESH_SECRET);
+                accessToken = yield (0, UserUtils_1.generateAccessToken)(user);
+                req.body.id = user.id;
+            }
+            next();
+        }
+        else {
+            res.status(400).json(err.message);
+        }
     }
 });
 exports.userCheck = userCheck;

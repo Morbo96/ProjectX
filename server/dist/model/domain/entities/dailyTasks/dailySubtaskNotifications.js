@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DailySubtaskNotification = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const dailySubtasks_1 = require("./dailySubtasks");
+const dailySubtaskNotificationTime_1 = require("./dailySubtaskNotificationTime");
 let DailySubtaskNotification = class DailySubtaskNotification extends sequelize_typescript_1.Model {
 };
 exports.DailySubtaskNotification = DailySubtaskNotification;
@@ -33,9 +34,13 @@ __decorate([
     __metadata("design:type", Number)
 ], DailySubtaskNotification.prototype, "dailySubtaskId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => dailySubtasks_1.DailySubtask),
+    (0, sequelize_typescript_1.BelongsTo)(() => dailySubtasks_1.DailySubtask, { onDelete: "cascade" }),
     __metadata("design:type", dailySubtasks_1.DailySubtask)
 ], DailySubtaskNotification.prototype, "dailySubtask", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => dailySubtaskNotificationTime_1.DailySubtaskNotificationTime),
+    __metadata("design:type", Array)
+], DailySubtaskNotification.prototype, "dailySubtaskNotificationTimes", void 0);
 exports.DailySubtaskNotification = DailySubtaskNotification = __decorate([
     sequelize_typescript_1.Table
 ], DailySubtaskNotification);

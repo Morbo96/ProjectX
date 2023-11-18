@@ -9,27 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FolderController = void 0;
-const FolderService_1 = require("../model/services/implementations/tasksServices/FolderService");
-class FolderController {
-    createChildAssociation(req, res) {
+exports.SubtaskController = void 0;
+const SubtaskService_1 = require("../model/services/implementations/tasksServices/SubtaskService");
+const subtaskInfos_1 = require("../model/domain/entities/tasks/subtaskInfos");
+const subtasks_1 = require("../model/domain/entities/tasks/subtasks");
+class SubtaskController {
+    createSubtask(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            //FUTURE for child-parent association between Folders
             try {
-                const parentFolder = yield FolderService_1.folderService.createChildAssociation(req.body.folderId, req.body.childId);
-                res.json(parentFolder);
-            }
-            catch (error) {
-                res.status(500).json(error);
-            }
-        });
-    }
-    getGoals(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            //
-            try {
-                const foldersGoals = yield FolderService_1.folderService.getGoals(req.body.id);
-                res.json(foldersGoals);
+                const subtask = yield SubtaskService_1.subtaskService.create(req.body.subtask);
+                req.body.subtaskInfo.subtaskId = subtask.id;
+                yield subtask.$create("subtaskInfo", req.body.subtaskInfo);
+                const foundSubtask = yield subtasks_1.Subtask.findOne({
+                    where: { id: subtask.id },
+                    include: [{ model: subtaskInfos_1.SubtaskInfo }],
+                });
+                res.json(foundSubtask);
             }
             catch (error) {
                 res.status(500).json(error);
@@ -37,4 +32,4 @@ class FolderController {
         });
     }
 }
-exports.FolderController = FolderController;
+exports.SubtaskController = SubtaskController;

@@ -31,13 +31,13 @@ __decorate([
     __metadata("design:type", Number)
 ], Subtask.prototype, "taskId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => tasks_1.Task),
+    (0, sequelize_typescript_1.BelongsTo)(() => tasks_1.Task, { onDelete: 'cascade' }),
     __metadata("design:type", tasks_1.Task)
 ], Subtask.prototype, "task", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasOne)(() => subtaskInfos_1.SubtaskInfo),
     __metadata("design:type", subtaskInfos_1.SubtaskInfo)
-], Subtask.prototype, "substaskInfo", void 0);
+], Subtask.prototype, "subtaskInfo", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => attachments_1.Attachment),
     __metadata("design:type", Array)

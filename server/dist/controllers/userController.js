@@ -16,7 +16,19 @@ exports.UserController = void 0;
 const UserService_1 = require("../model/services/implementations/usersServices/UserService");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const UserUtils_1 = require("../utils/UserUtils");
 class UserController {
+    getDailyTasks(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const usersDailyTasks = yield UserService_1.userService.getDailyTasks(req.body.id);
+                res.json(usersDailyTasks);
+            }
+            catch (error) {
+                res.status(500).json(error);
+            }
+        });
+    }
     getFolders(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -50,6 +62,20 @@ class UserController {
             }
         });
     }
+    logout(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const accessToken = req.header("Bearer");
+                const user = yield (0, UserUtils_1.getUserByToken)(accessToken);
+                user.refreshToken = null;
+                yield UserService_1.userService.update(user.toJSON());
+                res.status(200).json("Successfull logout");
+            }
+            catch (error) {
+                res.status(500).json(error);
+            }
+        });
+    }
     signIn(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -62,21 +88,9 @@ class UserController {
                     const userPassword = user.passwordEncrypted;
                     let isMatch = yield bcrypt_1.default.compare(req.body.passwordEncrypted, userPassword);
                     if (isMatch) {
-                        const accessSecret = process.env.JWT_ACCESS_SECRET;
-                        const accessToken = yield jsonwebtoken_1.default.sign({
-                            login: user.login,
-                            password: user.passwordEncrypted,
-                            name: user.name,
-                        }, accessSecret, { expiresIn: "15m" });
-                        const refreshSecret = process.env.JWT_REFRESH_SECRET;
-                        const refreshToken = yield jsonwebtoken_1.default.sign({
-                            login: user.login,
-                            password: user.passwordEncrypted,
-                            name: user.name,
-                        }, refreshSecret);
                         res
                             .status(200)
-                            .json({ accessToken: accessToken, refreshToken: refreshToken });
+                            .json({ accessToken: yield this.signAccessToken(user) });
                     }
                     else {
                         res.status(500).json("Login or password incorrect");
@@ -85,6 +99,7 @@ class UserController {
                 }
             }
             catch (error) {
+                console.log(error);
                 res.status(500).json(error);
             }
         });
@@ -92,45 +107,30 @@ class UserController {
     signUp(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if (validateEmail(req.body.email) == null) {
-                    res.status(500).json("input correct email");
-                    return;
-                }
-                if (validateLogin(req.body.login) == null) {
-                    res.status(500).json("input login");
-                    return;
-                }
-                if (req.body.passwordEncrypted == null ||
-                    req.body.passwordEncrypted == "") {
-                    res.status(500).json("input password");
-                    return;
-                }
                 req.body.passwordEncrypted = bcrypt_1.default.hashSync(req.body.passwordEncrypted, 10);
                 const user = yield UserService_1.userService.create(req.body);
-                res.status(200).json(user);
+                res
+                    .status(200)
+                    .json({ user: user, accessToken: yield this.signAccessToken(user) });
             }
             catch (error) {
                 res.status(500).json(error);
             }
         });
     }
-    getIdByToken(token) {
+    signAccessToken(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            const payload = jsonwebtoken_1.default.decode(token);
-            const userLogin = payload.login;
-            const foundUser = yield UserService_1.userService.getByLogin(userLogin);
-            return foundUser.id;
+            const accessToken = yield (0, UserUtils_1.generateAccessToken)(user);
+            const refreshSecret = process.env.JWT_REFRESH_SECRET;
+            const refreshToken = yield jsonwebtoken_1.default.sign({
+                login: user.login,
+                password: user.passwordEncrypted,
+                name: user.name,
+            }, refreshSecret);
+            user.refreshToken = refreshToken;
+            const changedUser = yield UserService_1.userService.update(user.toJSON());
+            return accessToken;
         });
     }
 }
 exports.UserController = UserController;
-const validateEmail = (email) => {
-    return String(email)
-        .toLowerCase()
-        .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-};
-const validateLogin = (login) => {
-    return String(login)
-        .toLowerCase()
-        .match(/^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\d.-]{3,19}$/);
-};

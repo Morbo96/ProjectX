@@ -25,7 +25,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Attachment.prototype, "subtaskId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => subtasks_1.Subtask),
+    (0, sequelize_typescript_1.BelongsTo)(() => subtasks_1.Subtask, { onDelete: 'cascade' }),
     __metadata("design:type", subtasks_1.Subtask)
 ], Attachment.prototype, "subtask", void 0);
 exports.Attachment = Attachment = __decorate([

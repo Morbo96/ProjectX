@@ -33,7 +33,7 @@ __decorate([
     __metadata("design:type", Number)
 ], UserBank.prototype, "userId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => users_1.User),
+    (0, sequelize_typescript_1.BelongsTo)(() => users_1.User, { onDelete: 'cascade' }),
     __metadata("design:type", users_1.User)
 ], UserBank.prototype, "user", void 0);
 exports.UserBank = UserBank = __decorate([

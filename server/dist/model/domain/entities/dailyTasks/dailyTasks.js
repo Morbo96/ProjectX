@@ -25,16 +25,12 @@ __decorate([
     __metadata("design:type", String)
 ], DailyTask.prototype, "icon", void 0);
 __decorate([
-    sequelize_typescript_1.Column,
-    __metadata("design:type", Number)
-], DailyTask.prototype, "complicity", void 0);
-__decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => users_1.User),
     sequelize_typescript_1.Column,
     __metadata("design:type", Number)
 ], DailyTask.prototype, "userId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => users_1.User),
+    (0, sequelize_typescript_1.BelongsTo)(() => users_1.User, { onDelete: 'cascade' }),
     __metadata("design:type", users_1.User)
 ], DailyTask.prototype, "user", void 0);
 __decorate([

@@ -16,14 +16,21 @@ const usersBanks_1 = require("./usersBanks");
 const usersPets_1 = require("./usersPets");
 const folders_1 = require("../tasks/folders");
 let User = class User extends sequelize_typescript_1.Model {
+    static validationFailedHook(instance, options, error) {
+        console.log(error.message);
+    }
 };
 exports.User = User;
 __decorate([
+    (0, sequelize_typescript_1.Unique)(true),
     (0, sequelize_typescript_1.AllowNull)(false),
+    sequelize_typescript_1.IsEmail //FUTURE для будущей валидации модели на уровне её создания
+    ,
     sequelize_typescript_1.Column,
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
+    (0, sequelize_typescript_1.Unique)(true),
     (0, sequelize_typescript_1.AllowNull)(false),
     sequelize_typescript_1.Column,
     __metadata("design:type", String)
@@ -57,6 +64,13 @@ __decorate([
     (0, sequelize_typescript_1.HasMany)(() => usersPets_1.UserPet),
     __metadata("design:type", Array)
 ], User.prototype, "userPets", void 0);
+__decorate([
+    sequelize_typescript_1.ValidationFailed //FUTURE для будущей валидации модели на уровне её создания
+    ,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [User, Object, Object]),
+    __metadata("design:returntype", void 0)
+], User, "validationFailedHook", null);
 exports.User = User = __decorate([
     sequelize_typescript_1.Table
 ], User);

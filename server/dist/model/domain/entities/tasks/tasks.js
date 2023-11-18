@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Task.prototype, "goalId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => goals_1.Goal),
+    (0, sequelize_typescript_1.BelongsTo)(() => goals_1.Goal, { onDelete: 'cascade' }),
     __metadata("design:type", goals_1.Goal)
 ], Task.prototype, "goal", void 0);
 __decorate([

@@ -41,7 +41,7 @@ class CRUDController {
     getByID(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const oneItem = yield this.itemService.getItemById(Number(req.params.id)); //добавить проверку на число
+                const oneItem = yield this.itemService.getItemById(Number(req.params.id)); //FUTURE добавить проверку на число
                 res.json(oneItem);
             }
             catch (error) {
@@ -63,7 +63,7 @@ class CRUDController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                req.body.id = req.params.id; // добавить проверку на число
+                req.body.id = req.params.id;
                 const updatedItem = yield this.itemService.update(req.body);
                 res.json(updatedItem);
             }

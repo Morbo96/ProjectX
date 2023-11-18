@@ -9,27 +9,36 @@ const UserService_1 = require("../model/services/implementations/usersServices/U
 const CRUDController_1 = require("../controllers/CRUDController");
 const UserController_1 = require("../controllers/UserController");
 const UserCheck_1 = require("../middleware/UserCheck");
+const SighUpSchema_1 = require("../middleware/validations/SighUpSchema");
+const ValidateRequest_1 = require("../middleware/ValidateRequest");
+const SignInSchema_1 = require("../middleware/validations/SignInSchema");
 const UserRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(UserService_1.userService);
 const userController = new UserController_1.UserController();
 UserRoute.use(express_1.default.json());
-UserRoute.get("/users/folders", (req, res) => {
+UserRoute.get("/users/dailyTasks", UserCheck_1.userCheck, (req, res) => {
+    userController.getDailyTasks(req, res);
+});
+UserRoute.get("/users/folders", UserCheck_1.userCheck, (req, res) => {
     userController.getFolders(req, res);
 });
-UserRoute.get("/users/usersPet", (req, res) => {
+UserRoute.get("/users/usersPet", UserCheck_1.userCheck, (req, res) => {
     userController.getUsersPet(req, res);
 });
-UserRoute.get("/users/signIn", (req, res) => {
+UserRoute.get("/users/signIn", SignInSchema_1.signInSchema, ValidateRequest_1.validateRequest, (req, res) => {
     userController.signIn(req, res);
 });
-UserRoute.post("/users/signUp", (req, res) => {
+UserRoute.post("/users/signUp", SighUpSchema_1.signUpSchema, ValidateRequest_1.validateRequest, (req, res) => {
     userController.signUp(req, res);
 });
 UserRoute.get("/users/:id", (req, res) => {
     crudController.getByID(req, res);
 });
-UserRoute.get("/users", UserCheck_1.userCheck, (req, res) => {
+UserRoute.get("/users", (req, res) => {
     crudController.getAll(req, res);
+});
+UserRoute.patch("/users/logout", UserCheck_1.userCheck, (req, res) => {
+    userController.logout(req, res);
 });
 UserRoute.post("/users", (req, res) => {
     crudController.create(req, res);
