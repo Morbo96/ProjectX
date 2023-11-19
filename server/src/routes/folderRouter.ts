@@ -17,7 +17,7 @@ FolderRoute.patch("/folders/toChild", (req: Request, res: Response) => {
   folderController.createChildAssociation(req, res);
 });
 
-FolderRoute.get("/folders/goals", (req: Request, res: Response) => {
+FolderRoute.get("/folders/:id/goals", (req: Request, res: Response) => {
   folderController.getGoals(req, res);
 });
 

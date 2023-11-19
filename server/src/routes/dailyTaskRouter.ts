@@ -13,7 +13,7 @@ const dailytaskController = new DailytaskController();
 DailyTaskRoute.use(express.json());
 
 DailyTaskRoute.get(
-  "/dailytasks/dailySubtasks",
+  "/dailytasks/:id/dailySubtasks",
   (req: Request, res: Response) => {
     dailytaskController.getDailysubtasks(req, res);
   }

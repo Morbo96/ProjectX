@@ -18,7 +18,6 @@ class SubtaskController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const subtask = yield SubtaskService_1.subtaskService.create(req.body.subtask);
-                req.body.subtaskInfo.subtaskId = subtask.id;
                 yield subtask.$create("subtaskInfo", req.body.subtaskInfo);
                 const foundSubtask = yield subtasks_1.Subtask.findOne({
                     where: { id: subtask.id },
@@ -27,7 +26,8 @@ class SubtaskController {
                 res.json(foundSubtask);
             }
             catch (error) {
-                res.status(500).json(error);
+                const err = error;
+                res.status(500).json(err.message);
             }
         });
     }

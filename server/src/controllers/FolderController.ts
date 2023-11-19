@@ -18,7 +18,7 @@ export class FolderController {
   async getGoals(req: Request, res: Response) {
     //
     try {
-      const foldersGoals = await folderService.getGoals(req.body.id);
+      const foldersGoals = await folderService.getGoals(Number(req.params.id));
       res.json(foldersGoals);
     } catch (error) {
       res.status(500).json(error);

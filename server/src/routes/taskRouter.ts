@@ -10,7 +10,7 @@ const taskController = new TaskController();
 
 TaskRoute.use(express.json());
 
-TaskRoute.get("/tasks/subtasks", (req: Request, res: Response) => {
+TaskRoute.get("/tasks/:id/subtasks", (req: Request, res: Response) => {
   taskController.getSubtasks(req, res);
 });
 TaskRoute.get("/tasks/:id", (req: Request, res: Response) => {

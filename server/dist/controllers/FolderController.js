@@ -28,7 +28,7 @@ class FolderController {
         return __awaiter(this, void 0, void 0, function* () {
             //
             try {
-                const foldersGoals = yield FolderService_1.folderService.getGoals(req.body.id);
+                const foldersGoals = yield FolderService_1.folderService.getGoals(Number(req.params.id));
                 res.json(foldersGoals);
             }
             catch (error) {

@@ -6,7 +6,7 @@ export class DailytaskController {
   async getDailysubtasks(req: Request, res: Response) {
     try {
       const dailytasksDailysubtasks = await dailyTaskService.getDailysubtasks(
-        req.body.id
+        Number(req.params.id)
       );
       res.json(dailytasksDailysubtasks);
     } catch (error) {

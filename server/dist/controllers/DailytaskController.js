@@ -15,7 +15,7 @@ class DailytaskController {
     getDailysubtasks(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const dailytasksDailysubtasks = yield DailyTaskService_1.dailyTaskService.getDailysubtasks(req.body.id);
+                const dailytasksDailysubtasks = yield DailyTaskService_1.dailyTaskService.getDailysubtasks(Number(req.params.id));
                 res.json(dailytasksDailysubtasks);
             }
             catch (error) {

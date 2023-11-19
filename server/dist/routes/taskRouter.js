@@ -12,7 +12,7 @@ const TaskRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(TaskService_1.taskService);
 const taskController = new TaskController_1.TaskController();
 TaskRoute.use(express_1.default.json());
-TaskRoute.get("/tasks/subtasks", (req, res) => {
+TaskRoute.get("/tasks/:id/subtasks", (req, res) => {
     taskController.getSubtasks(req, res);
 });
 TaskRoute.get("/tasks/:id", (req, res) => {

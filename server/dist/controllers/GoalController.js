@@ -15,7 +15,7 @@ class GoalController {
     getTasks(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const goalsTasks = yield GoalService_1.goalService.getTasks(req.body.id);
+                const goalsTasks = yield GoalService_1.goalService.getTasks(Number(req.params.id));
                 res.json(goalsTasks);
             }
             catch (error) {

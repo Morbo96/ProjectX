@@ -14,7 +14,7 @@ const DailyTaskRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(DailyTaskService_1.dailyTaskService);
 const dailytaskController = new DailytaskController_1.DailytaskController();
 DailyTaskRoute.use(express_1.default.json());
-DailyTaskRoute.get("/dailytasks/dailySubtasks", (req, res) => {
+DailyTaskRoute.get("/dailytasks/:id/dailySubtasks", (req, res) => {
     dailytaskController.getDailysubtasks(req, res);
 });
 DailyTaskRoute.get("/dailytasks/:id", (req, res) => {

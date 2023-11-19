@@ -3,13 +3,12 @@ import { goalService } from "../model/services/implementations/tasksServices/Goa
 import { subtaskService } from "../model/services/implementations/tasksServices/SubtaskService";
 import { SubtaskInfo } from "../model/domain/entities/tasks/subtaskInfos";
 import { Subtask } from "../model/domain/entities/tasks/subtasks";
+import { subtaskInfoService } from "../model/services/implementations/tasksServices/SubtaskInfoService";
 
 export class SubtaskController {
   async createSubtask(req: Request, res: Response) {
     try {
       const subtask = await subtaskService.create(req.body.subtask);
-
-      req.body.subtaskInfo.subtaskId = subtask.id;
 
       await subtask.$create("subtaskInfo", req.body.subtaskInfo);
 
@@ -20,7 +19,8 @@ export class SubtaskController {
 
       res.json(foundSubtask);
     } catch (error) {
-      res.status(500).json(error);
+      const err = error as Error;
+      res.status(500).json(err.message);
     }
   }
 }

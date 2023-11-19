@@ -4,7 +4,7 @@ import { goalService } from "../model/services/implementations/tasksServices/Goa
 export class GoalController {
   async getTasks(req: Request, res: Response) {
     try {
-      const goalsTasks = await goalService.getTasks(req.body.id);
+      const goalsTasks = await goalService.getTasks(Number(req.params.id));
       res.json(goalsTasks);
     } catch (error) {
       res.status(500).json(error);

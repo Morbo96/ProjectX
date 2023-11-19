@@ -4,7 +4,9 @@ import { taskService } from "../model/services/implementations/tasksServices/Tas
 export class TaskController {
   async getSubtasks(req: Request, res: Response) {
     try {
-      const tasksSubtasks = await taskService.getSubtasks(req.body.id);
+      const tasksSubtasks = await taskService.getSubtasks(
+        Number(req.params.id)
+      );
       res.json(tasksSubtasks);
     } catch (error) {
       res.status(500).json(error);

@@ -12,7 +12,7 @@ const GoalRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(GoalService_1.goalService);
 const goalController = new GoalController_1.GoalController();
 GoalRoute.use(express_1.default.json());
-GoalRoute.get("/goals/tasks", (req, res) => {
+GoalRoute.get("/goals/:id/tasks", (req, res) => {
     goalController.getTasks(req, res);
 });
 GoalRoute.get("/goals/:id", (req, res) => {

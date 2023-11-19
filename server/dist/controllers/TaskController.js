@@ -15,7 +15,7 @@ class TaskController {
     getSubtasks(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const tasksSubtasks = yield TaskService_1.taskService.getSubtasks(req.body.id);
+                const tasksSubtasks = yield TaskService_1.taskService.getSubtasks(Number(req.params.id));
                 res.json(tasksSubtasks);
             }
             catch (error) {
