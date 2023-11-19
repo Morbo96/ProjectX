@@ -8,30 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userCheck = void 0;
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const userCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.findUserByToken = void 0;
+const UserUtils_1 = require("../utils/UserUtils");
+const findUserByToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let accessToken = req.header("Bearer");
-    if (!accessToken) {
-        res.status(500).json("No token found");
-        return;
-    }
     try {
-        yield jsonwebtoken_1.default.verify(accessToken, process.env.JWT_ACCESS_SECRET);
+        req.body.userId = (yield (0, UserUtils_1.getUserByToken)(accessToken)).id;
         next();
     }
     catch (error) {
         const err = error;
-        if (err.message == "jwt expired") {
-            res.status(400).json("Session expired");
-        }
-        else {
-            res.status(400).json(err.message);
-        }
+        res.status(500).json(err.message);
     }
 });
-exports.userCheck = userCheck;
+exports.findUserByToken = findUserByToken;

@@ -7,6 +7,8 @@ const express_1 = __importDefault(require("express"));
 const express_2 = require("express");
 const UserPetService_1 = require("../model/services/implementations/usersServices/UserPetService");
 const CRUDController_1 = require("../controllers/CRUDController");
+const FindUserByToken_1 = require("../middleware/FindUserByToken");
+const UserCheck_1 = require("../middleware/UserCheck");
 const UserPetRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(UserPetService_1.userPetService);
 UserPetRoute.use(express_1.default.json());
@@ -16,7 +18,7 @@ UserPetRoute.get("/userPets/:id", (req, res) => {
 UserPetRoute.get("/userPets", (req, res) => {
     crudController.getAll(req, res);
 });
-UserPetRoute.post("/userPets", (req, res) => {
+UserPetRoute.post("/userPets", UserCheck_1.userCheck, FindUserByToken_1.findUserByToken, (req, res) => {
     crudController.create(req, res);
 });
 UserPetRoute.patch("/userPets/:id", (req, res) => {
