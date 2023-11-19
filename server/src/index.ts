@@ -8,9 +8,11 @@ import GoalRoute from "./routes/goalRouter";
 import TaskRoute from "./routes/taskRouter";
 import SubtaskRoute from "./routes/subtaskRouter";
 import DailySubtaskRoute from "./routes/dailySubtaskRouter";
+import AuthRouter from "./routes/authRouter";
 
 const app = express();
 
+app.use("/api", AuthRouter);
 app.use("/api", UserRoute);
 app.use("/api", DailyTaskRoute);
 app.use("/api", UserPetRoute);

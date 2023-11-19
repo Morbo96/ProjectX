@@ -4,10 +4,6 @@ import { userService } from "../model/services/implementations/usersServices/Use
 import { CRUDController } from "../controllers/CRUDController";
 import { UserController } from "../controllers/UserController";
 import { userCheck } from "../middleware/UserCheck";
-import { userBankService } from "../model/services/implementations/usersServices/UserBankService";
-import { signUpSchema } from "../middleware/validations/SighUpSchema";
-import { validateRequest } from "../middleware/ValidateRequest";
-import { signInSchema } from "../middleware/validations/SignInSchema";
 
 const UserRoute = Router();
 const crudController = new CRUDController(userService);
@@ -27,23 +23,9 @@ UserRoute.get("/users/usersPet", userCheck, (req: Request, res: Response) => {
   userController.getUsersPet(req, res);
 });
 
-UserRoute.get(
-  "/users/signIn",
-  signInSchema,
-  validateRequest,
-  (req: Request, res: Response) => {
-    userController.signIn(req, res);
-  }
-);
-
-UserRoute.post(
-  "/users/signUp",
-  signUpSchema,
-  validateRequest,
-  (req: Request, res: Response) => {
-    userController.signUp(req, res);
-  }
-);
+UserRoute.get("/users/login/:login", (req: Request, res: Response) => {
+  userController.getByLogin(req, res);
+});
 
 UserRoute.get("/users/:id", (req: Request, res: Response) => {
   crudController.getByID(req, res);
@@ -51,10 +33,6 @@ UserRoute.get("/users/:id", (req: Request, res: Response) => {
 
 UserRoute.get("/users", (req: Request, res: Response) => {
   crudController.getAll(req, res);
-});
-
-UserRoute.patch("/users/logout", userCheck, (req: Request, res: Response) => {
-  userController.logout(req, res);
 });
 
 UserRoute.post("/users", (req: Request, res: Response) => {
@@ -67,10 +45,6 @@ UserRoute.patch("/users/:id", (req: Request, res: Response) => {
 
 UserRoute.delete("/users", (req: Request, res: Response) => {
   crudController.delete(req, res);
-});
-
-UserRoute.get("/users/login/:login", (req: Request, res: Response) => {
-  userController.getByLogin(req, res);
 });
 
 export default UserRoute;
