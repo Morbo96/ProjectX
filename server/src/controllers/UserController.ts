@@ -4,7 +4,7 @@ import { userService } from "../model/services/implementations/usersServices/Use
 export class UserController {
   async getDailyTasks(req: Request, res: Response) {
     try {
-      const usersDailyTasks = await userService.getDailyTasks(req.body.id);
+      const usersDailyTasks = await userService.getDailyTasks(req.body.userId);
       res.json(usersDailyTasks);
     } catch (error) {
       res.status(500).json(error);
@@ -13,7 +13,7 @@ export class UserController {
 
   async getFolders(req: Request, res: Response) {
     try {
-      const usersFolders = await userService.getFolders(req.body.id);
+      const usersFolders = await userService.getFolders(req.body.userId);
       res.json(usersFolders);
     } catch (error) {
       res.status(500).json(error);
@@ -22,7 +22,7 @@ export class UserController {
 
   async getUsersPet(req: Request, res: Response) {
     try {
-      const usersPets = await userService.getUsersPets(req.body.id);
+      const usersPets = await userService.getUsersPets(req.body.userId);
       res.json(usersPets);
     } catch (error) {
       res.status(500).json(error);

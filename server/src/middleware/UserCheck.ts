@@ -15,8 +15,6 @@ export const userCheck = async (
 
   try {
     await jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET);
-
-    //req.body.id = (await getUserByToken(accessToken)).id;
     next();
   } catch (error) {
     const err = error as JsonWebTokenError;

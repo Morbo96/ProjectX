@@ -4,6 +4,7 @@ import { userService } from "../model/services/implementations/usersServices/Use
 import { CRUDController } from "../controllers/CRUDController";
 import { UserController } from "../controllers/UserController";
 import { userCheck } from "../middleware/UserCheck";
+import { findUserByToken } from "../middleware/FindUserByToken";
 
 const UserRoute = Router();
 const crudController = new CRUDController(userService);
@@ -11,17 +12,32 @@ const userController = new UserController();
 
 UserRoute.use(express.json());
 
-UserRoute.get("/users/dailyTasks", userCheck, (req: Request, res: Response) => {
-  userController.getDailyTasks(req, res);
-});
+UserRoute.get(
+  "/users/dailyTasks",
+  userCheck,
+  findUserByToken,
+  (req: Request, res: Response) => {
+    userController.getDailyTasks(req, res);
+  }
+);
 
-UserRoute.get("/users/folders", userCheck, (req: Request, res: Response) => {
-  userController.getFolders(req, res);
-});
+UserRoute.get(
+  "/users/folders",
+  userCheck,
+  findUserByToken,
+  (req: Request, res: Response) => {
+    userController.getFolders(req, res);
+  }
+);
 
-UserRoute.get("/users/usersPet", userCheck, (req: Request, res: Response) => {
-  userController.getUsersPet(req, res);
-});
+UserRoute.get(
+  "/users/usersPet",
+  userCheck,
+  findUserByToken,
+  (req: Request, res: Response) => {
+    userController.getUsersPet(req, res);
+  }
+);
 
 UserRoute.get("/users/login/:login", (req: Request, res: Response) => {
   userController.getByLogin(req, res);

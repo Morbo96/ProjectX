@@ -2,6 +2,8 @@ import express, { Request, Response } from "express";
 import { Router } from "express";
 import { userPetService } from "../model/services/implementations/usersServices/UserPetService";
 import { CRUDController } from "../controllers/CRUDController";
+import { findUserByToken } from "../middleware/FindUserByToken";
+import { userCheck } from "../middleware/UserCheck";
 
 const UserPetRoute = Router();
 const crudController = new CRUDController(userPetService);
@@ -16,9 +18,14 @@ UserPetRoute.get("/userPets", (req: Request, res: Response) => {
   crudController.getAll(req, res);
 });
 
-UserPetRoute.post("/userPets", (req: Request, res: Response) => {
-  crudController.create(req, res);
-});
+UserPetRoute.post(
+  "/userPets",
+  userCheck,
+  findUserByToken,
+  (req: Request, res: Response) => {
+    crudController.create(req, res);
+  }
+);
 
 UserPetRoute.patch("/userPets/:id", (req: Request, res: Response) => {
   crudController.update(req, res);
