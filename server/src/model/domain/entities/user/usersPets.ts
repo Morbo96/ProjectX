@@ -1,25 +1,27 @@
-import { Model, Column,Table,BelongsTo, ForeignKey } from "sequelize-typescript";
+import {
+  Model,
+  Column,
+  Table,
+  BelongsTo,
+  ForeignKey,
+} from "sequelize-typescript";
 import { User } from "./users";
 
 @Table
-
 export class UserPet extends Model<UserPet> {
+  @Column
+  name!: string;
 
   @Column
-  name!:string;
+  hunger!: number;
 
   @Column
-  hunger!:number;
+  energy!: number;
 
+  @ForeignKey(() => User)
   @Column
-  energy!:number;
+  userId!: number;
 
-  @ForeignKey(()=>User)
-  @Column
-  userId!:number;
-
-  @BelongsTo(()=>User,{onDelete: 'cascade'})
-  user!:User;
-
+  @BelongsTo(() => User, { onDelete: "cascade" })
+  user!: User;
 }
-

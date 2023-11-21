@@ -12,6 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userService = void 0;
 const dailyTasks_1 = require("../../../domain/entities/dailyTasks/dailyTasks");
 const folders_1 = require("../../../domain/entities/tasks/folders");
+const goals_1 = require("../../../domain/entities/tasks/goals");
+const subtasks_1 = require("../../../domain/entities/tasks/subtasks");
+const tasks_1 = require("../../../domain/entities/tasks/tasks");
 const users_1 = require("../../../domain/entities/user/users");
 const usersBanks_1 = require("../../../domain/entities/user/usersBanks");
 const usersPets_1 = require("../../../domain/entities/user/usersPets");
@@ -53,7 +56,22 @@ class UserService {
     getFolders(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const result = yield folders_1.Folder.findAll({ where: { userId: userId } });
+                const result = yield folders_1.Folder.findAll({
+                    where: { userId: userId },
+                    include: [
+                        {
+                            model: goals_1.Goal,
+                            required: false,
+                            include: [
+                                {
+                                    model: tasks_1.Task,
+                                    required: false,
+                                    include: [{ model: subtasks_1.Subtask, required: false }],
+                                },
+                            ],
+                        },
+                    ],
+                });
                 return result;
             }
             catch (error) {

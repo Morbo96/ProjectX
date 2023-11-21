@@ -1,17 +1,13 @@
+export interface CRUDServiceInterface<T> {
+  itemExists: (id: number) => Promise<boolean>;
 
-export interface CRUDServiceInterface<T>{
+  getItemById: (id: number) => Promise<T | null>;
 
-    itemExists:(id:number) => Promise<boolean>
+  update: (item: T) => Promise<T | null>;
 
-    getItemById:(id:number) => Promise<T| null>
+  create: (item: T) => Promise<T | null>;
 
-    update:(item:T)=>Promise<T | null>
+  getAll: () => Promise<T[] | null>;
 
-    create:(item:T)=>Promise<T | null>
-
-    getAll:()=>Promise<T[] | null>
-
-    deleteItem:(id:number) => Promise<boolean>
-    
-
+  deleteItem: (id: number) => Promise<boolean>;
 }
