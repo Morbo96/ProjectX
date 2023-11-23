@@ -1,15 +1,15 @@
-import React from 'react';
-import {Text, View, TouchableOpacity, Image, TextInput} from 'react-native';
-import ScreenView from '../../../components/ScreenView';
-import {flex, headers, margin, padding} from '../../../styles/components';
+import React from 'react'
+import { Text, View, TouchableOpacity, Image, TextInput } from 'react-native'
+import ScreenView from '../../../components/ScreenView'
+import { flex, headers, margin, padding } from '../../../styles/components'
 import {
   goalScreen,
   subtaskEditScreen,
   taskScreen,
-} from '../../../styles/screens/components/taskScreenStyles';
-import {TaskNavProps} from '../../../navigation/TaskStack';
+} from '../../../styles/screens/components/taskScreenStyles'
+import { TaskNavProps } from '../../../navigation/TaskStack'
 
-function SubtaskEditor({navigation}: TaskNavProps<'subtaskEditor'>) {
+function SubtaskEditor({ navigation }: TaskNavProps<'subtaskEditor'>) {
   return (
     <ScreenView style={taskScreen.mainView}>
       <View>
@@ -18,16 +18,16 @@ function SubtaskEditor({navigation}: TaskNavProps<'subtaskEditor'>) {
           onPress={() => navigation.goBack()}>
           <Image source={require('../../../assets/icons/back-button.png')} />
           <TextInput
-            style={[headers.header_3__bolder, {width: '75%'}]}
+            style={[headers.header_3__bolder, { width: '75%' }]}
             placeholder={'Название подзадачи'}
             multiline={true}
           />
           <Image
-            style={[{maxWidth: 8, maxHeight: 32}, margin.ml_10]}
+            style={[{ maxWidth: 8, maxHeight: 32 }, margin.ml_10]}
             source={require('../../../assets/icons/expand-more.png')}
           />
         </TouchableOpacity>
-        <View style={[{paddingLeft: 55}]}>
+        <View style={[{ paddingLeft: 55 }]}>
           <View style={[flex.d_flex, flex.flex_column]}>
             <Text style={[subtaskEditScreen.fromTaskText]}>В задаче:</Text>
             <Text style={[subtaskEditScreen.fromTaskText]}>
@@ -44,12 +44,12 @@ function SubtaskEditor({navigation}: TaskNavProps<'subtaskEditor'>) {
       <TextInput
         multiline={true}
         style={[
-          {width: '90%'},
+          { width: '90%' },
           padding.p_5,
           subtaskEditScreen.taskDescriptionText,
         ]}
       />
     </ScreenView>
-  );
+  )
 }
-export default SubtaskEditor;
+export default SubtaskEditor

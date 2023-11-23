@@ -13,19 +13,32 @@ import { TaskNavProps } from '../../navigation/TaskStack'
 import { IFolder } from '../../models/IFolders'
 import { API } from '../../store/reducers/ApiSlice'
 
-const TaskOpenButton = () => {
-  const navigation = useNavigation<TaskNavProps<'taskExplorer'>['navigation']>()
+type Props = {
+  title: string
+  image: ImageSourcePropType
+  folder: IFolder
+}
+
+const FolderOpenButton = ({ title, image, folder }: Props) => {
+  const navigation = useNavigation<TaskNavProps<'goalExplorer'>['navigation']>()
+
+  const [deleteFolder, { data, error, isLoading, isUninitialized }] =
+    API.useDeleteFolderMutation()
+
+  const deleteFolderHandler = () => {
+    deleteFolder(folder)
+  }
 
   return (
     <TouchableOpacity
       style={{ width: '100%', marginBottom: 4 }}
-      onPress={() => navigation.navigate('taskExplorer')}>
+      onPress={() => navigation.navigate('goalExplorer')}>
       <View style={[taskStartScreen.taskFolderButton]}>
         <Image
           style={[{ width: 40, height: 40 }, margin.ml_3, margin.mr_5]}
-          source={require('../../assets/icons/favorite-folder.png')}
+          source={image}
         />
-        <Text style={taskStartScreen.taskFolderButtonText}>Pppppp</Text>
+        <Text style={taskStartScreen.taskFolderButtonText}>{title}</Text>
         <TouchableOpacity
           style={{
             flexDirection: 'row',
@@ -33,7 +46,8 @@ const TaskOpenButton = () => {
             direction: 'rtl',
             alignItems: 'center',
             flexWrap: 'wrap-reverse',
-          }}>
+          }}
+          onPress={deleteFolderHandler}>
           <Image
             style={[
               {
@@ -48,4 +62,4 @@ const TaskOpenButton = () => {
     </TouchableOpacity>
   )
 }
-export default TaskOpenButton
+export default FolderOpenButton

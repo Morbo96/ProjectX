@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 //import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import {buttons, text, input, margin, headers} from '../../styles/components';
-import {authSections, authExtensions} from '../../styles/screens/authStyles';
-import {View, TextInput, TouchableOpacity, Text} from 'react-native';
-import ScreenView from '../../components/ScreenView';
-import {RootNavProps} from '../../navigation/AuthStack';
+import { buttons, text, input, margin, headers } from '../../styles/components'
+import { authSections, authExtensions } from '../../styles/screens/authStyles'
+import { View, TextInput, TouchableOpacity, Text } from 'react-native'
+import ScreenView from '../../components/ScreenView'
+import { RootNavProps } from '../../navigation/AuthStack'
 
-function AuthCode({navigation}: RootNavProps<'AuthCode'>) {
+function AuthCode({ navigation }: RootNavProps<'AuthCode'>) {
   return (
     <ScreenView style={authSections.mainView}>
       <View
@@ -26,13 +26,13 @@ function AuthCode({navigation}: RootNavProps<'AuthCode'>) {
           <Text
             style={text.buttonText}
             onPress={() => {
-              navigation.navigate('PasswordConfirm');
+              navigation.navigate('TabNavigator')
             }}>
             Подтвердить
           </Text>
         </TouchableOpacity>
       </View>
     </ScreenView>
-  );
+  )
 }
-export default AuthCode;
+export default AuthCode
