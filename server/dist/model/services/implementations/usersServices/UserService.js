@@ -20,6 +20,17 @@ const usersBanks_1 = require("../../../domain/entities/user/usersBanks");
 const usersPets_1 = require("../../../domain/entities/user/usersPets");
 const UserBankService_1 = require("./UserBankService");
 class UserService {
+    getByEmail(email) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield users_1.User.findOne({ where: { email: email } });
+                return result;
+            }
+            catch (error) {
+                return null;
+            }
+        });
+    }
     getByLogin(login) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

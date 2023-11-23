@@ -11,6 +11,15 @@ import { UserServiceInterface } from "../../interfaces/UserServiceInterface";
 import { userBankService } from "./UserBankService";
 
 class UserService implements CRUDServiceInterface<User>, UserServiceInterface {
+  async getByEmail(email: string) {
+    try {
+      const result = await User.findOne({ where: { email: email } });
+
+      return result;
+    } catch (error) {
+      return null;
+    }
+  }
   async getByLogin(login: string) {
     try {
       const result = await User.findOne({ where: { login: login } });

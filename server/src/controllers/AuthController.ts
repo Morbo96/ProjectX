@@ -20,7 +20,7 @@ export class AuthController {
 
   async signIn(req: Request, res: Response) {
     try {
-      const user = await userService.getByLogin(req.body.login);
+      const user = await userService.getByEmail(req.body.login);
       if (user == null) {
         res.status(500).json("Login or password incorrect");
         return;

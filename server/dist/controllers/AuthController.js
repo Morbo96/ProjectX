@@ -36,7 +36,7 @@ class AuthController {
     signIn(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const user = yield UserService_1.userService.getByLogin(req.body.login);
+                const user = yield UserService_1.userService.getByEmail(req.body.login);
                 if (user == null) {
                     res.status(500).json("Login or password incorrect");
                     return;
