@@ -22,6 +22,15 @@ GoalRoute.get(
     goalController.getTasks(req, res);
   }
 );
+GoalRoute.post(
+  "/goals/:id/tasks",
+  accessTokenVerify,
+  findUserByToken,
+  goalCheck,
+  (req: Request, res: Response) => {
+    goalController.createTask(req, res);
+  }
+);
 GoalRoute.get(
   "/goals/:id",
   accessTokenVerify,

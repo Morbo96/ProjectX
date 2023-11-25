@@ -3,20 +3,6 @@ import { folderService } from "../model/services/implementations/tasksServices/F
 import { goalService } from "../model/services/implementations/tasksServices/GoalService";
 
 export class FolderController {
-  //FUTURE for child-parent association between Folders
-  // async createChildAssociation(req: Request, res: Response) {
-
-  //   try {
-  //     const parentFolder = await folderService.createChildAssociation(
-  //       req.body.folderId,
-  //       req.body.childId
-  //     );
-  //     res.json(parentFolder);
-  //   } catch (error) {
-  //     res.status(500).json(error);
-  //   }
-  // }
-
   async getGoals(req: Request, res: Response) {
     try {
       const foldersGoals = await folderService.getGoals(Number(req.params.id));

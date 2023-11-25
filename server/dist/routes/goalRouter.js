@@ -18,6 +18,9 @@ GoalRoute.use(express_1.default.json());
 GoalRoute.get("/goals/:id/tasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, GoalCheck_1.goalCheck, (req, res) => {
     goalController.getTasks(req, res);
 });
+GoalRoute.post("/goals/:id/tasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, GoalCheck_1.goalCheck, (req, res) => {
+    goalController.createTask(req, res);
+});
 GoalRoute.get("/goals/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, GoalCheck_1.goalCheck, (req, res) => {
     crudController.getByID(req, res);
 });

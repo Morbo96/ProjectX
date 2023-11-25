@@ -11,6 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskController = void 0;
 const TaskService_1 = require("../model/services/implementations/tasksServices/TaskService");
+const subtaskInfos_1 = require("../model/domain/entities/tasks/subtaskInfos");
+const subtasks_1 = require("../model/domain/entities/tasks/subtasks");
+const SubtaskService_1 = require("../model/services/implementations/tasksServices/SubtaskService");
 class TaskController {
     getSubtasks(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -20,6 +23,28 @@ class TaskController {
             }
             catch (error) {
                 res.status(500).json(error);
+            }
+        });
+    }
+    createSubtask(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (!req.body.subtask) {
+                    return res.status(500).json("No subtask provided");
+                }
+                const subtask = yield SubtaskService_1.subtaskService.create(req.body.subtask);
+                subtask.taskId = Number(req.params.id);
+                yield SubtaskService_1.subtaskService.update(subtask.toJSON());
+                yield subtask.$create("subtaskInfo", req.body.subtaskInfo);
+                const foundSubtask = yield subtasks_1.Subtask.findOne({
+                    where: { id: subtask.id },
+                    include: [{ model: subtaskInfos_1.SubtaskInfo }],
+                });
+                res.json(foundSubtask);
+            }
+            catch (error) {
+                const err = error;
+                res.status(500).json(err.message);
             }
         });
     }

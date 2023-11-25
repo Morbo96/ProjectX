@@ -22,6 +22,17 @@ TaskRoute.get(
     taskController.getSubtasks(req, res);
   }
 );
+
+TaskRoute.post(
+  "/tasks/:id/subtasks",
+  accessTokenVerify,
+  findUserByToken,
+  taskCheck,
+  (req: Request, res: Response) => {
+    taskController.createSubtask(req, res);
+  }
+);
+
 TaskRoute.get(
   "/tasks/:id",
   accessTokenVerify,
@@ -31,9 +42,7 @@ TaskRoute.get(
     crudController.getByID(req, res);
   }
 );
-TaskRoute.post("/tasks", (req: Request, res: Response) => {
-  crudController.create(req, res);
-});
+
 TaskRoute.get("/tasks", (req: Request, res: Response) => {
   crudController.getAll(req, res);
 });

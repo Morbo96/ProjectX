@@ -18,11 +18,11 @@ TaskRoute.use(express_1.default.json());
 TaskRoute.get("/tasks/:id/subtasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, TaskCheck_1.taskCheck, (req, res) => {
     taskController.getSubtasks(req, res);
 });
+TaskRoute.post("/tasks/:id/subtasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, TaskCheck_1.taskCheck, (req, res) => {
+    taskController.createSubtask(req, res);
+});
 TaskRoute.get("/tasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, TaskCheck_1.taskCheck, (req, res) => {
     crudController.getByID(req, res);
-});
-TaskRoute.post("/tasks", (req, res) => {
-    crudController.create(req, res);
 });
 TaskRoute.get("/tasks", (req, res) => {
     crudController.getAll(req, res);

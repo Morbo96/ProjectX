@@ -13,18 +13,6 @@ exports.FolderController = void 0;
 const FolderService_1 = require("../model/services/implementations/tasksServices/FolderService");
 const GoalService_1 = require("../model/services/implementations/tasksServices/GoalService");
 class FolderController {
-    //FUTURE for child-parent association between Folders
-    // async createChildAssociation(req: Request, res: Response) {
-    //   try {
-    //     const parentFolder = await folderService.createChildAssociation(
-    //       req.body.folderId,
-    //       req.body.childId
-    //     );
-    //     res.json(parentFolder);
-    //   } catch (error) {
-    //     res.status(500).json(error);
-    //   }
-    // }
     getGoals(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

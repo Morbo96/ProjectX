@@ -25,9 +25,7 @@ DailySubtaskRoute.get(
 DailySubtaskRoute.get("/dailySubtasks", (req: Request, res: Response) => {
   crudController.getAll(req, res);
 });
-DailySubtaskRoute.post("/dailySubtasks", (req: Request, res: Response) => {
-  dailySubtaskController.createDailySubtask(req, res);
-});
+
 DailySubtaskRoute.patch(
   "/dailySubtasks/:id",
   accessTokenVerify,

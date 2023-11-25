@@ -10,7 +10,6 @@ import { subtaskCheck } from "../middleware/SubtaskCheck";
 
 const SubtaskRoute = Router();
 const crudController = new CRUDController(subtaskService);
-const crudInfoController = new CRUDController(subtaskInfoService);
 const subtaskController = new SubtaskController();
 
 SubtaskRoute.use(express.json());
@@ -24,12 +23,11 @@ SubtaskRoute.get(
     crudController.getByID(req, res);
   }
 );
+
 SubtaskRoute.get("/subtasks", (req: Request, res: Response) => {
   crudController.getAll(req, res);
 });
-SubtaskRoute.post("/subtasks", (req: Request, res: Response) => {
-  subtaskController.createSubtask(req, res);
-});
+
 SubtaskRoute.patch(
   "/subtasks/:id",
   accessTokenVerify,
@@ -39,6 +37,7 @@ SubtaskRoute.patch(
     crudController.update(req, res);
   }
 );
+
 SubtaskRoute.delete(
   "/subtasks/:id",
   accessTokenVerify,

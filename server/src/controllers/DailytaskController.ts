@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 import { taskService } from "../model/services/implementations/tasksServices/TaskService";
 import { dailyTaskService } from "../model/services/implementations/dailyTasksServices/DailyTaskService";
+import { DailySubtask } from "../model/domain/entities/dailyTasks/dailySubtasks";
+import { dailySubtaskService } from "../model/services/implementations/dailyTasksServices/DailySubtaskService";
+import { DailySubtaskNotification } from "../model/domain/entities/dailyTasks/dailySubtaskNotifications";
+import { dailySubtaskNotificationTimeService } from "../model/services/implementations/dailyTasksServices/DailySubtaskNotificationTimeService";
+import { DailySubtaskNotificationTime } from "../model/domain/entities/dailyTasks/dailySubtaskNotificationTime";
 
 export class DailytaskController {
   async getDailysubtasks(req: Request, res: Response) {
@@ -11,6 +16,50 @@ export class DailytaskController {
       res.json(dailytasksDailysubtasks);
     } catch (error) {
       res.status(500).json(error);
+    }
+  }
+  async createDailySubtask(req: Request, res: Response) {
+    try {
+      if (!req.body.dailySubtask) {
+        return res.status(500).json("No dailySubtask provided");
+      }
+      const newDailySubtask = await dailySubtaskService.create(
+        req.body.dailySubtask
+      );
+      newDailySubtask.dailyTaskId = Number(req.params.id);
+      await dailySubtaskService.update(newDailySubtask.toJSON());
+
+      if (req.body.dailySubtaskNotification != null) {
+        req.body.dailySubtaskNotification.dailySubtaskId = newDailySubtask.id;
+
+        const newDailySubtaskNotification = await newDailySubtask.$create(
+          "dailySubtaskNotification",
+          req.body.dailySubtaskNotification
+        );
+        if (req.body.dailySubtaskNotificationTime != null) {
+          await newDailySubtaskNotification.$create(
+            "dailySubtaskNotificationTime",
+            req.body.dailySubtaskNotificationTime
+          );
+        }
+      }
+
+      const foundDailySubtask = await DailySubtask.findOne({
+        where: { id: newDailySubtask.id },
+        include: [
+          {
+            model: DailySubtaskNotification,
+            include: [{ model: DailySubtaskNotificationTime, required: false }],
+            required: false,
+          },
+        ],
+      });
+
+      res.json(foundDailySubtask);
+    } catch (error) {
+      console.log(error);
+      const newEr = error as Error;
+      res.status(500).json({ error: newEr.message });
     }
   }
 }

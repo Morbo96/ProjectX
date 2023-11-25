@@ -18,6 +18,9 @@ DailyTaskRoute.use(express_1.default.json());
 DailyTaskRoute.get("/dailytasks/:id/dailySubtasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailyTaskCheck_1.dailyTaskCheck, (req, res) => {
     dailytaskController.getDailysubtasks(req, res);
 });
+DailyTaskRoute.post("/dailytasks/:id/dailySubtasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailyTaskCheck_1.dailyTaskCheck, (req, res) => {
+    dailytaskController.createDailySubtask(req, res);
+});
 DailyTaskRoute.get("/dailytasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailyTaskCheck_1.dailyTaskCheck, (req, res) => {
     crudController.getByID(req, res);
 });

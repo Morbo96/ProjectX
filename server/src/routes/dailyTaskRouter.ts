@@ -22,6 +22,15 @@ DailyTaskRoute.get(
     dailytaskController.getDailysubtasks(req, res);
   }
 );
+DailyTaskRoute.post(
+  "/dailytasks/:id/dailySubtasks",
+  accessTokenVerify,
+  findUserByToken,
+  dailyTaskCheck,
+  (req: Request, res: Response) => {
+    dailytaskController.createDailySubtask(req, res);
+  }
+);
 DailyTaskRoute.get(
   "/dailytasks/:id",
   accessTokenVerify,
