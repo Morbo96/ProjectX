@@ -20,7 +20,7 @@ SubtaskRoute.get(
   findUserByToken,
   subtaskCheck,
   (req: Request, res: Response) => {
-    crudController.getByID(req, res);
+    subtaskController.getById(req, res);
   }
 );
 
@@ -34,7 +34,7 @@ SubtaskRoute.patch(
   findUserByToken,
   subtaskCheck,
   (req: Request, res: Response) => {
-    crudController.update(req, res);
+    subtaskController.update(req, res);
   }
 );
 

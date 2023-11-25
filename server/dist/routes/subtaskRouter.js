@@ -16,13 +16,13 @@ const crudController = new CRUDController_1.CRUDController(SubtaskService_1.subt
 const subtaskController = new SubtaskController_1.SubtaskController();
 SubtaskRoute.use(express_1.default.json());
 SubtaskRoute.get("/subtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, SubtaskCheck_1.subtaskCheck, (req, res) => {
-    crudController.getByID(req, res);
+    subtaskController.getById(req, res);
 });
 SubtaskRoute.get("/subtasks", (req, res) => {
     crudController.getAll(req, res);
 });
 SubtaskRoute.patch("/subtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, SubtaskCheck_1.subtaskCheck, (req, res) => {
-    crudController.update(req, res);
+    subtaskController.update(req, res);
 });
 SubtaskRoute.delete("/subtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, SubtaskCheck_1.subtaskCheck, (req, res) => {
     crudController.delete(req, res);

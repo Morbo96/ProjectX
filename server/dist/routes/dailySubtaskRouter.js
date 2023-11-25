@@ -16,13 +16,13 @@ const crudController = new CRUDController_1.CRUDController(DailySubtaskService_1
 const dailySubtaskController = new DailySubtaskController_1.DailySubtaskController();
 DailySubtaskRoute.use(express_1.default.json());
 DailySubtaskRoute.get("/dailySubtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailySubtaskCheck_1.dailySubtaskCheck, (req, res) => {
-    crudController.getByID(req, res);
+    dailySubtaskController.getById(req, res);
 });
 DailySubtaskRoute.get("/dailySubtasks", (req, res) => {
     crudController.getAll(req, res);
 });
 DailySubtaskRoute.patch("/dailySubtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailySubtaskCheck_1.dailySubtaskCheck, (req, res) => {
-    crudController.update(req, res);
+    dailySubtaskController.update(req, res);
 });
 DailySubtaskRoute.delete("/dailySubtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailySubtaskCheck_1.dailySubtaskCheck, (req, res) => {
     crudController.delete(req, res);

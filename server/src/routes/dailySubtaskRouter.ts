@@ -19,7 +19,7 @@ DailySubtaskRoute.get(
   findUserByToken,
   dailySubtaskCheck,
   (req: Request, res: Response) => {
-    crudController.getByID(req, res);
+    dailySubtaskController.getById(req, res);
   }
 );
 DailySubtaskRoute.get("/dailySubtasks", (req: Request, res: Response) => {
@@ -32,7 +32,7 @@ DailySubtaskRoute.patch(
   findUserByToken,
   dailySubtaskCheck,
   (req: Request, res: Response) => {
-    crudController.update(req, res);
+    dailySubtaskController.update(req, res);
   }
 );
 DailySubtaskRoute.delete(
