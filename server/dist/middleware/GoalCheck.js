@@ -9,10 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userCheck = void 0;
-const userCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.goalCheck = void 0;
+const goals_1 = require("../model/domain/entities/tasks/goals");
+const folders_1 = require("../model/domain/entities/tasks/folders");
+const goalCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (req.body.userId != req.params.id) {
+        const goal = yield goals_1.Goal.findOne({
+            where: { id: req.params.id },
+            include: [
+                { model: folders_1.Folder, where: { userId: req.body.userId }, required: true },
+            ],
+        });
+        if (!goal) {
             return res.status(500).json({ message: "You don't have access" });
         }
         next();
@@ -22,4 +30,4 @@ const userCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, function
         res.status(500).json(err.message);
     }
 });
-exports.userCheck = userCheck;
+exports.goalCheck = goalCheck;

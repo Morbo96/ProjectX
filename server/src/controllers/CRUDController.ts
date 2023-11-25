@@ -38,6 +38,7 @@ export class CRUDController<T extends {}> {
 
   async delete(req: Request, res: Response) {
     try {
+      req.body.id = req.params.id;
       const isSuccess = await this.itemService.deleteItem(req.body.id);
       isSuccess ? res.status(201).json(true) : res.status(500).json(false);
     } catch (error) {

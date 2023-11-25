@@ -8,11 +8,14 @@ const express_2 = require("express");
 const CRUDController_1 = require("../controllers/CRUDController");
 const DailySubtaskService_1 = require("../model/services/implementations/dailyTasksServices/DailySubtaskService");
 const DailySubtaskController_1 = require("../controllers/DailySubtaskController");
+const AccessTokenVerify_1 = require("../middleware/AccessTokenVerify");
+const FindUserByToken_1 = require("../middleware/FindUserByToken");
+const DailySubtaskCheck_1 = require("../middleware/DailySubtaskCheck");
 const DailySubtaskRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(DailySubtaskService_1.dailySubtaskService);
 const dailySubtaskController = new DailySubtaskController_1.DailySubtaskController();
 DailySubtaskRoute.use(express_1.default.json());
-DailySubtaskRoute.get("/dailySubtasks/:id", (req, res) => {
+DailySubtaskRoute.get("/dailySubtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailySubtaskCheck_1.dailySubtaskCheck, (req, res) => {
     crudController.getByID(req, res);
 });
 DailySubtaskRoute.get("/dailySubtasks", (req, res) => {
@@ -21,10 +24,10 @@ DailySubtaskRoute.get("/dailySubtasks", (req, res) => {
 DailySubtaskRoute.post("/dailySubtasks", (req, res) => {
     dailySubtaskController.createDailySubtask(req, res);
 });
-DailySubtaskRoute.patch("/dailySubtasks/:id", (req, res) => {
+DailySubtaskRoute.patch("/dailySubtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailySubtaskCheck_1.dailySubtaskCheck, (req, res) => {
     crudController.update(req, res);
 });
-DailySubtaskRoute.delete("/dailySubtasks", (req, res) => {
+DailySubtaskRoute.delete("/dailySubtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailySubtaskCheck_1.dailySubtaskCheck, (req, res) => {
     crudController.delete(req, res);
 });
 exports.default = DailySubtaskRoute;

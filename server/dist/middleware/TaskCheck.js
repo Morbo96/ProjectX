@@ -9,10 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userCheck = void 0;
-const userCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.taskCheck = void 0;
+const tasks_1 = require("../model/domain/entities/tasks/tasks");
+const goals_1 = require("../model/domain/entities/tasks/goals");
+const folders_1 = require("../model/domain/entities/tasks/folders");
+const taskCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (req.body.userId != req.params.id) {
+        const task = yield tasks_1.Task.findOne({
+            where: { id: req.params.id },
+            include: [
+                {
+                    model: goals_1.Goal,
+                    include: [
+                        {
+                            model: folders_1.Folder,
+                            where: { userId: req.body.userId },
+                            required: true,
+                        },
+                    ],
+                    required: true,
+                },
+            ],
+        });
+        if (!task) {
             return res.status(500).json({ message: "You don't have access" });
         }
         next();
@@ -22,4 +41,4 @@ const userCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, function
         res.status(500).json(err.message);
     }
 });
-exports.userCheck = userCheck;
+exports.taskCheck = taskCheck;

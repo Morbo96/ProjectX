@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const express_2 = require("express");
-const UserCheck_1 = require("../middleware/UserCheck");
+const AccessTokenVerify_1 = require("../middleware/AccessTokenVerify");
 const SighUpSchema_1 = require("../middleware/validations/SighUpSchema");
 const ValidateRequest_1 = require("../middleware/ValidateRequest");
 const SignInSchema_1 = require("../middleware/validations/SignInSchema");
@@ -19,7 +19,7 @@ AuthRouter.patch("/auth/signIn", SignInSchema_1.signInSchema, ValidateRequest_1.
 AuthRouter.post("/auth/signUp", SighUpSchema_1.signUpSchema, ValidateRequest_1.validateRequest, (req, res) => {
     authController.signUp(req, res);
 });
-AuthRouter.patch("/auth/logout", UserCheck_1.userCheck, (req, res) => {
+AuthRouter.patch("/auth/logout", AccessTokenVerify_1.accessTokenVerify, (req, res) => {
     authController.logout(req, res);
 });
 AuthRouter.get("/auth/refreshAccessToken", (req, res) => {

@@ -1,14 +1,17 @@
 import { Request, Response, NextFunction } from "express";
 import { Folder } from "../model/domain/entities/tasks/folders";
-import { User } from "../model/domain/entities/user/users";
+import { DailyTask } from "../model/domain/entities/dailyTasks/dailyTasks";
 
-export const userCheck = async (
+export const dailyTaskCheck = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    if (req.body.userId != req.params.id) {
+    const dailyTask = await DailyTask.findOne({
+      where: { id: req.params.id, userId: req.body.userId },
+    });
+    if (!dailyTask) {
       return res.status(500).json({ message: "You don't have access" });
     }
     next();

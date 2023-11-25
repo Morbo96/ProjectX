@@ -52,6 +52,7 @@ class CRUDController {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                req.body.id = req.params.id;
                 const isSuccess = yield this.itemService.deleteItem(req.body.id);
                 isSuccess ? res.status(201).json(true) : res.status(500).json(false);
             }

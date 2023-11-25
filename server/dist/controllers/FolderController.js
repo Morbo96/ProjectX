@@ -11,25 +11,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FolderController = void 0;
 const FolderService_1 = require("../model/services/implementations/tasksServices/FolderService");
+const GoalService_1 = require("../model/services/implementations/tasksServices/GoalService");
 class FolderController {
-    createChildAssociation(req, res) {
+    //FUTURE for child-parent association between Folders
+    // async createChildAssociation(req: Request, res: Response) {
+    //   try {
+    //     const parentFolder = await folderService.createChildAssociation(
+    //       req.body.folderId,
+    //       req.body.childId
+    //     );
+    //     res.json(parentFolder);
+    //   } catch (error) {
+    //     res.status(500).json(error);
+    //   }
+    // }
+    getGoals(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            //FUTURE for child-parent association between Folders
             try {
-                const parentFolder = yield FolderService_1.folderService.createChildAssociation(req.body.folderId, req.body.childId);
-                res.json(parentFolder);
+                const foldersGoals = yield FolderService_1.folderService.getGoals(Number(req.params.id));
+                res.json(foldersGoals);
             }
             catch (error) {
                 res.status(500).json(error);
             }
         });
     }
-    getGoals(req, res) {
+    createGoal(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            //
             try {
-                const foldersGoals = yield FolderService_1.folderService.getGoals(Number(req.params.id));
-                res.json(foldersGoals);
+                req.body.folderId = req.params.id;
+                const newGoal = yield GoalService_1.goalService.create(req.body);
+                res.status(200).json(newGoal);
             }
             catch (error) {
                 res.status(500).json(error);

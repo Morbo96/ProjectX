@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { Router } from "express";
-import { userCheck } from "../middleware/UserCheck";
+import { accessTokenVerify } from "../middleware/AccessTokenVerify";
 import { signUpSchema } from "../middleware/validations/SighUpSchema";
 import { validateRequest } from "../middleware/ValidateRequest";
 import { signInSchema } from "../middleware/validations/SignInSchema";
@@ -29,9 +29,13 @@ AuthRouter.post(
   }
 );
 
-AuthRouter.patch("/auth/logout", userCheck, (req: Request, res: Response) => {
-  authController.logout(req, res);
-});
+AuthRouter.patch(
+  "/auth/logout",
+  accessTokenVerify,
+  (req: Request, res: Response) => {
+    authController.logout(req, res);
+  }
+);
 
 AuthRouter.get("/auth/refreshAccessToken", (req: Request, res: Response) => {
   authController.refreshAccessToken(req, res);
