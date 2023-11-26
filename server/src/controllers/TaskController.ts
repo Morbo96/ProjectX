@@ -17,12 +17,8 @@ export class TaskController {
   }
   async createSubtask(req: Request, res: Response) {
     try {
-      if (!req.body.subtask) {
-        return res.status(500).json("No subtask provided");
-      }
-      const subtask = await subtaskService.create(req.body.subtask);
-      subtask.taskId = Number(req.params.id);
-      await subtaskService.update(subtask.toJSON());
+      req.body.taskId = req.params.id;
+      const subtask = await subtaskService.create(req.body);
 
       await subtask.$create("subtaskInfo", req.body.subtaskInfo);
 

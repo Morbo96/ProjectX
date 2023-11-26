@@ -29,12 +29,8 @@ class TaskController {
     createSubtask(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if (!req.body.subtask) {
-                    return res.status(500).json("No subtask provided");
-                }
-                const subtask = yield SubtaskService_1.subtaskService.create(req.body.subtask);
-                subtask.taskId = Number(req.params.id);
-                yield SubtaskService_1.subtaskService.update(subtask.toJSON());
+                req.body.taskId = req.params.id;
+                const subtask = yield SubtaskService_1.subtaskService.create(req.body);
                 yield subtask.$create("subtaskInfo", req.body.subtaskInfo);
                 const foundSubtask = yield subtasks_1.Subtask.findOne({
                     where: { id: subtask.id },
