@@ -1,11 +1,22 @@
 import { Goal } from "../../../domain/entities/tasks/goals";
+import { SubtaskInfo } from "../../../domain/entities/tasks/subtaskInfos";
+import { Subtask } from "../../../domain/entities/tasks/subtasks";
 import { Task } from "../../../domain/entities/tasks/tasks";
 import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
 import { GoalServiceInterface } from "../../interfaces/GoalServiceInterface";
 
 class GoalService implements CRUDServiceInterface<Goal>, GoalServiceInterface {
   async getTasks(goalId: number) {
-    const result = await Task.findAll({ where: { goalId: goalId } });
+    const result = await Task.findAll({
+      where: { goalId: goalId },
+      include: [
+        {
+          model: Subtask,
+          required: false,
+          include: [{ model: SubtaskInfo, required: false }],
+        },
+      ],
+    });
     return result;
   }
 

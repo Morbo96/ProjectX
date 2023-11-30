@@ -11,11 +11,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.goalService = void 0;
 const goals_1 = require("../../../domain/entities/tasks/goals");
+const subtaskInfos_1 = require("../../../domain/entities/tasks/subtaskInfos");
+const subtasks_1 = require("../../../domain/entities/tasks/subtasks");
 const tasks_1 = require("../../../domain/entities/tasks/tasks");
 class GoalService {
     getTasks(goalId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield tasks_1.Task.findAll({ where: { goalId: goalId } });
+            const result = yield tasks_1.Task.findAll({
+                where: { goalId: goalId },
+                include: [
+                    {
+                        model: subtasks_1.Subtask,
+                        required: false,
+                        include: [{ model: subtaskInfos_1.SubtaskInfo, required: false }],
+                    },
+                ],
+            });
             return result;
         });
     }
