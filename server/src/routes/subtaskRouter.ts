@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { Router } from "express";
 import { CRUDController } from "../controllers/CRUDController";
 import { subtaskService } from "../model/services/implementations/tasksServices/SubtaskService";
@@ -19,22 +19,25 @@ SubtaskRoute.get(
   accessTokenVerify,
   findUserByToken,
   subtaskCheck,
-  (req: Request, res: Response) => {
-    subtaskController.getById(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    subtaskController.getById(req, res, next);
   }
 );
 
-SubtaskRoute.get("/subtasks", (req: Request, res: Response) => {
-  crudController.getAll(req, res);
-});
+SubtaskRoute.get(
+  "/subtasks",
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.getAll(req, res, next);
+  }
+);
 
 SubtaskRoute.patch(
   "/subtasks/:id",
   accessTokenVerify,
   findUserByToken,
   subtaskCheck,
-  (req: Request, res: Response) => {
-    subtaskController.update(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    subtaskController.update(req, res, next);
   }
 );
 
@@ -43,8 +46,8 @@ SubtaskRoute.delete(
   accessTokenVerify,
   findUserByToken,
   subtaskCheck,
-  (req: Request, res: Response) => {
-    crudController.delete(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.delete(req, res, next);
   }
 );
 

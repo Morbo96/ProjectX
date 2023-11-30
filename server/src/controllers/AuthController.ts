@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { userService } from "../model/services/implementations/usersServices/UserService";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -6,7 +6,7 @@ import { getUserByToken } from "../utils/UserUtils";
 import { User } from "../model/domain/entities/user/users";
 
 export class AuthController {
-  async logout(req: Request, res: Response) {
+  async logout(req: Request, res: Response, next: NextFunction) {
     try {
       const accessToken = req.header("Bearer");
       const user = await getUserByToken(accessToken);
@@ -14,15 +14,15 @@ export class AuthController {
       await userService.update(user.toJSON());
       res.status(200).json("Successfull logout");
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   }
 
-  async signIn(req: Request, res: Response) {
+  async signIn(req: Request, res: Response, next: NextFunction) {
     try {
       const user = await userService.getByEmail(req.body.login);
       if (user == null) {
-        res.status(500).json("Login or password incorrect");
+        res.status(400).json("Login or password incorrect");
         return;
       } else {
         const userPassword = user.passwordEncrypted;
@@ -38,17 +38,17 @@ export class AuthController {
             refreshToken: user.refreshToken,
           });
         } else {
-          res.status(500).json("Login or password incorrect");
+          res.status(400).json("Login or password incorrect");
           return;
         }
       }
     } catch (error) {
       console.log(error);
-      res.status(500).json(error);
+      next(error);
     }
   }
 
-  async signUp(req: Request, res: Response) {
+  async signUp(req: Request, res: Response, next: NextFunction) {
     try {
       req.body.passwordEncrypted = bcrypt.hashSync(
         req.body.passwordEncrypted,
@@ -63,7 +63,7 @@ export class AuthController {
         refreshToken: user.refreshToken,
       });
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   }
   async signAccessToken(user: User) {
@@ -81,7 +81,7 @@ export class AuthController {
     const changedUser = await userService.update(user.toJSON());
     return accessToken;
   }
-  async refreshAccessToken(req: Request, res: Response) {
+  async refreshAccessToken(req: Request, res: Response, next: NextFunction) {
     try {
       const refreshToken = req.body.refreshToken;
       if (refreshToken) {
@@ -99,8 +99,7 @@ export class AuthController {
         res.status(500).json("No refresh token present");
       }
     } catch (error) {
-      const err = error as Error;
-      res.status(500).json(err.message);
+      next(error);
     }
   }
   async generateAccessToken(user: User) {

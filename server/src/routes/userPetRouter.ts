@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { Router } from "express";
 import { userPetService } from "../model/services/implementations/usersServices/UserPetService";
 import { CRUDController } from "../controllers/CRUDController";
@@ -16,21 +16,24 @@ UserPetRoute.get(
   accessTokenVerify,
   findUserByToken,
   userPetCheck,
-  (req: Request, res: Response) => {
-    crudController.getByID(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.getByID(req, res, next);
   }
 );
 
-UserPetRoute.get("/userPets", (req: Request, res: Response) => {
-  crudController.getAll(req, res);
-});
+UserPetRoute.get(
+  "/userPets",
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.getAll(req, res, next);
+  }
+);
 
 UserPetRoute.post(
   "/userPets",
   accessTokenVerify,
   findUserByToken,
-  (req: Request, res: Response) => {
-    crudController.create(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.create(req, res, next);
   }
 );
 
@@ -39,8 +42,8 @@ UserPetRoute.patch(
   accessTokenVerify,
   findUserByToken,
   userPetCheck,
-  (req: Request, res: Response) => {
-    crudController.update(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.update(req, res, next);
   }
 );
 
@@ -49,8 +52,8 @@ UserPetRoute.delete(
   accessTokenVerify,
   findUserByToken,
   userPetCheck,
-  (req: Request, res: Response) => {
-    crudController.delete(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.delete(req, res, next);
   }
 );
 

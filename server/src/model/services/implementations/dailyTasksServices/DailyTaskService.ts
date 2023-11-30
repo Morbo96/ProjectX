@@ -3,102 +3,53 @@ import { DailyTask } from "../../../domain/entities/dailyTasks/dailyTasks";
 import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
 import { DailyTaskServiceInterface } from "../../interfaces/DailytaskServiceInterface";
 
-class DailyTaskService implements CRUDServiceInterface<DailyTask>,DailyTaskServiceInterface{
-    
-  async getDailysubtasks(dailyTaskId:number){
-    try {
-      const result = await DailySubtask.findAll({where:{dailyTaskId:dailyTaskId}}) 
+class DailyTaskService
+  implements CRUDServiceInterface<DailyTask>, DailyTaskServiceInterface
+{
+  async getDailysubtasks(dailyTaskId: number) {
+    const result = await DailySubtask.findAll({
+      where: { dailyTaskId: dailyTaskId },
+    });
 
-      return result
-
-    } catch (error) {
-
-      return null
-      
-    }
-  }
-  
-  async itemExists(id:number) {
-    try {
-      const result = await DailyTask.findOne({where:{id}});
-        
-      return result ? true:false;
-
-    } catch (error) {
-
-      return false;
-
-      }
-    }
-
-  async update(item:DailyTask){
-    try {
-      await DailyTask.update(item, {where:{id:item.id}})
-
-      const result = await DailyTask.findByPk(item.id)
-
-      return result;
-
-    } catch (error) {
-
-      console.log(error)
-
-      return null;
-
-      }
-    }
-
-  async getAll(){
-    try {
-      const result = await DailyTask.findAll();
-
-      return result;
-
-    } catch(error){
-
-      return null;
-
-      }
-    }
-
-  async getItemById (id:Number) {
-    try{
-      const result = await DailyTask.findOne({where:{id}})
-
-      return result;
-
-    } catch (error){
-
-      return null;
-
-    }
+    return result;
   }
 
-  async create (dailyTask: DailyTask ){
-    try {
-      const result = await DailyTask.create(dailyTask);
+  async itemExists(id: number) {
+    const result = await DailyTask.findOne({ where: { id } });
 
-      return result;
-
-    } catch(error){
-      
-      return null;
-
-    }
+    return result ? true : false;
   }
-  
-  async deleteItem(id:Number){
-    try{
-      await DailyTask.destroy({where: {id}})
 
-      return true;
+  async update(item: DailyTask) {
+    await DailyTask.update(item, { where: { id: item.id } });
 
-    } catch(error){
+    const result = await DailyTask.findByPk(item.id);
 
-      return false;
+    return result;
+  }
 
-    }
+  async getAll() {
+    const result = await DailyTask.findAll();
 
+    return result;
+  }
+
+  async getItemById(id: Number) {
+    const result = await DailyTask.findOne({ where: { id } });
+
+    return result;
+  }
+
+  async create(dailyTask: DailyTask) {
+    const result = await DailyTask.create(dailyTask);
+
+    return result;
+  }
+
+  async deleteItem(id: Number) {
+    await DailyTask.destroy({ where: { id } });
+
+    return true;
   }
 }
-export const dailyTaskService = new DailyTaskService()
+export const dailyTaskService = new DailyTaskService();

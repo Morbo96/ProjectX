@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { subtaskService } from "../model/services/implementations/tasksServices/SubtaskService";
 import { SubtaskInfo } from "../model/domain/entities/tasks/subtaskInfos";
 import { Subtask } from "../model/domain/entities/tasks/subtasks";
 
 export class SubtaskController {
-  async getById(req: Request, res: Response) {
+  async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const subtask = await Subtask.findOne({
         where: { id: req.params.id },
@@ -12,10 +12,10 @@ export class SubtaskController {
       });
       res.json(subtask);
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   }
-  async update(req: Request, res: Response) {
+  async update(req: Request, res: Response, next: NextFunction) {
     try {
       req.body.id = req.params.id;
       var updatedSubtask = await subtaskService.update(req.body);
@@ -31,7 +31,7 @@ export class SubtaskController {
       });
       res.json(updatedSubtask);
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   }
 }

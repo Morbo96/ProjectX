@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { Router } from "express";
 import { goalService } from "../model/services/implementations/tasksServices/GoalService";
 import { CRUDController } from "../controllers/CRUDController";
@@ -18,8 +18,8 @@ GoalRoute.get(
   accessTokenVerify,
   findUserByToken,
   goalCheck,
-  (req: Request, res: Response) => {
-    goalController.getTasks(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    goalController.getTasks(req, res, next);
   }
 );
 GoalRoute.post(
@@ -27,8 +27,8 @@ GoalRoute.post(
   accessTokenVerify,
   findUserByToken,
   goalCheck,
-  (req: Request, res: Response) => {
-    goalController.createTask(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    goalController.createTask(req, res, next);
   }
 );
 GoalRoute.get(
@@ -36,20 +36,20 @@ GoalRoute.get(
   accessTokenVerify,
   findUserByToken,
   goalCheck,
-  (req: Request, res: Response) => {
-    crudController.getByID(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.getByID(req, res, next);
   }
 );
-GoalRoute.get("/goals", (req: Request, res: Response) => {
-  crudController.getAll(req, res);
+GoalRoute.get("/goals", (req: Request, res: Response, next: NextFunction) => {
+  crudController.getAll(req, res, next);
 });
 GoalRoute.patch(
   "/goals/:id",
   accessTokenVerify,
   findUserByToken,
   goalCheck,
-  (req: Request, res: Response) => {
-    crudController.update(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.update(req, res, next);
   }
 );
 GoalRoute.delete(
@@ -57,8 +57,8 @@ GoalRoute.delete(
   accessTokenVerify,
   findUserByToken,
   goalCheck,
-  (req: Request, res: Response) => {
-    crudController.delete(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.delete(req, res, next);
   }
 );
 

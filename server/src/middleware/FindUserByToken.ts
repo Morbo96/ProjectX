@@ -12,7 +12,6 @@ export const findUserByToken = async (
     req.body.userId = (await getUserByToken(accessToken)).id;
     next();
   } catch (error) {
-    const err = error as Error;
-    res.status(500).json(err.message);
+    next(error);
   }
 };

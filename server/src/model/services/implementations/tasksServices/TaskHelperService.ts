@@ -1,89 +1,43 @@
 import { TaskHelper } from "../../../domain/entities/tasks/taskHelper";
 import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
 
+class TaskHelperService implements CRUDServiceInterface<TaskHelper> {
+  async itemExists(id: number) {
+    const result = await TaskHelper.findOne({ where: { id } });
 
-class TaskHelperService implements CRUDServiceInterface<TaskHelper>{
-    
-  async itemExists (id:number) {
-    try {
-      const result = await TaskHelper.findOne({where:{id}});
-        
-      return result ? true:false;
-
-    } catch (error) {
-
-      return false;
-
-      }
-    }
-
-  async update(item:TaskHelper){
-    try {
-      await TaskHelper.update(item,{where:{id:item.id}})
-
-      const result = await TaskHelper.findByPk(item.id)
-
-      return result;
-
-    } catch (error) {
-
-      console.log(error)
-
-      return null;
-
-      }
-    }
-
-  async getAll(){
-    try {
-      const result = await TaskHelper.findAll();
-
-      return result;
-
-    } catch(error){
-
-      return null;
-
-      }
-    }
-
-  async getItemById (id:number) {
-    try{
-      const result = await TaskHelper.findOne({where:{id}})
-
-      return result;
-
-    } catch (error){
-
-      return null;
-
-    }
+    return result ? true : false;
   }
 
-  async create (taskHelper: TaskHelper ){
-    try {
-      const result = await TaskHelper.create(taskHelper);
+  async update(item: TaskHelper) {
+    await TaskHelper.update(item, { where: { id: item.id } });
 
-      return result;
+    const result = await TaskHelper.findByPk(item.id);
 
-    } catch(error){
-      
-      return null;
-
-    }
+    return result;
   }
-  
-  async deleteItem(id:number){
-    try{
-      await TaskHelper.destroy({where: {id}})
 
-      return true;
+  async getAll() {
+    const result = await TaskHelper.findAll();
 
-    } catch(error){
+    return result;
+  }
 
-      return false;
+  async getItemById(id: number) {
+    const result = await TaskHelper.findOne({ where: { id } });
 
-    }
+    return result;
+  }
+
+  async create(taskHelper: TaskHelper) {
+    const result = await TaskHelper.create(taskHelper);
+
+    return result;
+  }
+
+  async deleteItem(id: number) {
+    await TaskHelper.destroy({ where: { id } });
+
+    return true;
   }
 }
-export const taskHelperService = new TaskHelperService()
+export const taskHelperService = new TaskHelperService();

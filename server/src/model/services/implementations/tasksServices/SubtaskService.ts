@@ -1,89 +1,43 @@
 import { Subtask } from "../../../domain/entities/tasks/subtasks";
 import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
 
+class SubtaskService implements CRUDServiceInterface<Subtask> {
+  async itemExists(id: number) {
+    const result = await Subtask.findOne({ where: { id } });
 
-class SubtaskService implements CRUDServiceInterface<Subtask>{
-    
-  async itemExists (id:number) {
-    try {
-      const result = await Subtask.findOne({where:{id}});
-        
-      return result ? true:false;
-
-    } catch (error) {
-
-      return false;
-
-      }
-    }
-
-  async update(item:Subtask){
-    try {
-      await Subtask.update(item,{where:{id:item.id}})
-
-      const result = await Subtask.findByPk(item.id)
-
-      return result;
-
-    } catch (error) {
-
-      console.log(error)
-
-      return null;
-
-      }
-    }
-
-  async getAll(){
-    try {
-      const result = await Subtask.findAll();
-
-      return result;
-
-    } catch(error){
-
-      return null;
-
-      }
-    }
-
-  async getItemById (id:number) {
-    try{
-      const result = await Subtask.findOne({where:{id}})
-
-      return result;
-
-    } catch (error){
-
-      return null;
-
-    }
+    return result ? true : false;
   }
 
-  async create (subtask: Subtask ){
-    try {
-      const result = await Subtask.create(subtask);
+  async update(item: Subtask) {
+    await Subtask.update(item, { where: { id: item.id } });
 
-      return result;
+    const result = await Subtask.findByPk(item.id);
 
-    } catch(error){
-      
-      return null;
-
-    }
+    return result;
   }
-  
-  async deleteItem(id:number){
-    try{
-      await Subtask.destroy({where: {id}})
 
-      return true;
+  async getAll() {
+    const result = await Subtask.findAll();
 
-    } catch(error){
+    return result;
+  }
 
-      return false;
+  async getItemById(id: number) {
+    const result = await Subtask.findOne({ where: { id } });
 
-    }
+    return result;
+  }
+
+  async create(subtask: Subtask) {
+    const result = await Subtask.create(subtask);
+
+    return result;
+  }
+
+  async deleteItem(id: number) {
+    await Subtask.destroy({ where: { id } });
+
+    return true;
   }
 }
-export const subtaskService = new SubtaskService()
+export const subtaskService = new SubtaskService();

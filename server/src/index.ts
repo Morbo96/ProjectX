@@ -1,4 +1,4 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import sequelize from "./model/domain/dbConnection";
 import UserRoute from "./routes/userRouter";
 import DailyTaskRoute from "./routes/dailyTaskRouter";
@@ -9,6 +9,7 @@ import TaskRoute from "./routes/taskRouter";
 import SubtaskRoute from "./routes/subtaskRouter";
 import DailySubtaskRoute from "./routes/dailySubtaskRouter";
 import AuthRouter from "./routes/authRouter";
+import { handleError, logger } from "./middleware/errorHandler/HandleError";
 
 const app = express();
 
@@ -22,8 +23,7 @@ app.use("/api", TaskRoute);
 app.use("/api", SubtaskRoute);
 app.use("/api", DailySubtaskRoute);
 app.use(express.json());
-
-const port = 3000;
+app.use(handleError);
 
 const start = async () => {
   try {
@@ -32,10 +32,11 @@ const start = async () => {
     });
     await sequelize.sync();
 
-    app.listen(port, () => {
-      console.log(`server is listening on ${port}`);
+    app.listen(process.env.PORT, () => {
+      console.log(`server is listening on ${process.env.PORT}`);
     });
   } catch (err) {
+    logger.error(err, "Index error");
     console.log(err);
   }
 };

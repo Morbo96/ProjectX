@@ -3,102 +3,48 @@ import { Task } from "../../../domain/entities/tasks/tasks";
 import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
 import { GoalServiceInterface } from "../../interfaces/GoalServiceInterface";
 
-
-class GoalService implements CRUDServiceInterface<Goal>,GoalServiceInterface{
-    
-  async getTasks(goalId:number){
-    try {
-      const result = await Task.findAll({where:{goalId:goalId}}) 
-
-      return result
-
-    } catch (error) {
-
-      return null
-      
-    }
-  }
-  
-  async itemExists (id:number) {
-    try {
-      const result = await Goal.findOne({where:{id}});
-        
-      return result ? true:false;
-
-    } catch (error) {
-
-      return false;
-
-      }
-    }
-
-  async update(item:Goal){
-    try {
-      await Goal.update(item,{where:{id:item.id}})
-
-      const result = await Goal.findByPk(item.id)
-
-      return result;
-
-    } catch (error) {
-
-      console.log(error)
-
-      return null;
-
-      }
-    }
-
-  async getAll(){
-    try {
-      const result = await Goal.findAll();
-
-      return result;
-
-    } catch(error){
-
-      return null;
-
-      }
-    }
-
-  async getItemById (id:number) {
-    try{
-      const result = await Goal.findOne({where:{id}})
-
-      return result;
-
-    } catch (error){
-
-      return null;
-
-    }
+class GoalService implements CRUDServiceInterface<Goal>, GoalServiceInterface {
+  async getTasks(goalId: number) {
+    const result = await Task.findAll({ where: { goalId: goalId } });
+    return result;
   }
 
-  async create (goal: Goal ){
-    try {
-      const result = await Goal.create(goal);
+  async itemExists(id: number) {
+    const result = await Goal.findOne({ where: { id } });
 
-      return result;
-
-    } catch(error){
-      
-      return null;
-
-    }
+    return result ? true : false;
   }
-  
-  async deleteItem(id:number){
-    try{
-      await Goal.destroy({where: {id}})
 
-      return true;
+  async update(item: Goal) {
+    await Goal.update(item, { where: { id: item.id } });
 
-    } catch(error){
+    const result = await Goal.findByPk(item.id);
 
-      return false;
+    return result;
+  }
 
-    }
+  async getAll() {
+    const result = await Goal.findAll();
+
+    return result;
+  }
+
+  async getItemById(id: number) {
+    const result = await Goal.findOne({ where: { id } });
+
+    return result;
+  }
+
+  async create(goal: Goal) {
+    const result = await Goal.create(goal);
+
+    return result;
+  }
+
+  async deleteItem(id: number) {
+    await Goal.destroy({ where: { id } });
+
+    return true;
   }
 }
-export const goalService = new GoalService()
+export const goalService = new GoalService();

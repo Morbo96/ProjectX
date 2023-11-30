@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { Router } from "express";
 import { userService } from "../model/services/implementations/usersServices/UserService";
 import { CRUDController } from "../controllers/CRUDController";
@@ -17,8 +17,8 @@ UserRoute.get(
   "/users/dailyTasks",
   accessTokenVerify,
   findUserByToken,
-  (req: Request, res: Response) => {
-    userController.getDailyTasks(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    userController.getDailyTasks(req, res, next);
   }
 );
 
@@ -26,8 +26,8 @@ UserRoute.get(
   "/users/folders",
   accessTokenVerify,
   findUserByToken,
-  (req: Request, res: Response) => {
-    userController.getFolders(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    userController.getFolders(req, res, next);
   }
 );
 
@@ -35,8 +35,8 @@ UserRoute.get(
   "/users/usersPet",
   accessTokenVerify,
   findUserByToken,
-  (req: Request, res: Response) => {
-    userController.getUsersPet(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    userController.getUsersPet(req, res, next);
   }
 );
 
@@ -45,13 +45,13 @@ UserRoute.get(
   accessTokenVerify,
   findUserByToken,
   userCheck,
-  (req: Request, res: Response) => {
-    crudController.getByID(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.getByID(req, res, next);
   }
 );
 
-UserRoute.get("/users", (req: Request, res: Response) => {
-  crudController.getAll(req, res);
+UserRoute.get("/users", (req: Request, res: Response, next: NextFunction) => {
+  crudController.getAll(req, res, next);
 });
 
 UserRoute.patch(
@@ -59,8 +59,8 @@ UserRoute.patch(
   accessTokenVerify,
   findUserByToken,
   userCheck,
-  (req: Request, res: Response) => {
-    crudController.update(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.update(req, res, next);
   }
 );
 
@@ -69,8 +69,8 @@ UserRoute.delete(
   accessTokenVerify,
   findUserByToken,
   userCheck,
-  (req: Request, res: Response) => {
-    crudController.delete(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.delete(req, res, next);
   }
 );
 

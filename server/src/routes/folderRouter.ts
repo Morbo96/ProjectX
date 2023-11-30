@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { Router } from "express";
 import { CRUDController } from "../controllers/CRUDController";
 import { folderService } from "../model/services/implementations/tasksServices/FolderService";
@@ -18,8 +18,8 @@ FolderRoute.get(
   accessTokenVerify,
   findUserByToken,
   folderCheck,
-  (req: Request, res: Response) => {
-    folderController.getGoals(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    folderController.getGoals(req, res, next);
   }
 );
 
@@ -28,8 +28,8 @@ FolderRoute.post(
   accessTokenVerify,
   findUserByToken,
   folderCheck,
-  (req: Request, res: Response) => {
-    folderController.createGoal(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    folderController.createGoal(req, res, next);
   }
 );
 
@@ -38,21 +38,24 @@ FolderRoute.get(
   accessTokenVerify,
   findUserByToken,
   folderCheck,
-  (req: Request, res: Response) => {
-    crudController.getByID(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.getByID(req, res, next);
   }
 );
 
-FolderRoute.get("/folders", (req: Request, res: Response) => {
-  crudController.getAll(req, res);
-});
+FolderRoute.get(
+  "/folders",
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.getAll(req, res, next);
+  }
+);
 
 FolderRoute.post(
   "/folders",
   accessTokenVerify,
   findUserByToken,
-  (req: Request, res: Response) => {
-    crudController.create(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.create(req, res, next);
   }
 );
 
@@ -61,8 +64,8 @@ FolderRoute.patch(
   accessTokenVerify,
   findUserByToken,
   folderCheck,
-  (req: Request, res: Response) => {
-    crudController.update(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.update(req, res, next);
   }
 );
 
@@ -71,8 +74,8 @@ FolderRoute.delete(
   accessTokenVerify,
   findUserByToken,
   folderCheck,
-  (req: Request, res: Response) => {
-    crudController.delete(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.delete(req, res, next);
   }
 );
 

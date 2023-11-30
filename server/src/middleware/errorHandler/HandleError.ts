@@ -11,7 +11,7 @@ const fileTransport = pino.transport({
   target: "pino/file",
   options: { destination: `logs/app.log` },
 });
-const logger = pino(
+export const logger = pino(
   {
     timestamp: pino.stdTimeFunctions.isoTime,
     formatters: formatter,
@@ -21,15 +21,12 @@ const logger = pino(
 );
 
 export function handleError(
-  err: unknown,
-  req?: Request,
-  res?: Response,
-  next?: NextFunction
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
 ) {
-  const receivedError = err as Error;
   logger.error(err, "Hello world!");
-  if (res != undefined) {
-    res.status(500).json(receivedError.message);
-    next();
-  }
+  res.status(500).json(err.message);
+  console.log(err);
 }

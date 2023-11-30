@@ -3,67 +3,41 @@ import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
 
 class DailySubtaskService implements CRUDServiceInterface<DailySubtask> {
   async itemExists(id: number) {
-    try {
-      const result = await DailySubtask.findOne({ where: { id } });
+    const result = await DailySubtask.findOne({ where: { id } });
 
-      return result ? true : false;
-    } catch (error) {
-      return false;
-    }
+    return result ? true : false;
   }
 
   async update(item: DailySubtask) {
-    try {
-      await DailySubtask.update(item, { where: { id: item.id } });
+    await DailySubtask.update(item, { where: { id: item.id } });
 
-      const result = await DailySubtask.findByPk(item.id);
+    const result = await DailySubtask.findByPk(item.id);
 
-      return result;
-    } catch (error) {
-      console.log(error);
-
-      return null;
-    }
+    return result;
   }
 
   async getAll() {
-    try {
-      const result = await DailySubtask.findAll();
+    const result = await DailySubtask.findAll();
 
-      return result;
-    } catch (error) {
-      return null;
-    }
+    return result;
   }
 
   async getItemById(id: Number) {
-    try {
-      const result = await DailySubtask.findOne({ where: { id } });
+    const result = await DailySubtask.findOne({ where: { id } });
 
-      return result;
-    } catch (error) {
-      return null;
-    }
+    return result;
   }
 
   async create(dailySubtask: DailySubtask) {
-    try {
-      const result = await DailySubtask.create(dailySubtask);
+    const result = await DailySubtask.create(dailySubtask);
 
-      return result;
-    } catch (error) {
-      return null;
-    }
+    return result;
   }
 
   async deleteItem(id: Number) {
-    try {
-      await DailySubtask.destroy({ where: { id } });
+    await DailySubtask.destroy({ where: { id } });
 
-      return true;
-    } catch (error) {
-      return false;
-    }
+    return true;
   }
 }
 export const dailySubtaskService = new DailySubtaskService();

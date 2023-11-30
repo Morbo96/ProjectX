@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { Router } from "express";
 import { CRUDController } from "../controllers/CRUDController";
 import { dailySubtaskService } from "../model/services/implementations/dailyTasksServices/DailySubtaskService";
@@ -18,21 +18,24 @@ DailySubtaskRoute.get(
   accessTokenVerify,
   findUserByToken,
   dailySubtaskCheck,
-  (req: Request, res: Response) => {
-    dailySubtaskController.getById(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    dailySubtaskController.getById(req, res, next);
   }
 );
-DailySubtaskRoute.get("/dailySubtasks", (req: Request, res: Response) => {
-  crudController.getAll(req, res);
-});
+DailySubtaskRoute.get(
+  "/dailySubtasks",
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.getAll(req, res, next);
+  }
+);
 
 DailySubtaskRoute.patch(
   "/dailySubtasks/:id",
   accessTokenVerify,
   findUserByToken,
   dailySubtaskCheck,
-  (req: Request, res: Response) => {
-    dailySubtaskController.update(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    dailySubtaskController.update(req, res, next);
   }
 );
 DailySubtaskRoute.delete(
@@ -40,8 +43,8 @@ DailySubtaskRoute.delete(
   accessTokenVerify,
   findUserByToken,
   dailySubtaskCheck,
-  (req: Request, res: Response) => {
-    crudController.delete(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.delete(req, res, next);
   }
 );
 

@@ -1,106 +1,72 @@
+import { Folder } from "../../../domain/entities/tasks/folders";
+import { Goal } from "../../../domain/entities/tasks/goals";
 import { Subtask } from "../../../domain/entities/tasks/subtasks";
 import { Task } from "../../../domain/entities/tasks/tasks";
 import { CRUDServiceInterface } from "../../interfaces/CRUDServiceInterface";
 import { TaskServiceInterface } from "../../interfaces/TaskServiceInterface";
 
-
-class TaskService implements CRUDServiceInterface<Task>,TaskServiceInterface{
-    
-  async getSubtasks(taskId:number){
-    try {
-      const result = await Subtask.findAll({where:{taskId:taskId}}) 
-
-      return result
-
-    } catch (error) {
-
-      return null
-      
-    }
-  }
-  
-  async itemExists (id:number) {
-    try {
-      const result = await Task.findOne({where:{id}});
-        
-      return result ? true:false;
-
-    } catch (error) {
-
-      return false;
-
-      }
-    }
-
-  async update(item:Task){
-    try {
-      await Task.update(item,{where:{id:item.id}})
-
-      const result = await Task.findByPk(item.id)
-
-      return result;
-
-    } catch (error) {
-
-      console.log(error)
-
-      return null;
-
-      }
-    }
-
-  async getAll(){
-    try {
-      const result = await Task.findAll();
-
-      return result;
-
-    } catch(error){
-
-      return null;
-
-      }
-    }
-
-  async getItemById (id:number) {
-    try{
-      const result = await Task.findOne({where:{id}})
-
-      return result;
-
-    } catch (error){
-
-      return null;
-
-    }
+class TaskService implements CRUDServiceInterface<Task>, TaskServiceInterface {
+  async getUsersTasks(userId: number) {
+    const tasks = await Task.findAll({
+      include: [
+        {
+          model: Goal,
+          include: [
+            {
+              model: Folder,
+              where: { userId: userId },
+              required: true,
+            },
+          ],
+          required: true,
+        },
+      ],
+    });
+    return tasks;
   }
 
-  async create (task: Task ){
-    try {
-      const result = await Task.create(task);
+  async getSubtasks(taskId: number) {
+    const result = await Subtask.findAll({ where: { taskId: taskId } });
 
-      return result;
-
-    } catch(error){
-      
-      return null;
-
-    }
+    return result;
   }
-  
-  async deleteItem(id:number){
-    try{
-      await Task.destroy({where: {id}})
 
-      return true;
+  async itemExists(id: number) {
+    const result = await Task.findOne({ where: { id } });
 
-    } catch(error){
+    return result ? true : false;
+  }
 
-      console.log(error)
+  async update(item: Task) {
+    await Task.update(item, { where: { id: item.id } });
 
-      return false;
+    const result = await Task.findByPk(item.id);
 
-    }
+    return result;
+  }
+
+  async getAll() {
+    const result = await Task.findAll();
+
+    return result;
+  }
+
+  async getItemById(id: number) {
+    const result = await Task.findOne({ where: { id } });
+
+    return result;
+  }
+
+  async create(task: Task) {
+    const result = await Task.create(task);
+
+    return result;
+  }
+
+  async deleteItem(id: number) {
+    await Task.destroy({ where: { id } });
+
+    return true;
   }
 }
-export const taskService = new TaskService()
+export const taskService = new TaskService();

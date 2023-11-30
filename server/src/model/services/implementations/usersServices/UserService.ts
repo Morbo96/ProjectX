@@ -1,6 +1,7 @@
 import { DailyTask } from "../../../domain/entities/dailyTasks/dailyTasks";
 import { Folder } from "../../../domain/entities/tasks/folders";
 import { Goal } from "../../../domain/entities/tasks/goals";
+import { SubtaskInfo } from "../../../domain/entities/tasks/subtaskInfos";
 import { Subtask } from "../../../domain/entities/tasks/subtasks";
 import { Task } from "../../../domain/entities/tasks/tasks";
 import { User } from "../../../domain/entities/user/users";
@@ -12,141 +13,99 @@ import { userBankService } from "./UserBankService";
 
 class UserService implements CRUDServiceInterface<User>, UserServiceInterface {
   async getByEmail(email: string) {
-    try {
-      const result = await User.findOne({ where: { email: email } });
+    const result = await User.findOne({ where: { email: email } });
 
-      return result;
-    } catch (error) {
-      return null;
-    }
+    return result;
   }
   async getByLogin(login: string) {
-    try {
-      const result = await User.findOne({ where: { login: login } });
+    const result = await User.findOne({ where: { login: login } });
 
-      return result;
-    } catch (error) {
-      return null;
-    }
+    return result;
   }
 
   async getDailyTasks(userId: number) {
-    try {
-      const result = await DailyTask.findAll({ where: { userId: userId } });
+    const result = await DailyTask.findAll({ where: { userId: userId } });
 
-      return result;
-    } catch (error) {
-      return null;
-    }
+    return result;
   }
 
   async getUsersPets(userId: number) {
-    try {
-      const result = await UserPet.findAll({ where: { userId: userId } });
+    const result = await UserPet.findAll({ where: { userId: userId } });
 
-      return result;
-    } catch (error) {
-      return null;
-    }
+    return result;
   }
 
   async getFolders(userId: number) {
-    try {
-      const result = await Folder.findAll({
-        where: { userId: userId },
-        include: [
-          {
-            model: Goal,
-            required: false,
-            include: [
-              {
-                model: Task,
-                required: false,
-                include: [{ model: Subtask, required: false }],
-              },
-            ],
-          },
-        ],
-      });
+    const result = await Folder.findAll({
+      where: { userId: userId },
+      include: [
+        {
+          model: Goal,
+          required: false,
+          include: [
+            {
+              model: Task,
+              required: false,
+              include: [
+                {
+                  model: Subtask,
+                  required: false,
+                  include: [{ model: SubtaskInfo, required: false }],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
 
-      return result;
-    } catch (error) {
-      return null;
-    }
+    return result;
   }
 
   async itemExists(id: number) {
-    try {
-      const result = await User.findOne({ where: { id } });
+    const result = await User.findOne({ where: { id } });
 
-      return result ? true : false;
-    } catch (error) {
-      return false;
-    }
+    return result ? true : false;
   }
 
   async update(item: User) {
-    try {
-      await User.update(item, { where: { id: item.id } });
+    await User.update(item, { where: { id: item.id } });
 
-      const result = await User.findByPk(item.id);
+    const result = await User.findByPk(item.id);
 
-      return result;
-    } catch (error) {
-      console.log(error);
-
-      return null;
-    }
+    return result;
   }
 
   async getAll() {
-    try {
-      const result = await User.findAll();
+    const result = await User.findAll();
 
-      return result;
-    } catch (error) {
-      return null;
-    }
+    return result;
   }
 
   async getItemById(id: number) {
-    try {
-      const result = await User.findOne({ where: { id } });
+    const result = await User.findOne({ where: { id } });
 
-      return result;
-    } catch (error) {
-      return null;
-    }
+    return result;
   }
 
   async create(user: User) {
-    try {
-      const result = await User.create(user);
+    const result = await User.create(user);
 
-      const relatedUserBank = UserBank.build({
-        userId: result.id,
-      });
+    const relatedUserBank = UserBank.build({
+      userId: result.id,
+    });
 
-      await userBankService.create(relatedUserBank.toJSON());
+    await userBankService.create(relatedUserBank.toJSON());
 
-      return result;
-    } catch (error) {
-      return null;
-    }
+    return result;
   }
 
   async deleteItem(id: number) {
-    try {
-      await UserBank.destroy({ where: { userId: id } });
+    await UserBank.destroy({ where: { userId: id } });
 
-      await User.destroy({ where: { id } });
+    await User.destroy({ where: { id } });
 
-      return true;
-    } catch (error) {
-      console.log(error);
-
-      return false;
-    }
+    return true;
   }
 }
 export const userService = new UserService();

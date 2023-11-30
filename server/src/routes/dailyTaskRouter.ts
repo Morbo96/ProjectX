@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { Router } from "express";
 import { dailyTaskService } from "../model/services/implementations/dailyTasksServices/DailyTaskService";
 import { CRUDController } from "../controllers/CRUDController";
@@ -18,8 +18,8 @@ DailyTaskRoute.get(
   accessTokenVerify,
   findUserByToken,
   dailyTaskCheck,
-  (req: Request, res: Response) => {
-    dailytaskController.getDailysubtasks(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    dailytaskController.getDailysubtasks(req, res, next);
   }
 );
 DailyTaskRoute.post(
@@ -27,8 +27,8 @@ DailyTaskRoute.post(
   accessTokenVerify,
   findUserByToken,
   dailyTaskCheck,
-  (req: Request, res: Response) => {
-    dailytaskController.createDailySubtask(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    dailytaskController.createDailySubtask(req, res, next);
   }
 );
 DailyTaskRoute.get(
@@ -36,19 +36,22 @@ DailyTaskRoute.get(
   accessTokenVerify,
   findUserByToken,
   dailyTaskCheck,
-  (req: Request, res: Response) => {
-    crudController.getByID(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.getByID(req, res, next);
   }
 );
-DailyTaskRoute.get("/dailytasks", (req: Request, res: Response) => {
-  crudController.getAll(req, res);
-});
+DailyTaskRoute.get(
+  "/dailytasks",
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.getAll(req, res, next);
+  }
+);
 DailyTaskRoute.post(
   "/dailytasks",
   accessTokenVerify,
   findUserByToken,
-  (req: Request, res: Response) => {
-    crudController.create(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.create(req, res, next);
   }
 );
 DailyTaskRoute.patch(
@@ -56,8 +59,8 @@ DailyTaskRoute.patch(
   accessTokenVerify,
   findUserByToken,
   dailyTaskCheck,
-  (req: Request, res: Response) => {
-    crudController.update(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.update(req, res, next);
   }
 );
 DailyTaskRoute.delete(
@@ -65,8 +68,8 @@ DailyTaskRoute.delete(
   accessTokenVerify,
   findUserByToken,
   dailyTaskCheck,
-  (req: Request, res: Response) => {
-    crudController.delete(req, res);
+  (req: Request, res: Response, next: NextFunction) => {
+    crudController.delete(req, res, next);
   }
 );
 

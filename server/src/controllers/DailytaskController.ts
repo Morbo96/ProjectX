@@ -1,24 +1,22 @@
-import { Request, Response } from "express";
-import { taskService } from "../model/services/implementations/tasksServices/TaskService";
+import { NextFunction, Request, Response } from "express";
 import { dailyTaskService } from "../model/services/implementations/dailyTasksServices/DailyTaskService";
 import { DailySubtask } from "../model/domain/entities/dailyTasks/dailySubtasks";
 import { dailySubtaskService } from "../model/services/implementations/dailyTasksServices/DailySubtaskService";
 import { DailySubtaskNotification } from "../model/domain/entities/dailyTasks/dailySubtaskNotifications";
-import { dailySubtaskNotificationTimeService } from "../model/services/implementations/dailyTasksServices/DailySubtaskNotificationTimeService";
 import { DailySubtaskNotificationTime } from "../model/domain/entities/dailyTasks/dailySubtaskNotificationTime";
 
 export class DailytaskController {
-  async getDailysubtasks(req: Request, res: Response) {
+  async getDailysubtasks(req: Request, res: Response, next: NextFunction) {
     try {
       const dailytasksDailysubtasks = await dailyTaskService.getDailysubtasks(
         Number(req.params.id)
       );
       res.json(dailytasksDailysubtasks);
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   }
-  async createDailySubtask(req: Request, res: Response) {
+  async createDailySubtask(req: Request, res: Response, next: NextFunction) {
     try {
       if (!req.body.dailySubtask) {
         return res.status(500).json("No dailySubtask provided");

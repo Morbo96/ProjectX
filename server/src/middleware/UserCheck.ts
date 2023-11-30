@@ -13,7 +13,6 @@ export const userCheck = async (
     }
     next();
   } catch (error) {
-    const err = error as Error;
-    res.status(500).json(err.message);
+    next(error);
   }
 };
