@@ -15,16 +15,16 @@ const SubtaskRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(SubtaskService_1.subtaskService);
 const subtaskController = new SubtaskController_1.SubtaskController();
 SubtaskRoute.use(express_1.default.json());
-SubtaskRoute.get("/subtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, SubtaskCheck_1.subtaskCheck, (req, res) => {
-    subtaskController.getById(req, res);
+SubtaskRoute.get("/subtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, SubtaskCheck_1.subtaskCheck, (req, res, next) => {
+    subtaskController.getById(req, res, next);
 });
-SubtaskRoute.get("/subtasks", (req, res) => {
-    crudController.getAll(req, res);
+SubtaskRoute.get("/subtasks", (req, res, next) => {
+    crudController.getAll(req, res, next);
 });
-SubtaskRoute.patch("/subtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, SubtaskCheck_1.subtaskCheck, (req, res) => {
-    subtaskController.update(req, res);
+SubtaskRoute.patch("/subtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, SubtaskCheck_1.subtaskCheck, (req, res, next) => {
+    subtaskController.update(req, res, next);
 });
-SubtaskRoute.delete("/subtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, SubtaskCheck_1.subtaskCheck, (req, res) => {
-    crudController.delete(req, res);
+SubtaskRoute.delete("/subtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, SubtaskCheck_1.subtaskCheck, (req, res, next) => {
+    crudController.delete(req, res, next);
 });
 exports.default = SubtaskRoute;

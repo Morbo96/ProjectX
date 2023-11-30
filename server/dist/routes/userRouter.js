@@ -15,25 +15,25 @@ const UserRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(UserService_1.userService);
 const userController = new UserController_1.UserController();
 UserRoute.use(express_1.default.json());
-UserRoute.get("/users/dailyTasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res) => {
-    userController.getDailyTasks(req, res);
+UserRoute.get("/users/dailyTasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res, next) => {
+    userController.getDailyTasks(req, res, next);
 });
-UserRoute.get("/users/folders", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res) => {
-    userController.getFolders(req, res);
+UserRoute.get("/users/folders", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res, next) => {
+    userController.getFolders(req, res, next);
 });
-UserRoute.get("/users/usersPet", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res) => {
-    userController.getUsersPet(req, res);
+UserRoute.get("/users/usersPet", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res, next) => {
+    userController.getUsersPet(req, res, next);
 });
-UserRoute.get("/users/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserCheck_1.userCheck, (req, res) => {
-    crudController.getByID(req, res);
+UserRoute.get("/users/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserCheck_1.userCheck, (req, res, next) => {
+    crudController.getByID(req, res, next);
 });
-UserRoute.get("/users", (req, res) => {
-    crudController.getAll(req, res);
+UserRoute.get("/users", (req, res, next) => {
+    crudController.getAll(req, res, next);
 });
-UserRoute.patch("/users/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserCheck_1.userCheck, (req, res) => {
-    crudController.update(req, res);
+UserRoute.patch("/users/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserCheck_1.userCheck, (req, res, next) => {
+    crudController.update(req, res, next);
 });
-UserRoute.delete("/users/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserCheck_1.userCheck, (req, res) => {
-    crudController.delete(req, res);
+UserRoute.delete("/users/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserCheck_1.userCheck, (req, res, next) => {
+    crudController.delete(req, res, next);
 });
 exports.default = UserRoute;

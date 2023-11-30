@@ -19,7 +19,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const UserUtils_1 = require("../utils/UserUtils");
 const users_1 = require("../model/domain/entities/user/users");
 class AuthController {
-    logout(req, res) {
+    logout(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const accessToken = req.header("Bearer");
@@ -29,16 +29,16 @@ class AuthController {
                 res.status(200).json("Successfull logout");
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    signIn(req, res) {
+    signIn(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = yield UserService_1.userService.getByEmail(req.body.login);
                 if (user == null) {
-                    res.status(500).json("Login or password incorrect");
+                    res.status(400).json("Login or password incorrect");
                     return;
                 }
                 else {
@@ -51,18 +51,18 @@ class AuthController {
                         });
                     }
                     else {
-                        res.status(500).json("Login or password incorrect");
+                        res.status(400).json("Login or password incorrect");
                         return;
                     }
                 }
             }
             catch (error) {
                 console.log(error);
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    signUp(req, res) {
+    signUp(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 req.body.passwordEncrypted = bcrypt_1.default.hashSync(req.body.passwordEncrypted, 10);
@@ -74,7 +74,7 @@ class AuthController {
                 });
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
@@ -90,7 +90,7 @@ class AuthController {
             return accessToken;
         });
     }
-    refreshAccessToken(req, res) {
+    refreshAccessToken(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const refreshToken = req.body.refreshToken;
@@ -112,8 +112,7 @@ class AuthController {
                 }
             }
             catch (error) {
-                const err = error;
-                res.status(500).json(err.message);
+                next(error);
             }
         });
     }

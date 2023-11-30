@@ -44,8 +44,7 @@ const subtaskCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         next();
     }
     catch (error) {
-        const err = error;
-        res.status(500).json(err.message);
+        next(error);
     }
 });
 exports.subtaskCheck = subtaskCheck;

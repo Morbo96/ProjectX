@@ -15,81 +15,45 @@ const tasks_1 = require("../../../domain/entities/tasks/tasks");
 class GoalService {
     getTasks(goalId) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield tasks_1.Task.findAll({ where: { goalId: goalId } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield tasks_1.Task.findAll({ where: { goalId: goalId } });
+            return result;
         });
     }
     itemExists(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield goals_1.Goal.findOne({ where: { id } });
-                return result ? true : false;
-            }
-            catch (error) {
-                return false;
-            }
+            const result = yield goals_1.Goal.findOne({ where: { id } });
+            return result ? true : false;
         });
     }
     update(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield goals_1.Goal.update(item, { where: { id: item.id } });
-                const result = yield goals_1.Goal.findByPk(item.id);
-                return result;
-            }
-            catch (error) {
-                console.log(error);
-                return null;
-            }
+            yield goals_1.Goal.update(item, { where: { id: item.id } });
+            const result = yield goals_1.Goal.findByPk(item.id);
+            return result;
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield goals_1.Goal.findAll();
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield goals_1.Goal.findAll();
+            return result;
         });
     }
     getItemById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield goals_1.Goal.findOne({ where: { id } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield goals_1.Goal.findOne({ where: { id } });
+            return result;
         });
     }
     create(goal) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield goals_1.Goal.create(goal);
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield goals_1.Goal.create(goal);
+            return result;
         });
     }
     deleteItem(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield goals_1.Goal.destroy({ where: { id } });
-                return true;
-            }
-            catch (error) {
-                return false;
-            }
+            yield goals_1.Goal.destroy({ where: { id } });
+            return true;
         });
     }
 }

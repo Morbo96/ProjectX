@@ -15,7 +15,7 @@ const dailySubtasks_1 = require("../model/domain/entities/dailyTasks/dailySubtas
 const dailySubtaskNotifications_1 = require("../model/domain/entities/dailyTasks/dailySubtaskNotifications");
 const dailySubtaskNotificationTime_1 = require("../model/domain/entities/dailyTasks/dailySubtaskNotificationTime");
 class DailySubtaskController {
-    getById(req, res) {
+    getById(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dailySubtask = yield dailySubtasks_1.DailySubtask.findOne({
@@ -31,11 +31,11 @@ class DailySubtaskController {
                 res.json(dailySubtask);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    update(req, res) {
+    update(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 req.body.id = req.params.id;
@@ -59,7 +59,7 @@ class DailySubtaskController {
                 res.json(updatedDailySubtask);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }

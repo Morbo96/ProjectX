@@ -14,70 +14,39 @@ const usersBanks_1 = require("../../../domain/entities/user/usersBanks");
 class UserBankService {
     itemExists(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield usersBanks_1.UserBank.findOne({ where: { id } });
-                return result ? true : false;
-            }
-            catch (error) {
-                return false;
-            }
+            const result = yield usersBanks_1.UserBank.findOne({ where: { id } });
+            return result ? true : false;
         });
     }
     update(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield usersBanks_1.UserBank.update(item, { where: { id: item.id } });
-                const result = yield usersBanks_1.UserBank.findByPk(item.id);
-                return result;
-            }
-            catch (error) {
-                console.log(error);
-                return null;
-            }
+            yield usersBanks_1.UserBank.update(item, { where: { id: item.id } });
+            const result = yield usersBanks_1.UserBank.findByPk(item.id);
+            return result;
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield usersBanks_1.UserBank.findAll();
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield usersBanks_1.UserBank.findAll();
+            return result;
         });
     }
     getItemById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield usersBanks_1.UserBank.findOne({ where: { id } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield usersBanks_1.UserBank.findOne({ where: { id } });
+            return result;
         });
     }
     create(userBank) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield usersBanks_1.UserBank.create(userBank);
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield usersBanks_1.UserBank.create(userBank);
+            return result;
         });
     }
     deleteItem(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield usersBanks_1.UserBank.destroy({ where: { id } });
-                return true;
-            }
-            catch (error) {
-                return false;
-            }
+            yield usersBanks_1.UserBank.destroy({ where: { id } });
+            return true;
         });
     }
 }

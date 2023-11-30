@@ -14,70 +14,39 @@ const attachments_1 = require("../../../domain/entities/tasks/attachments");
 class AttachmentService {
     itemExists(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield attachments_1.Attachment.findOne({ where: { id } });
-                return result ? true : false;
-            }
-            catch (error) {
-                return false;
-            }
+            const result = yield attachments_1.Attachment.findOne({ where: { id } });
+            return result ? true : false;
         });
     }
     update(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield attachments_1.Attachment.update(item, { where: { id: item.id } });
-                const result = yield attachments_1.Attachment.findByPk(item.id);
-                return result;
-            }
-            catch (error) {
-                console.log(error);
-                return null;
-            }
+            yield attachments_1.Attachment.update(item, { where: { id: item.id } });
+            const result = yield attachments_1.Attachment.findByPk(item.id);
+            return result;
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield attachments_1.Attachment.findAll();
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield attachments_1.Attachment.findAll();
+            return result;
         });
     }
     getItemById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield attachments_1.Attachment.findOne({ where: { id } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield attachments_1.Attachment.findOne({ where: { id } });
+            return result;
         });
     }
     create(attachment) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield attachments_1.Attachment.create(attachment);
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield attachments_1.Attachment.create(attachment);
+            return result;
         });
     }
     deleteItem(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield attachments_1.Attachment.destroy({ where: { id } });
-                return true;
-            }
-            catch (error) {
-                return false;
-            }
+            yield attachments_1.Attachment.destroy({ where: { id } });
+            return true;
         });
     }
 }

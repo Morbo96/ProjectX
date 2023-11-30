@@ -15,25 +15,25 @@ const DailyTaskRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(DailyTaskService_1.dailyTaskService);
 const dailytaskController = new DailytaskController_1.DailytaskController();
 DailyTaskRoute.use(express_1.default.json());
-DailyTaskRoute.get("/dailytasks/:id/dailySubtasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailyTaskCheck_1.dailyTaskCheck, (req, res) => {
-    dailytaskController.getDailysubtasks(req, res);
+DailyTaskRoute.get("/dailytasks/:id/dailySubtasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailyTaskCheck_1.dailyTaskCheck, (req, res, next) => {
+    dailytaskController.getDailysubtasks(req, res, next);
 });
-DailyTaskRoute.post("/dailytasks/:id/dailySubtasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailyTaskCheck_1.dailyTaskCheck, (req, res) => {
-    dailytaskController.createDailySubtask(req, res);
+DailyTaskRoute.post("/dailytasks/:id/dailySubtasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailyTaskCheck_1.dailyTaskCheck, (req, res, next) => {
+    dailytaskController.createDailySubtask(req, res, next);
 });
-DailyTaskRoute.get("/dailytasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailyTaskCheck_1.dailyTaskCheck, (req, res) => {
-    crudController.getByID(req, res);
+DailyTaskRoute.get("/dailytasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailyTaskCheck_1.dailyTaskCheck, (req, res, next) => {
+    crudController.getByID(req, res, next);
 });
-DailyTaskRoute.get("/dailytasks", (req, res) => {
-    crudController.getAll(req, res);
+DailyTaskRoute.get("/dailytasks", (req, res, next) => {
+    crudController.getAll(req, res, next);
 });
-DailyTaskRoute.post("/dailytasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res) => {
-    crudController.create(req, res);
+DailyTaskRoute.post("/dailytasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res, next) => {
+    crudController.create(req, res, next);
 });
-DailyTaskRoute.patch("/dailytasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailyTaskCheck_1.dailyTaskCheck, (req, res) => {
-    crudController.update(req, res);
+DailyTaskRoute.patch("/dailytasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailyTaskCheck_1.dailyTaskCheck, (req, res, next) => {
+    crudController.update(req, res, next);
 });
-DailyTaskRoute.delete("/dailytasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailyTaskCheck_1.dailyTaskCheck, (req, res) => {
-    crudController.delete(req, res);
+DailyTaskRoute.delete("/dailytasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, DailyTaskCheck_1.dailyTaskCheck, (req, res, next) => {
+    crudController.delete(req, res, next);
 });
 exports.default = DailyTaskRoute;

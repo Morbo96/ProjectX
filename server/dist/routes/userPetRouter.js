@@ -13,19 +13,19 @@ const UserPetCheck_1 = require("../middleware/UserPetCheck");
 const UserPetRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(UserPetService_1.userPetService);
 UserPetRoute.use(express_1.default.json());
-UserPetRoute.get("/userPets/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserPetCheck_1.userPetCheck, (req, res) => {
-    crudController.getByID(req, res);
+UserPetRoute.get("/userPets/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserPetCheck_1.userPetCheck, (req, res, next) => {
+    crudController.getByID(req, res, next);
 });
-UserPetRoute.get("/userPets", (req, res) => {
-    crudController.getAll(req, res);
+UserPetRoute.get("/userPets", (req, res, next) => {
+    crudController.getAll(req, res, next);
 });
-UserPetRoute.post("/userPets", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res) => {
-    crudController.create(req, res);
+UserPetRoute.post("/userPets", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res, next) => {
+    crudController.create(req, res, next);
 });
-UserPetRoute.patch("/userPets/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserPetCheck_1.userPetCheck, (req, res) => {
-    crudController.update(req, res);
+UserPetRoute.patch("/userPets/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserPetCheck_1.userPetCheck, (req, res, next) => {
+    crudController.update(req, res, next);
 });
-UserPetRoute.delete("/userPets/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserPetCheck_1.userPetCheck, (req, res) => {
-    crudController.delete(req, res);
+UserPetRoute.delete("/userPets/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserPetCheck_1.userPetCheck, (req, res, next) => {
+    crudController.delete(req, res, next);
 });
 exports.default = UserPetRoute;

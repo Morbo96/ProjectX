@@ -15,22 +15,22 @@ const TaskRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(TaskService_1.taskService);
 const taskController = new TaskController_1.TaskController();
 TaskRoute.use(express_1.default.json());
-TaskRoute.get("/tasks/:id/subtasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, TaskCheck_1.taskCheck, (req, res) => {
-    taskController.getSubtasks(req, res);
+TaskRoute.get("/tasks/:id/subtasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, TaskCheck_1.taskCheck, (req, res, next) => {
+    taskController.getSubtasks(req, res, next);
 });
-TaskRoute.post("/tasks/:id/subtasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, TaskCheck_1.taskCheck, (req, res) => {
-    taskController.createSubtask(req, res);
+TaskRoute.post("/tasks/:id/subtasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, TaskCheck_1.taskCheck, (req, res, next) => {
+    taskController.createSubtask(req, res, next);
 });
-TaskRoute.get("/tasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, TaskCheck_1.taskCheck, (req, res) => {
-    crudController.getByID(req, res);
+TaskRoute.get("/tasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, TaskCheck_1.taskCheck, (req, res, next) => {
+    crudController.getByID(req, res, next);
 });
-TaskRoute.get("/tasks", (req, res) => {
-    crudController.getAll(req, res);
+TaskRoute.get("/tasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res, next) => {
+    taskController.getUsersTasks(req, res, next);
 });
-TaskRoute.patch("/tasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, TaskCheck_1.taskCheck, (req, res) => {
-    crudController.update(req, res);
+TaskRoute.patch("/tasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, TaskCheck_1.taskCheck, (req, res, next) => {
+    crudController.update(req, res, next);
 });
-TaskRoute.delete("/tasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, TaskCheck_1.taskCheck, (req, res) => {
-    crudController.delete(req, res);
+TaskRoute.delete("/tasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, TaskCheck_1.taskCheck, (req, res, next) => {
+    crudController.delete(req, res, next);
 });
 exports.default = TaskRoute;

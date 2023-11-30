@@ -13,18 +13,18 @@ exports.GoalController = void 0;
 const GoalService_1 = require("../model/services/implementations/tasksServices/GoalService");
 const TaskService_1 = require("../model/services/implementations/tasksServices/TaskService");
 class GoalController {
-    getTasks(req, res) {
+    getTasks(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const goalsTasks = yield GoalService_1.goalService.getTasks(Number(req.params.id));
                 res.json(goalsTasks);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    createTask(req, res) {
+    createTask(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 req.body.goalId = req.params.id;
@@ -32,7 +32,7 @@ class GoalController {
                 res.status(200).json(newTask);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }

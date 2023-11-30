@@ -30,8 +30,7 @@ const dailySubtaskCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         next();
     }
     catch (error) {
-        const err = error;
-        res.status(500).json(err.message);
+        next(error);
     }
 });
 exports.dailySubtaskCheck = dailySubtaskCheck;

@@ -22,8 +22,7 @@ const folderCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         next();
     }
     catch (error) {
-        const err = error;
-        res.status(500).json(err.message);
+        next(error);
     }
 });
 exports.folderCheck = folderCheck;

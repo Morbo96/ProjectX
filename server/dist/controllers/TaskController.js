@@ -15,18 +15,18 @@ const subtaskInfos_1 = require("../model/domain/entities/tasks/subtaskInfos");
 const subtasks_1 = require("../model/domain/entities/tasks/subtasks");
 const SubtaskService_1 = require("../model/services/implementations/tasksServices/SubtaskService");
 class TaskController {
-    getSubtasks(req, res) {
+    getSubtasks(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const tasksSubtasks = yield TaskService_1.taskService.getSubtasks(Number(req.params.id));
                 res.json(tasksSubtasks);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    createSubtask(req, res) {
+    createSubtask(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 req.body.taskId = req.params.id;
@@ -39,8 +39,18 @@ class TaskController {
                 res.json(foundSubtask);
             }
             catch (error) {
-                const err = error;
-                res.status(500).json(err.message);
+                next(error);
+            }
+        });
+    }
+    getUsersTasks(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const usersTasks = yield TaskService_1.taskService.getUsersTasks(req.body.userId);
+                res.json(usersTasks);
+            }
+            catch (error) {
+                next(error);
             }
         });
     }

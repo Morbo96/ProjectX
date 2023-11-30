@@ -14,70 +14,39 @@ const taskHelper_1 = require("../../../domain/entities/tasks/taskHelper");
 class TaskHelperService {
     itemExists(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield taskHelper_1.TaskHelper.findOne({ where: { id } });
-                return result ? true : false;
-            }
-            catch (error) {
-                return false;
-            }
+            const result = yield taskHelper_1.TaskHelper.findOne({ where: { id } });
+            return result ? true : false;
         });
     }
     update(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield taskHelper_1.TaskHelper.update(item, { where: { id: item.id } });
-                const result = yield taskHelper_1.TaskHelper.findByPk(item.id);
-                return result;
-            }
-            catch (error) {
-                console.log(error);
-                return null;
-            }
+            yield taskHelper_1.TaskHelper.update(item, { where: { id: item.id } });
+            const result = yield taskHelper_1.TaskHelper.findByPk(item.id);
+            return result;
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield taskHelper_1.TaskHelper.findAll();
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield taskHelper_1.TaskHelper.findAll();
+            return result;
         });
     }
     getItemById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield taskHelper_1.TaskHelper.findOne({ where: { id } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield taskHelper_1.TaskHelper.findOne({ where: { id } });
+            return result;
         });
     }
     create(taskHelper) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield taskHelper_1.TaskHelper.create(taskHelper);
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield taskHelper_1.TaskHelper.create(taskHelper);
+            return result;
         });
     }
     deleteItem(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield taskHelper_1.TaskHelper.destroy({ where: { id } });
-                return true;
-            }
-            catch (error) {
-                return false;
-            }
+            yield taskHelper_1.TaskHelper.destroy({ where: { id } });
+            return true;
         });
     }
 }

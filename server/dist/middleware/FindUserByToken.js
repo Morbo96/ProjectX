@@ -18,8 +18,7 @@ const findUserByToken = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         next();
     }
     catch (error) {
-        const err = error;
-        res.status(500).json(err.message);
+        next(error);
     }
 });
 exports.findUserByToken = findUserByToken;

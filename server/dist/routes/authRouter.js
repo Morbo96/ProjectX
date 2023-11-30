@@ -13,16 +13,16 @@ const AuthController_1 = require("../controllers/AuthController");
 const AuthRouter = (0, express_2.Router)();
 const authController = new AuthController_1.AuthController();
 AuthRouter.use(express_1.default.json());
-AuthRouter.patch("/auth/signIn", SignInSchema_1.signInSchema, ValidateRequest_1.validateRequest, (req, res) => {
-    authController.signIn(req, res);
+AuthRouter.patch("/auth/signIn", SignInSchema_1.signInSchema, ValidateRequest_1.validateRequest, (req, res, next) => {
+    authController.signIn(req, res, next);
 });
-AuthRouter.post("/auth/signUp", SighUpSchema_1.signUpSchema, ValidateRequest_1.validateRequest, (req, res) => {
-    authController.signUp(req, res);
+AuthRouter.post("/auth/signUp", SighUpSchema_1.signUpSchema, ValidateRequest_1.validateRequest, (req, res, next) => {
+    authController.signUp(req, res, next);
 });
-AuthRouter.patch("/auth/logout", AccessTokenVerify_1.accessTokenVerify, (req, res) => {
-    authController.logout(req, res);
+AuthRouter.patch("/auth/logout", AccessTokenVerify_1.accessTokenVerify, (req, res, next) => {
+    authController.logout(req, res, next);
 });
-AuthRouter.get("/auth/refreshAccessToken", (req, res) => {
-    authController.refreshAccessToken(req, res);
+AuthRouter.get("/auth/refreshAccessToken", (req, res, next) => {
+    authController.refreshAccessToken(req, res, next);
 });
 exports.default = AuthRouter;

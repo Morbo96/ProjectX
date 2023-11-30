@@ -14,70 +14,39 @@ const dailySubtaskNotifications_1 = require("../../../domain/entities/dailyTasks
 class DailySubtaskNotificationService {
     itemExists(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield dailySubtaskNotifications_1.DailySubtaskNotification.findOne({ where: { id } });
-                return result ? true : false;
-            }
-            catch (error) {
-                return false;
-            }
+            const result = yield dailySubtaskNotifications_1.DailySubtaskNotification.findOne({ where: { id } });
+            return result ? true : false;
         });
     }
     update(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield dailySubtaskNotifications_1.DailySubtaskNotification.update(item, { where: { id: item.id } });
-                const result = yield dailySubtaskNotifications_1.DailySubtaskNotification.findByPk(item.id);
-                return result;
-            }
-            catch (error) {
-                console.log(error);
-                return null;
-            }
+            yield dailySubtaskNotifications_1.DailySubtaskNotification.update(item, { where: { id: item.id } });
+            const result = yield dailySubtaskNotifications_1.DailySubtaskNotification.findByPk(item.id);
+            return result;
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield dailySubtaskNotifications_1.DailySubtaskNotification.findAll();
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield dailySubtaskNotifications_1.DailySubtaskNotification.findAll();
+            return result;
         });
     }
     getItemById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield dailySubtaskNotifications_1.DailySubtaskNotification.findOne({ where: { id } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield dailySubtaskNotifications_1.DailySubtaskNotification.findOne({ where: { id } });
+            return result;
         });
     }
     create(dailySubtaskNotification) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield dailySubtaskNotifications_1.DailySubtaskNotification.create(dailySubtaskNotification);
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield dailySubtaskNotifications_1.DailySubtaskNotification.create(dailySubtaskNotification);
+            return result;
         });
     }
     deleteItem(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield dailySubtaskNotifications_1.DailySubtaskNotification.destroy({ where: { id } });
-                return true;
-            }
-            catch (error) {
-                return false;
-            }
+            yield dailySubtaskNotifications_1.DailySubtaskNotification.destroy({ where: { id } });
+            return true;
         });
     }
 }

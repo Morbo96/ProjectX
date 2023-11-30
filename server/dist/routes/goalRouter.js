@@ -15,22 +15,22 @@ const GoalRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(GoalService_1.goalService);
 const goalController = new GoalController_1.GoalController();
 GoalRoute.use(express_1.default.json());
-GoalRoute.get("/goals/:id/tasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, GoalCheck_1.goalCheck, (req, res) => {
-    goalController.getTasks(req, res);
+GoalRoute.get("/goals/:id/tasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, GoalCheck_1.goalCheck, (req, res, next) => {
+    goalController.getTasks(req, res, next);
 });
-GoalRoute.post("/goals/:id/tasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, GoalCheck_1.goalCheck, (req, res) => {
-    goalController.createTask(req, res);
+GoalRoute.post("/goals/:id/tasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, GoalCheck_1.goalCheck, (req, res, next) => {
+    goalController.createTask(req, res, next);
 });
-GoalRoute.get("/goals/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, GoalCheck_1.goalCheck, (req, res) => {
-    crudController.getByID(req, res);
+GoalRoute.get("/goals/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, GoalCheck_1.goalCheck, (req, res, next) => {
+    crudController.getByID(req, res, next);
 });
-GoalRoute.get("/goals", (req, res) => {
-    crudController.getAll(req, res);
+GoalRoute.get("/goals", (req, res, next) => {
+    crudController.getAll(req, res, next);
 });
-GoalRoute.patch("/goals/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, GoalCheck_1.goalCheck, (req, res) => {
-    crudController.update(req, res);
+GoalRoute.patch("/goals/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, GoalCheck_1.goalCheck, (req, res, next) => {
+    crudController.update(req, res, next);
 });
-GoalRoute.delete("/goals/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, GoalCheck_1.goalCheck, (req, res) => {
-    crudController.delete(req, res);
+GoalRoute.delete("/goals/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, GoalCheck_1.goalCheck, (req, res, next) => {
+    crudController.delete(req, res, next);
 });
 exports.default = GoalRoute;

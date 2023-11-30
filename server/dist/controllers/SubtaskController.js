@@ -14,7 +14,7 @@ const SubtaskService_1 = require("../model/services/implementations/tasksService
 const subtaskInfos_1 = require("../model/domain/entities/tasks/subtaskInfos");
 const subtasks_1 = require("../model/domain/entities/tasks/subtasks");
 class SubtaskController {
-    getById(req, res) {
+    getById(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const subtask = yield subtasks_1.Subtask.findOne({
@@ -24,11 +24,11 @@ class SubtaskController {
                 res.json(subtask);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    update(req, res) {
+    update(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 req.body.id = req.params.id;
@@ -46,7 +46,7 @@ class SubtaskController {
                 res.json(updatedSubtask);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }

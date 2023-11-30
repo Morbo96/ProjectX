@@ -15,25 +15,25 @@ const FolderRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(FolderService_1.folderService);
 const folderController = new FolderController_1.FolderController();
 FolderRoute.use(express_1.default.json());
-FolderRoute.get("/folders/:id/goals", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, FolderCheck_1.folderCheck, (req, res) => {
-    folderController.getGoals(req, res);
+FolderRoute.get("/folders/:id/goals", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, FolderCheck_1.folderCheck, (req, res, next) => {
+    folderController.getGoals(req, res, next);
 });
-FolderRoute.post("/folders/:id/goals", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, FolderCheck_1.folderCheck, (req, res) => {
-    folderController.createGoal(req, res);
+FolderRoute.post("/folders/:id/goals", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, FolderCheck_1.folderCheck, (req, res, next) => {
+    folderController.createGoal(req, res, next);
 });
-FolderRoute.get("/folders/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, FolderCheck_1.folderCheck, (req, res) => {
-    crudController.getByID(req, res);
+FolderRoute.get("/folders/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, FolderCheck_1.folderCheck, (req, res, next) => {
+    crudController.getByID(req, res, next);
 });
-FolderRoute.get("/folders", (req, res) => {
-    crudController.getAll(req, res);
+FolderRoute.get("/folders", (req, res, next) => {
+    crudController.getAll(req, res, next);
 });
-FolderRoute.post("/folders", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res) => {
-    crudController.create(req, res);
+FolderRoute.post("/folders", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res, next) => {
+    crudController.create(req, res, next);
 });
-FolderRoute.patch("/folders/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, FolderCheck_1.folderCheck, (req, res) => {
-    crudController.update(req, res);
+FolderRoute.patch("/folders/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, FolderCheck_1.folderCheck, (req, res, next) => {
+    crudController.update(req, res, next);
 });
-FolderRoute.delete("/folders/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, FolderCheck_1.folderCheck, (req, res) => {
-    crudController.delete(req, res);
+FolderRoute.delete("/folders/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, FolderCheck_1.folderCheck, (req, res, next) => {
+    crudController.delete(req, res, next);
 });
 exports.default = FolderRoute;

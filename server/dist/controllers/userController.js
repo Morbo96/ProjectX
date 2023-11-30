@@ -12,47 +12,47 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const UserService_1 = require("../model/services/implementations/usersServices/UserService");
 class UserController {
-    getDailyTasks(req, res) {
+    getDailyTasks(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const usersDailyTasks = yield UserService_1.userService.getDailyTasks(req.body.userId);
                 res.json(usersDailyTasks);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    getFolders(req, res) {
+    getFolders(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const usersFolders = yield UserService_1.userService.getFolders(req.body.userId);
                 res.json(usersFolders);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    getUsersPet(req, res) {
+    getUsersPet(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const usersPets = yield UserService_1.userService.getUsersPets(req.body.userId);
                 res.json(usersPets);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    getByLogin(req, res) {
+    getByLogin(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const oneItem = yield UserService_1.userService.getByLogin(req.params.login);
                 res.json(oneItem);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }

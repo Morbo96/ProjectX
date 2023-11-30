@@ -14,70 +14,39 @@ const subtasks_1 = require("../../../domain/entities/tasks/subtasks");
 class SubtaskService {
     itemExists(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield subtasks_1.Subtask.findOne({ where: { id } });
-                return result ? true : false;
-            }
-            catch (error) {
-                return false;
-            }
+            const result = yield subtasks_1.Subtask.findOne({ where: { id } });
+            return result ? true : false;
         });
     }
     update(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield subtasks_1.Subtask.update(item, { where: { id: item.id } });
-                const result = yield subtasks_1.Subtask.findByPk(item.id);
-                return result;
-            }
-            catch (error) {
-                console.log(error);
-                return null;
-            }
+            yield subtasks_1.Subtask.update(item, { where: { id: item.id } });
+            const result = yield subtasks_1.Subtask.findByPk(item.id);
+            return result;
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield subtasks_1.Subtask.findAll();
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield subtasks_1.Subtask.findAll();
+            return result;
         });
     }
     getItemById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield subtasks_1.Subtask.findOne({ where: { id } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield subtasks_1.Subtask.findOne({ where: { id } });
+            return result;
         });
     }
     create(subtask) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield subtasks_1.Subtask.create(subtask);
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield subtasks_1.Subtask.create(subtask);
+            return result;
         });
     }
     deleteItem(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield subtasks_1.Subtask.destroy({ where: { id } });
-                return true;
-            }
-            catch (error) {
-                return false;
-            }
+            yield subtasks_1.Subtask.destroy({ where: { id } });
+            return true;
         });
     }
 }

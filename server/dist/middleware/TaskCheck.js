@@ -37,8 +37,7 @@ const taskCheck = (req, res, next) => __awaiter(void 0, void 0, void 0, function
         next();
     }
     catch (error) {
-        const err = error;
-        res.status(500).json(err.message);
+        next(error);
     }
 });
 exports.taskCheck = taskCheck;

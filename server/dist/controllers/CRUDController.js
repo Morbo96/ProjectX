@@ -14,7 +14,7 @@ class CRUDController {
     constructor(service) {
         this.itemService = service;
     }
-    create(req, res) {
+    create(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const createdItem = yield this.itemService.create(req.body);
@@ -23,33 +23,33 @@ class CRUDController {
                 res.json(createdItem);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    getAll(req, res) {
+    getAll(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const allItems = yield this.itemService.getAll();
                 res.json({ allItems });
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    getByID(req, res) {
+    getByID(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const oneItem = yield this.itemService.getItemById(Number(req.params.id)); //FUTURE добавить проверку на число
                 res.json(oneItem);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    delete(req, res) {
+    delete(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 req.body.id = req.params.id;
@@ -57,11 +57,11 @@ class CRUDController {
                 isSuccess ? res.status(201).json(true) : res.status(500).json(false);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    update(req, res) {
+    update(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 req.body.id = req.params.id;
@@ -69,7 +69,7 @@ class CRUDController {
                 res.json(updatedItem);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }

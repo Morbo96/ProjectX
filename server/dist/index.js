@@ -23,6 +23,7 @@ const taskRouter_1 = __importDefault(require("./routes/taskRouter"));
 const subtaskRouter_1 = __importDefault(require("./routes/subtaskRouter"));
 const dailySubtaskRouter_1 = __importDefault(require("./routes/dailySubtaskRouter"));
 const authRouter_1 = __importDefault(require("./routes/authRouter"));
+const HandleError_1 = require("./middleware/errorHandler/HandleError");
 const app = (0, express_1.default)();
 app.use("/api", authRouter_1.default);
 app.use("/api", userRouter_1.default);
@@ -34,18 +35,19 @@ app.use("/api", taskRouter_1.default);
 app.use("/api", subtaskRouter_1.default);
 app.use("/api", dailySubtaskRouter_1.default);
 app.use(express_1.default.json());
-const port = 3000;
+app.use(HandleError_1.handleError);
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield dbConnection_1.default.authenticate().then(() => {
             console.log("Connection has been established successfully.");
         });
         yield dbConnection_1.default.sync();
-        app.listen(port, () => {
-            console.log(`server is listening on ${port}`);
+        app.listen(process.env.PORT, () => {
+            console.log(`server is listening on ${process.env.PORT}`);
         });
     }
     catch (err) {
+        HandleError_1.logger.error(err, "Index error");
         console.log(err);
     }
 });

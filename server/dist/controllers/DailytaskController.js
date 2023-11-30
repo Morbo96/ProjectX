@@ -16,18 +16,18 @@ const DailySubtaskService_1 = require("../model/services/implementations/dailyTa
 const dailySubtaskNotifications_1 = require("../model/domain/entities/dailyTasks/dailySubtaskNotifications");
 const dailySubtaskNotificationTime_1 = require("../model/domain/entities/dailyTasks/dailySubtaskNotificationTime");
 class DailytaskController {
-    getDailysubtasks(req, res) {
+    getDailysubtasks(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const dailytasksDailysubtasks = yield DailyTaskService_1.dailyTaskService.getDailysubtasks(Number(req.params.id));
                 res.json(dailytasksDailysubtasks);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    createDailySubtask(req, res) {
+    createDailySubtask(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 if (!req.body.dailySubtask) {

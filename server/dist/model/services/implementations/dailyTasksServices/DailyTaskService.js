@@ -15,81 +15,47 @@ const dailyTasks_1 = require("../../../domain/entities/dailyTasks/dailyTasks");
 class DailyTaskService {
     getDailysubtasks(dailyTaskId) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield dailySubtasks_1.DailySubtask.findAll({ where: { dailyTaskId: dailyTaskId } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield dailySubtasks_1.DailySubtask.findAll({
+                where: { dailyTaskId: dailyTaskId },
+            });
+            return result;
         });
     }
     itemExists(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield dailyTasks_1.DailyTask.findOne({ where: { id } });
-                return result ? true : false;
-            }
-            catch (error) {
-                return false;
-            }
+            const result = yield dailyTasks_1.DailyTask.findOne({ where: { id } });
+            return result ? true : false;
         });
     }
     update(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield dailyTasks_1.DailyTask.update(item, { where: { id: item.id } });
-                const result = yield dailyTasks_1.DailyTask.findByPk(item.id);
-                return result;
-            }
-            catch (error) {
-                console.log(error);
-                return null;
-            }
+            yield dailyTasks_1.DailyTask.update(item, { where: { id: item.id } });
+            const result = yield dailyTasks_1.DailyTask.findByPk(item.id);
+            return result;
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield dailyTasks_1.DailyTask.findAll();
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield dailyTasks_1.DailyTask.findAll();
+            return result;
         });
     }
     getItemById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield dailyTasks_1.DailyTask.findOne({ where: { id } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield dailyTasks_1.DailyTask.findOne({ where: { id } });
+            return result;
         });
     }
     create(dailyTask) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield dailyTasks_1.DailyTask.create(dailyTask);
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield dailyTasks_1.DailyTask.create(dailyTask);
+            return result;
         });
     }
     deleteItem(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield dailyTasks_1.DailyTask.destroy({ where: { id } });
-                return true;
-            }
-            catch (error) {
-                return false;
-            }
+            yield dailyTasks_1.DailyTask.destroy({ where: { id } });
+            return true;
         });
     }
 }

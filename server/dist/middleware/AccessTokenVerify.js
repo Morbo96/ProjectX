@@ -25,13 +25,7 @@ const accessTokenVerify = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         next();
     }
     catch (error) {
-        const err = error;
-        if (err.message == "jwt expired") {
-            res.status(400).json("Session expired");
-        }
-        else {
-            res.status(400).json(err.message);
-        }
+        next(error);
     }
 });
 exports.accessTokenVerify = accessTokenVerify;

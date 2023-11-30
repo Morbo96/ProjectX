@@ -14,70 +14,39 @@ const subtaskInfos_1 = require("../../../domain/entities/tasks/subtaskInfos");
 class SubtaskInfoService {
     itemExists(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield subtaskInfos_1.SubtaskInfo.findOne({ where: { id } });
-                return result ? true : false;
-            }
-            catch (error) {
-                return false;
-            }
+            const result = yield subtaskInfos_1.SubtaskInfo.findOne({ where: { id } });
+            return result ? true : false;
         });
     }
     update(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield subtaskInfos_1.SubtaskInfo.update(item, { where: { id: item.id } });
-                const result = yield subtaskInfos_1.SubtaskInfo.findByPk(item.id);
-                return result;
-            }
-            catch (error) {
-                console.log(error);
-                return null;
-            }
+            yield subtaskInfos_1.SubtaskInfo.update(item, { where: { id: item.id } });
+            const result = yield subtaskInfos_1.SubtaskInfo.findByPk(item.id);
+            return result;
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield subtaskInfos_1.SubtaskInfo.findAll();
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield subtaskInfos_1.SubtaskInfo.findAll();
+            return result;
         });
     }
     getItemById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield subtaskInfos_1.SubtaskInfo.findOne({ where: { id } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield subtaskInfos_1.SubtaskInfo.findOne({ where: { id } });
+            return result;
         });
     }
     create(subtaskInfo) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield subtaskInfos_1.SubtaskInfo.create(subtaskInfo);
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield subtaskInfos_1.SubtaskInfo.create(subtaskInfo);
+            return result;
         });
     }
     deleteItem(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield subtaskInfos_1.SubtaskInfo.destroy({ where: { id } });
-                return true;
-            }
-            catch (error) {
-                return false;
-            }
+            yield subtaskInfos_1.SubtaskInfo.destroy({ where: { id } });
+            return true;
         });
     }
 }

@@ -13,6 +13,7 @@ exports.userService = void 0;
 const dailyTasks_1 = require("../../../domain/entities/dailyTasks/dailyTasks");
 const folders_1 = require("../../../domain/entities/tasks/folders");
 const goals_1 = require("../../../domain/entities/tasks/goals");
+const subtaskInfos_1 = require("../../../domain/entities/tasks/subtaskInfos");
 const subtasks_1 = require("../../../domain/entities/tasks/subtasks");
 const tasks_1 = require("../../../domain/entities/tasks/tasks");
 const users_1 = require("../../../domain/entities/user/users");
@@ -22,146 +23,95 @@ const UserBankService_1 = require("./UserBankService");
 class UserService {
     getByEmail(email) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield users_1.User.findOne({ where: { email: email } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield users_1.User.findOne({ where: { email: email } });
+            return result;
         });
     }
     getByLogin(login) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield users_1.User.findOne({ where: { login: login } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield users_1.User.findOne({ where: { login: login } });
+            return result;
         });
     }
     getDailyTasks(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield dailyTasks_1.DailyTask.findAll({ where: { userId: userId } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield dailyTasks_1.DailyTask.findAll({ where: { userId: userId } });
+            return result;
         });
     }
     getUsersPets(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield usersPets_1.UserPet.findAll({ where: { userId: userId } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield usersPets_1.UserPet.findAll({ where: { userId: userId } });
+            return result;
         });
     }
     getFolders(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield folders_1.Folder.findAll({
-                    where: { userId: userId },
-                    include: [
-                        {
-                            model: goals_1.Goal,
-                            required: false,
-                            include: [
-                                {
-                                    model: tasks_1.Task,
-                                    required: false,
-                                    include: [{ model: subtasks_1.Subtask, required: false }],
-                                },
-                            ],
-                        },
-                    ],
-                });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield folders_1.Folder.findAll({
+                where: { userId: userId },
+                include: [
+                    {
+                        model: goals_1.Goal,
+                        required: false,
+                        include: [
+                            {
+                                model: tasks_1.Task,
+                                required: false,
+                                include: [
+                                    {
+                                        model: subtasks_1.Subtask,
+                                        required: false,
+                                        include: [{ model: subtaskInfos_1.SubtaskInfo, required: false }],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            });
+            return result;
         });
     }
     itemExists(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield users_1.User.findOne({ where: { id } });
-                return result ? true : false;
-            }
-            catch (error) {
-                return false;
-            }
+            const result = yield users_1.User.findOne({ where: { id } });
+            return result ? true : false;
         });
     }
     update(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield users_1.User.update(item, { where: { id: item.id } });
-                const result = yield users_1.User.findByPk(item.id);
-                return result;
-            }
-            catch (error) {
-                console.log(error);
-                return null;
-            }
+            yield users_1.User.update(item, { where: { id: item.id } });
+            const result = yield users_1.User.findByPk(item.id);
+            return result;
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield users_1.User.findAll();
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield users_1.User.findAll();
+            return result;
         });
     }
     getItemById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield users_1.User.findOne({ where: { id } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield users_1.User.findOne({ where: { id } });
+            return result;
         });
     }
     create(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield users_1.User.create(user);
-                const relatedUserBank = usersBanks_1.UserBank.build({
-                    userId: result.id,
-                });
-                yield UserBankService_1.userBankService.create(relatedUserBank.toJSON());
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield users_1.User.create(user);
+            const relatedUserBank = usersBanks_1.UserBank.build({
+                userId: result.id,
+            });
+            yield UserBankService_1.userBankService.create(relatedUserBank.toJSON());
+            return result;
         });
     }
     deleteItem(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield usersBanks_1.UserBank.destroy({ where: { userId: id } });
-                yield users_1.User.destroy({ where: { id } });
-                return true;
-            }
-            catch (error) {
-                console.log(error);
-                return false;
-            }
+            yield usersBanks_1.UserBank.destroy({ where: { userId: id } });
+            yield users_1.User.destroy({ where: { id } });
+            return true;
         });
     }
 }

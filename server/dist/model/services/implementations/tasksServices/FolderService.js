@@ -59,83 +59,45 @@ class FolderService {
     // future end block
     getGoals(folderId) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield goals_1.Goal.findAll({ where: { folderId: folderId } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield goals_1.Goal.findAll({ where: { folderId: folderId } });
+            return result;
         });
     }
     itemExists(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield folders_1.Folder.findOne({ where: { id } });
-                return result ? true : false;
-            }
-            catch (error) {
-                return false;
-            }
+            const result = yield folders_1.Folder.findOne({ where: { id } });
+            return result ? true : false;
         });
     }
     update(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield folders_1.Folder.update(item, { where: { id: item.id } });
-                const result = yield folders_1.Folder.findByPk(item.id);
-                return result;
-            }
-            catch (error) {
-                console.log(error);
-                return null;
-            }
+            yield folders_1.Folder.update(item, { where: { id: item.id } });
+            const result = yield folders_1.Folder.findByPk(item.id);
+            return result;
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield folders_1.Folder.findAll();
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield folders_1.Folder.findAll();
+            return result;
         });
     }
     getItemById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield folders_1.Folder.findOne({ where: { id } });
-                return result;
-            }
-            catch (error) {
-                return null;
-            }
+            const result = yield folders_1.Folder.findOne({ where: { id } });
+            return result;
         });
     }
     create(folder) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield folders_1.Folder.create(folder);
-                return result;
-            }
-            catch (error) {
-                console.log(error);
-                return null;
-            }
+            const result = yield folders_1.Folder.create(folder);
+            return result;
         });
     }
     deleteItem(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield folders_1.Folder.destroy({ where: { id } });
-                return true;
-            }
-            catch (error) {
-                console.log(error);
-                return false;
-            }
+            yield folders_1.Folder.destroy({ where: { id } });
+            return true;
         });
     }
 }

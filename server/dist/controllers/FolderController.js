@@ -13,18 +13,18 @@ exports.FolderController = void 0;
 const FolderService_1 = require("../model/services/implementations/tasksServices/FolderService");
 const GoalService_1 = require("../model/services/implementations/tasksServices/GoalService");
 class FolderController {
-    getGoals(req, res) {
+    getGoals(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const foldersGoals = yield FolderService_1.folderService.getGoals(Number(req.params.id));
                 res.json(foldersGoals);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
-    createGoal(req, res) {
+    createGoal(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 req.body.folderId = req.params.id;
@@ -32,7 +32,7 @@ class FolderController {
                 res.status(200).json(newGoal);
             }
             catch (error) {
-                res.status(500).json(error);
+                next(error);
             }
         });
     }
