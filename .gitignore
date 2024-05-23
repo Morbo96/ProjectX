@@ -1,2 +1,4 @@
 /server/.env
 .vscode
+/server/logs
+/server/coverage
