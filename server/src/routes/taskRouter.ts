@@ -7,9 +7,9 @@ import { accessTokenVerify } from "../middleware/AccessTokenVerify";
 import { findUserByToken } from "../middleware/FindUserByToken";
 import { taskCheck } from "../middleware/TaskCheck";
 
-const TaskRoute = Router();
 const crudController = new CRUDController(taskService);
 const taskController = new TaskController();
+const TaskRoute = Router();
 
 TaskRoute.use(express.json());
 

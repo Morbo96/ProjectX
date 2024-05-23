@@ -4,21 +4,13 @@ import {
   Table,
   HasMany,
   HasOne,
-  Unique,
-  NotNull,
-  AllowNull,
-  IsEmail,
-  ValidationFailed,
+  Unique, AllowNull,
+  IsEmail
 } from "sequelize-typescript";
 import { DailyTask } from "../dailyTasks/dailyTasks";
 import { UserBank } from "./usersBanks";
 import { UserPet } from "./usersPets";
 import { Folder } from "../tasks/folders";
-import {
-  UniqueConstraintError,
-  UnknownConstraintError,
-  ValidationError,
-} from "sequelize";
 
 @Table
 export class User extends Model<User> {

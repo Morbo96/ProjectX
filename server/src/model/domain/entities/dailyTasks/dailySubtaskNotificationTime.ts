@@ -10,7 +10,7 @@ import { DailyTask } from "./dailyTasks";
 import { DailySubtask } from "./dailySubtasks";
 import { DailySubtaskNotification } from "./dailySubtaskNotifications";
 
-@Table
+@Table //({tableName: "daily_subtask_notification_time"})
 export class DailySubtaskNotificationTime extends Model<DailySubtaskNotificationTime> {
   @Column
   time!: Date;

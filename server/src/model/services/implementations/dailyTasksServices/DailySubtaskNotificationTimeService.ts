@@ -30,7 +30,7 @@ class DailySubtaskNotificationTimeService
 
   async getItemById(id: Number) {
     const result = await DailySubtaskNotificationTime.findOne({
-      where: { id },
+      where: { id }
     });
 
     return result;

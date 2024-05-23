@@ -1,5 +1,4 @@
-import { Model, Column,Table,BelongsTo, ForeignKey, HasMany } from "sequelize-typescript";
-import { User } from "../user/users";
+import { Model, Column, Table, ForeignKey } from "sequelize-typescript";
 import { Folder } from "./folders";
 
 @Table

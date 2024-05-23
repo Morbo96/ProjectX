@@ -82,6 +82,7 @@ export class AuthController {
     return accessToken;
   }
   async refreshAccessToken(req: Request, res: Response, next: NextFunction) {
+    // FUTURE избавиться от нестинга
     try {
       const refreshToken = req.body.refreshToken;
       if (refreshToken) {

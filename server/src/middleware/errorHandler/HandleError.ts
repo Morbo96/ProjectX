@@ -27,6 +27,6 @@ export function handleError(
   next: NextFunction
 ) {
   logger.error(err, "Hello world!");
-  res.status(500).json(err.message);
+  res.status(500).json(err || err.message);
   console.log(err);
 }

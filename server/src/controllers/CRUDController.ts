@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { CRUDServiceInterface } from "../model/services/interfaces/CRUDServiceInterface";
 
 export class CRUDController<T extends {}> {
-  itemService: CRUDServiceInterface<T>;
+  itemService: CRUDServiceInterface<T>; // private
 
   constructor(service: CRUDServiceInterface<T>) {
     this.itemService = service;

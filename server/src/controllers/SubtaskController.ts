@@ -20,7 +20,7 @@ export class SubtaskController {
       req.body.id = req.params.id;
       var updatedSubtask = await subtaskService.update(req.body);
       if (req.body.subtaskInfo) {
-        const subtaskInfo = await updatedSubtask.$get("subtaskInfo");
+        const subtaskInfo = await updatedSubtask.$get("subtaskInfo"); //FUTURE change from models method to service
         await SubtaskInfo.update(req.body.subtaskInfo, {
           where: { id: subtaskInfo.id },
         });

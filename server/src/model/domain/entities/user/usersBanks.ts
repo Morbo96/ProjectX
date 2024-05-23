@@ -15,6 +15,8 @@ export class UserBank extends Model<UserBank> {
   @Column
   diamonds!:number;
 
+  //Отношения
+
   @ForeignKey(()=>User)
   @Column
   userId!:number;
