@@ -8,11 +8,11 @@ import {
 } from "@jest/globals";
 import { NextFunction, Request, Response, response } from "express";
 import httpMock from "node-mocks-http";
-import { UserController } from "../../../src/controllers/UserController";
-import { User } from "../../../src/model/domain/entities/user/users";
-import { userService } from "../../../src/model/services/implementations/usersServices/UserService";
+import { UserController } from "../../src/controllers/UserController";
+import { User } from "../../src/model/domain/entities/user/users";
+import { userService } from "../../src/model/services/implementations/usersServices/UserService";
 
-jest.mock("../../../src/model/domain/entities/user/users");
+jest.mock("../../src/model/domain/entities/user/users");
 const mockedUser = User as jest.Mocked<typeof User>;
 let next = jest.fn() as NextFunction;
 
