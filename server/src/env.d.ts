@@ -8,6 +8,7 @@ declare global {
       DB_PORT: string;
       JWT_ACCESS_SECRET: string;
       JWT_REFRESH_SECRET: string;
+      HUNGER_MULTIPLIER_RATE: string;
       PORT: string;
     }
   }

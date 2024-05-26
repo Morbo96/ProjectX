@@ -4,6 +4,9 @@ import {
   Table,
   BelongsTo,
   ForeignKey,
+  Max,
+  Min,
+  Default,
 } from "sequelize-typescript";
 import { User } from "./users";
 
@@ -12,11 +15,15 @@ export class UserPet extends Model<UserPet> {
   @Column
   name!: string;
 
+  @Max(100)
+  @Min(0)
+  @Default(0)
   @Column
   hunger!: number;
 
+  @Default(Date.now)
   @Column
-  energy!: number;
+  lastFed!: Date;
 
   @ForeignKey(() => User)
   @Column
