@@ -11,9 +11,9 @@ const TaskController_1 = require("../controllers/TaskController");
 const AccessTokenVerify_1 = require("../middleware/AccessTokenVerify");
 const FindUserByToken_1 = require("../middleware/FindUserByToken");
 const TaskCheck_1 = require("../middleware/TaskCheck");
-const TaskRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(TaskService_1.taskService);
 const taskController = new TaskController_1.TaskController();
+const TaskRoute = (0, express_2.Router)();
 TaskRoute.use(express_1.default.json());
 TaskRoute.get("/tasks/:id/subtasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, TaskCheck_1.taskCheck, (req, res, next) => {
     taskController.getSubtasks(req, res, next);

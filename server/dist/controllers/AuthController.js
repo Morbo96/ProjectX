@@ -92,6 +92,7 @@ class AuthController {
     }
     refreshAccessToken(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
+            // FUTURE избавиться от нестинга
             try {
                 const refreshToken = req.body.refreshToken;
                 if (refreshToken) {

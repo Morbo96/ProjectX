@@ -9,37 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserPet = void 0;
+exports.FoodType = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-const users_1 = require("./users");
-let UserPet = class UserPet extends sequelize_typescript_1.Model {
+const Food_1 = require("./Food");
+let FoodType = class FoodType extends sequelize_typescript_1.Model {
 };
-exports.UserPet = UserPet;
+exports.FoodType = FoodType;
 __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", String)
-], UserPet.prototype, "name", void 0);
+], FoodType.prototype, "name", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Max)(100),
-    (0, sequelize_typescript_1.Min)(0),
-    (0, sequelize_typescript_1.Default)(0),
     sequelize_typescript_1.Column,
     __metadata("design:type", Number)
-], UserPet.prototype, "hunger", void 0);
+], FoodType.prototype, "nourishmentValue", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Default)(Date.now),
-    sequelize_typescript_1.Column,
-    __metadata("design:type", Date)
-], UserPet.prototype, "lastFed", void 0);
-__decorate([
-    (0, sequelize_typescript_1.ForeignKey)(() => users_1.User),
-    sequelize_typescript_1.Column,
-    __metadata("design:type", Number)
-], UserPet.prototype, "userId", void 0);
-__decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => users_1.User, { onDelete: "cascade" }),
-    __metadata("design:type", users_1.User)
-], UserPet.prototype, "user", void 0);
-exports.UserPet = UserPet = __decorate([
-    sequelize_typescript_1.Table
-], UserPet);
+    (0, sequelize_typescript_1.HasMany)(() => Food_1.Food),
+    __metadata("design:type", Array)
+], FoodType.prototype, "foods", void 0);
+exports.FoodType = FoodType = __decorate([
+    (0, sequelize_typescript_1.Table)({ underscored: true })
+], FoodType);

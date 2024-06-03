@@ -29,5 +29,5 @@ __decorate([
     __metadata("design:type", dailySubtaskNotifications_1.DailySubtaskNotification)
 ], DailySubtaskNotificationTime.prototype, "dailySubtaskNotification", void 0);
 exports.DailySubtaskNotificationTime = DailySubtaskNotificationTime = __decorate([
-    sequelize_typescript_1.Table
+    sequelize_typescript_1.Table //({tableName: "daily_subtask_notification_time"})
 ], DailySubtaskNotificationTime);

@@ -20,7 +20,7 @@ exports.logger = (0, pino_1.default)({
 }, fileTransport);
 function handleError(err, req, res, next) {
     exports.logger.error(err, "Hello world!");
-    res.status(500).json(err.message);
+    res.status(500).json(err || err.message);
     console.log(err);
 }
 exports.handleError = handleError;

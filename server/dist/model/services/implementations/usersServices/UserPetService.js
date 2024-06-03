@@ -61,6 +61,7 @@ class UserPetService {
     create(userPet) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                userPet.lastFed = new Date();
                 const result = yield usersPets_1.UserPet.create(userPet);
                 return result;
             }

@@ -15,6 +15,8 @@ const dailyTasks_1 = require("../dailyTasks/dailyTasks");
 const usersBanks_1 = require("./usersBanks");
 const usersPets_1 = require("./usersPets");
 const folders_1 = require("../tasks/folders");
+const UserFood_1 = require("../gamification/UserFood");
+const Food_1 = require("../gamification/Food");
 let User = class User extends sequelize_typescript_1.Model {
 };
 exports.User = User;
@@ -60,6 +62,10 @@ __decorate([
     (0, sequelize_typescript_1.HasMany)(() => usersPets_1.UserPet),
     __metadata("design:type", Array)
 ], User.prototype, "userPets", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsToMany)(() => Food_1.Food, () => UserFood_1.UserFood),
+    __metadata("design:type", Array)
+], User.prototype, "foods", void 0);
 exports.User = User = __decorate([
     sequelize_typescript_1.Table
 ], User);

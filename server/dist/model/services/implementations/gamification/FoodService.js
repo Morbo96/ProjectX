@@ -9,51 +9,45 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.dailySubtaskNotificationTimeService = void 0;
-const dailySubtaskNotificationTime_1 = require("../../../domain/entities/dailyTasks/dailySubtaskNotificationTime");
-class DailySubtaskNotificationTimeService {
+exports.foodService = void 0;
+const Food_1 = require("../../../domain/entities/gamification/Food");
+class FoodService {
     itemExists(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield dailySubtaskNotificationTime_1.DailySubtaskNotificationTime.findOne({
-                where: { id },
-            });
+            const result = yield Food_1.Food.findOne({ where: { id } });
             return result ? true : false;
         });
     }
     update(item) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield dailySubtaskNotificationTime_1.DailySubtaskNotificationTime.update(item, {
-                where: { id: item.id },
-            });
-            const result = yield dailySubtaskNotificationTime_1.DailySubtaskNotificationTime.findByPk(item.id);
+            yield Food_1.Food.update(item, { where: { id: item.id } });
+            const result = yield Food_1.Food.findByPk(item.id);
             return result;
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield dailySubtaskNotificationTime_1.DailySubtaskNotificationTime.findAll();
+            const result = yield Food_1.Food.findAll();
             return result;
         });
     }
     getItemById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield dailySubtaskNotificationTime_1.DailySubtaskNotificationTime.findOne({
-                where: { id }
-            });
+            const result = yield Food_1.Food.findOne({ where: { id } });
             return result;
         });
     }
-    create(dailySubtaskNotificationTime) {
+    create(food) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield dailySubtaskNotificationTime_1.DailySubtaskNotificationTime.create(dailySubtaskNotificationTime);
+            const result = yield Food_1.Food.create(food);
             return result;
         });
     }
     deleteItem(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield dailySubtaskNotificationTime_1.DailySubtaskNotificationTime.destroy({ where: { id } });
+            yield Food_1.Food.destroy({ where: { id } });
             return true;
         });
     }
 }
-exports.dailySubtaskNotificationTimeService = new DailySubtaskNotificationTimeService();
+exports.foodService = new FoodService();

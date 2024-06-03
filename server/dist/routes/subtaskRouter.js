@@ -15,6 +15,9 @@ const SubtaskRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(SubtaskService_1.subtaskService);
 const subtaskController = new SubtaskController_1.SubtaskController();
 SubtaskRoute.use(express_1.default.json());
+SubtaskRoute.patch("/subtasks/:id/complete", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, SubtaskCheck_1.subtaskCheck, (req, res, next) => {
+    subtaskController.complete(req, res, next);
+});
 SubtaskRoute.get("/subtasks/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, SubtaskCheck_1.subtaskCheck, (req, res, next) => {
     subtaskController.getById(req, res, next);
 });

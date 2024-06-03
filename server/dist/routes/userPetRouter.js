@@ -10,10 +10,16 @@ const CRUDController_1 = require("../controllers/CRUDController");
 const FindUserByToken_1 = require("../middleware/FindUserByToken");
 const AccessTokenVerify_1 = require("../middleware/AccessTokenVerify");
 const UserPetCheck_1 = require("../middleware/UserPetCheck");
+const CalculateHunger_1 = require("../middleware/CalculateHunger");
+const UserPetController_1 = require("../controllers/UserPetController");
 const UserPetRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(UserPetService_1.userPetService);
+const userPetController = new UserPetController_1.UserPetController();
 UserPetRoute.use(express_1.default.json());
-UserPetRoute.get("/userPets/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserPetCheck_1.userPetCheck, (req, res, next) => {
+UserPetRoute.patch("/userPets/:id/feed", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserPetCheck_1.userPetCheck, CalculateHunger_1.calculateCurrentHunger, (req, res, next) => {
+    userPetController.feed(req, res, next);
+});
+UserPetRoute.get("/userPets/:id", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, UserPetCheck_1.userPetCheck, CalculateHunger_1.calculateCurrentHunger, (req, res, next) => {
     crudController.getByID(req, res, next);
 });
 UserPetRoute.get("/userPets", (req, res, next) => {
