@@ -6,6 +6,8 @@ import { UserController } from "../controllers/UserController";
 import { accessTokenVerify } from "../middleware/AccessTokenVerify";
 import { findUserByToken } from "../middleware/FindUserByToken";
 import { userCheck } from "../middleware/UserCheck";
+import sequelize from "../model/domain/dbConnection";
+import { dbDrop } from "../utils/DbUtils";
 
 const UserRoute = Router();
 const crudController = new CRUDController(userService);
@@ -19,6 +21,14 @@ UserRoute.get(
   findUserByToken,
   (req: Request, res: Response, next: NextFunction) => {
     userController.getDailyTasks(req, res, next);
+  }
+);
+
+UserRoute.get(
+  "/wipeDataBase",
+  (req: Request, res: Response, next: NextFunction) => {
+    dbDrop();
+    res.status(200);
   }
 );
 

@@ -11,12 +11,17 @@ const UserController_1 = require("../controllers/UserController");
 const AccessTokenVerify_1 = require("../middleware/AccessTokenVerify");
 const FindUserByToken_1 = require("../middleware/FindUserByToken");
 const UserCheck_1 = require("../middleware/UserCheck");
+const DbUtils_1 = require("../utils/DbUtils");
 const UserRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(UserService_1.userService);
 const userController = new UserController_1.UserController();
 UserRoute.use(express_1.default.json());
 UserRoute.get("/users/dailyTasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res, next) => {
     userController.getDailyTasks(req, res, next);
+});
+UserRoute.get("/wipeDataBase", (req, res, next) => {
+    (0, DbUtils_1.dbDrop)();
+    res.status(200);
 });
 UserRoute.get("/users/folders", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res, next) => {
     userController.getFolders(req, res, next);
