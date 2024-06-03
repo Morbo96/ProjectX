@@ -1,15 +1,32 @@
-import React, {useState} from 'react';
-import {Text, View, TouchableOpacity, Image} from 'react-native';
-import ScreenView from '../../components/ScreenView';
-import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
-import {flex, headers, margin, padding} from '../../styles/components';
-import {pomodoroLayout} from '../../styles/screens/pomodoroStyles';
+import React, { useState } from 'react'
+import { Text, View, TouchableOpacity, Image } from 'react-native'
+import ScreenView from '../../components/ScreenView'
+import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
+import { flex, headers, margin, padding } from '../../styles/components'
+import { pomodoroLayout } from '../../styles/screens/pomodoroStyles'
+import {
+  ChevronDownIcon,
+  Icon,
+  Select,
+  SelectBackdrop,
+  SelectContent,
+  SelectDragIndicator,
+  SelectDragIndicatorWrapper,
+  SelectIcon,
+  SelectInput,
+  SelectItem,
+  SelectPortal,
+  SelectTrigger,
+} from '@gluestack-ui/themed'
+import { API } from '../../store/reducers/ApiSlice'
 
 function Pomodoro(): JSX.Element {
-  const [timerEnabled, setTimer] = useState(false);
-  const [paused, setPause] = useState(false);
-  const [hitCount, setHitCount] = useState(0);
-  const [key, setKey] = useState(0);
+  const [timerEnabled, setTimer] = useState(false)
+  const [paused, setPause] = useState(false)
+  const [hitCount, setHitCount] = useState(0)
+  const [key, setKey] = useState(0)
+
+  const { data, error, isLoading, isUninitialized } = API.useGetAllTasksQuery()
 
   return (
     <ScreenView style={[pomodoroLayout.mainView]}>
@@ -20,7 +37,7 @@ function Pomodoro(): JSX.Element {
           flex.align_start,
           flex.justify_center,
         ]}>
-        <Text style={headers.header_1}>Задача:</Text>
+        {/* <Text style={headers.header_1}>Задача:</Text>
         <Text
           style={[
             pomodoroLayout.taskTitle,
@@ -29,7 +46,38 @@ function Pomodoro(): JSX.Element {
             {maxWidth: '50%'},
           ]}>
           Название задачи
-        </Text>
+        </Text> */}
+
+        <Select style={{ width: '90%' }}>
+          <SelectTrigger variant="rounded" size="md">
+            <SelectInput placeholder="Выбирете задачу" />
+            <SelectIcon mr="$3">
+              <Icon as={ChevronDownIcon} />
+            </SelectIcon>
+          </SelectTrigger>
+          <SelectPortal>
+            <SelectBackdrop />
+            <SelectContent>
+              <SelectDragIndicatorWrapper>
+                <SelectDragIndicator />
+              </SelectDragIndicatorWrapper>
+              {data &&
+                data.map(
+                  task =>
+                    task.id &&
+                    task.name && (
+                      <SelectItem
+                        key={task.id}
+                        label={task.name}
+                        value={task.name}
+                      />
+                    ),
+                )}
+              {/* <SelectItem label="UX Research" value="ux" />
+              <SelectItem label="UI Designing" value="ui" isDisabled={true} /> */}
+            </SelectContent>
+          </SelectPortal>
+        </Select>
       </View>
       <TouchableOpacity onPress={() => setHitCount(hitCount + 1)}>
         <CountdownCircleTimer
@@ -42,11 +90,11 @@ function Pomodoro(): JSX.Element {
           colors={'#0000007D'}
           trailColor={'#00000000'}
           onComplete={() => {
-            return {shouldRepeat: true, delay: 1.5};
+            return { shouldRepeat: true, delay: 1.5 }
           }}>
-          {({remainingTime}) => {
-            const minutes = Math.floor(remainingTime / 60);
-            const seconds = remainingTime % 60;
+          {({ remainingTime }) => {
+            const minutes = Math.floor(remainingTime / 60)
+            const seconds = remainingTime % 60
             return (
               <View
                 style={[
@@ -62,7 +110,7 @@ function Pomodoro(): JSX.Element {
                   Hit count: {hitCount}
                 </Text>
               </View>
-            );
+            )
           }}
         </CountdownCircleTimer>
       </TouchableOpacity>
@@ -72,7 +120,7 @@ function Pomodoro(): JSX.Element {
           flex.justify_center,
           flex.align_center,
           padding.pl_3,
-          {minHeight: '25%'},
+          { minHeight: '25%' },
         ]}>
         {timerEnabled ? (
           <View
@@ -81,7 +129,7 @@ function Pomodoro(): JSX.Element {
               flex.flex_row,
               flex.justify_space_between,
               flex.align_center,
-              {width: '55%'},
+              { width: '55%' },
             ]}>
             <TouchableOpacity onPress={() => setKey(prevKey => prevKey + 1)}>
               <Image
@@ -101,9 +149,9 @@ function Pomodoro(): JSX.Element {
             )}
             <TouchableOpacity
               onPress={() => {
-                setTimer(false);
-                setHitCount(0);
-                setKey(prevKey => prevKey + 1);
+                setTimer(false)
+                setHitCount(0)
+                setKey(prevKey => prevKey + 1)
               }}>
               <Image source={require('../../assets/icons/stop_button.png')} />
             </TouchableOpacity>
@@ -111,14 +159,14 @@ function Pomodoro(): JSX.Element {
         ) : (
           <TouchableOpacity
             onPress={() => {
-              setTimer(true);
-              setPause(false);
+              setTimer(true)
+              setPause(false)
             }}>
             <Image source={require('../../assets/icons/play_button.png')} />
           </TouchableOpacity>
         )}
       </View>
     </ScreenView>
-  );
+  )
 }
-export default Pomodoro;
+export default Pomodoro

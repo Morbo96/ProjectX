@@ -3,6 +3,12 @@ import { IUserLoginForm, IUserRegister, IUserSucsess } from '../../models/IUser'
 import { IFolder } from '../../models/IFolders'
 import { getData } from '../../utils/localStorage'
 import { IFolderForm } from '../../models/IFolderForm'
+import { IGoal } from '../../models/IGoals'
+import { IGoalForm } from '../../models/IGoalForm'
+import { ITask } from '../../models/ITasks'
+import { ITaskForm } from '../../models/ITaskForm'
+import { ISubtask } from '../../models/ISubTask'
+import { ISubtaskForm } from '../../models/ISubTaskForm'
 
 export const API = createApi({
   reducerPath: 'API',
@@ -17,7 +23,7 @@ export const API = createApi({
     },
   }),
 
-  tagTypes: ['User', 'Data'],
+  tagTypes: ['User', 'Data', 'Goals', 'Tasks', 'SubTasks'],
   endpoints: build => ({
     // build.mutation<выходное значение, входное значение>({
     signInUser: build.mutation<IUserSucsess, IUserLoginForm>({
@@ -74,12 +80,147 @@ export const API = createApi({
     deleteFolder: build.mutation<void, IFolder>({
       query(body) {
         return {
-          url: `folders`,
+          url: `folders/${body.id}`,
           method: 'DELETE',
           body,
         }
       },
       invalidatesTags: ['Data'],
+    }),
+
+    getGoals: build.query<Array<IGoal>, number>({
+      query(id) {
+        return {
+          url: `folders/${id}/goals`,
+        }
+      },
+      providesTags: ['Goals'],
+    }),
+
+    createGoal: build.mutation<void, IGoalForm>({
+      query(body) {
+        return {
+          url: `folders/${body.folderId}/goals`,
+          method: 'POST',
+          body,
+        }
+      },
+      invalidatesTags: ['Goals'],
+    }),
+
+    deleteGoal: build.mutation<void, IGoal>({
+      query(body) {
+        return {
+          url: `goals/${body.id}`,
+          method: 'DELETE',
+          body,
+        }
+      },
+      invalidatesTags: ['Goals'],
+    }),
+
+    updateGoal: build.mutation<void, IGoal>({
+      query(body) {
+        return {
+          url: `goals/${body.id}`,
+          method: 'PATCH',
+          body,
+        }
+      },
+      invalidatesTags: ['Goals'],
+    }),
+
+    getTasks: build.query<Array<ITask>, number>({
+      query(goalId) {
+        return {
+          url: `goals/${goalId}/tasks`,
+        }
+      },
+      providesTags: ['Tasks'],
+    }),
+
+    createTask: build.mutation<void, ITaskForm>({
+      query(body) {
+        return {
+          url: `goals/${body.goalId}/tasks`,
+          method: 'POST',
+          body,
+        }
+      },
+      invalidatesTags: ['Tasks'],
+    }),
+
+    deleteTask: build.mutation<void, ITask>({
+      query(body) {
+        return {
+          url: `tasks/${body.id}`,
+          method: 'DELETE',
+          body,
+        }
+      },
+      invalidatesTags: ['Tasks'],
+    }),
+
+    updateTask: build.mutation<void, ITask>({
+      query(body) {
+        return {
+          url: `tasks/${body.id}`,
+          method: 'PATCH',
+          body,
+        }
+      },
+      invalidatesTags: ['Tasks'],
+    }),
+
+    getSubTasks: build.query<Array<ISubtask>, number>({
+      query(taskId) {
+        return {
+          url: `tasks/${taskId}/subtasks`,
+        }
+      },
+      providesTags: ['SubTasks'],
+    }),
+
+    createSubtask: build.mutation<void, ISubtaskForm>({
+      query(body) {
+        return {
+          url: `tasks/${body.taskId}/subtasks`,
+          method: 'POST',
+          body,
+        }
+      },
+      invalidatesTags: ['Tasks'],
+    }),
+
+    deleteSubtask: build.mutation<void, ISubtask>({
+      query(body) {
+        return {
+          url: `subtasks/${body.id}`,
+          method: 'DELETE',
+          body,
+        }
+      },
+      invalidatesTags: ['Tasks'],
+    }),
+
+    updateSubtask: build.mutation<void, ISubtask>({
+      query(body) {
+        return {
+          url: `subtasks/${body.id}`,
+          method: 'PATCH',
+          body,
+        }
+      },
+      invalidatesTags: ['Tasks'],
+    }),
+
+    getAllTasks: build.query<Array<ITask>, void>({
+      query() {
+        return {
+          url: `tasks`,
+          method: 'GET',
+        }
+      },
     }),
   }),
 })

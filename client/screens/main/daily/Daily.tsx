@@ -1,16 +1,16 @@
-import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-import ScreenView from '../../../components/ScreenView';
-import {headers, margin, flex} from '../../../styles/components';
-import {dailySections} from '../../../styles/screens/dailyStyles';
-import TaskWithProgressBar from '../../../components/daily_layout/TaskWithProgressBar';
-import CarouselCardsContainer from '../../../components/daily_layout/recommendation/CarouselCardsContainer';
-import {TaskNavProps} from '../../../navigation/TaskStack';
-import {useNavigation} from '@react-navigation/native';
+import React from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
+import ScreenView from '../../../components/ScreenView'
+import { headers, margin, flex } from '../../../styles/components'
+import { dailySections } from '../../../styles/screens/dailyStyles'
+import TaskWithProgressBar from '../../../components/daily_layout/TaskWithProgressBar'
+import CarouselCardsContainer from '../../../components/daily_layout/recommendation/CarouselCardsContainer'
+import { TaskNavProps } from '../../../navigation/TaskStack'
+import { useNavigation } from '@react-navigation/native'
 
 function Daily() {
   const navigation =
-    useNavigation<TaskNavProps<'dailySubtaskEditor'>['navigation']>();
+    useNavigation<TaskNavProps<'dailySubtaskEditor'>['navigation']>()
   return (
     <ScreenView style={dailySections.mainView}>
       <View>
@@ -51,6 +51,6 @@ function Daily() {
         </View>
       </View>
     </ScreenView>
-  );
+  )
 }
-export default Daily;
+export default Daily

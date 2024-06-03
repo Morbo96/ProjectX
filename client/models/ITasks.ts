@@ -3,9 +3,9 @@ import { ISubtask } from './ISubTask'
 export interface ITask {
   id: number
   name: string
-  icon: null
+  icon: null | undefined
   goalId: number
-  createdAt: Date
-  updatedAt: Date
-  subtasks: ISubtask[]
+  createdAt: Date | undefined
+  updatedAt: Date | undefined
+  subtasks: ISubtask[] | undefined
 }

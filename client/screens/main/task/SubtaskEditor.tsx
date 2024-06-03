@@ -1,15 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, View, TouchableOpacity, Image, TextInput } from 'react-native'
 import ScreenView from '../../../components/ScreenView'
-import { flex, headers, margin, padding } from '../../../styles/components'
+import {
+  buttons,
+  flex,
+  headers,
+  margin,
+  padding,
+  text,
+} from '../../../styles/components'
 import {
   goalScreen,
   subtaskEditScreen,
   taskScreen,
 } from '../../../styles/screens/components/taskScreenStyles'
 import { TaskNavProps } from '../../../navigation/TaskStack'
+import { ISubtaskForm } from '../../../models/ISubTaskForm'
+import { API } from '../../../store/reducers/ApiSlice'
+import { ISubtask } from '../../../models/ISubTask'
 
-function SubtaskEditor({ navigation }: TaskNavProps<'subtaskEditor'>) {
+function SubtaskEditor({ navigation, route }: TaskNavProps<'subtaskEditor'>) {
+  const [createSubtask] = API.useCreateSubtaskMutation()
+  const [updateSubtask] = API.useUpdateSubtaskMutation()
+
+  const [subtaskForm, setSubtaskForm] = useState<ISubtaskForm>({
+    name: route.params.subTask?.name,
+    description: route.params.subTask?.description,
+    taskId: route.params.task.id,
+    dateStart: route.params.subTask?.subtaskInfo?.dateStart,
+    dateEnd: route.params.subTask?.subtaskInfo?.dateEnd,
+  })
+
+  const [subtask, setSubtask] = useState<ISubtask>({
+    id: route.params.subTask?.id,
+    name: subtaskForm.name,
+    description: subtaskForm.description,
+    taskId: subtaskForm.taskId,
+    createdAt: route.params.subTask?.createdAt,
+    updatedAt: route.params.subTask?.updatedAt,
+    subtaskInfo: route.params.subTask?.subtaskInfo,
+  })
+
   return (
     <ScreenView style={taskScreen.mainView}>
       <View>
@@ -21,6 +52,11 @@ function SubtaskEditor({ navigation }: TaskNavProps<'subtaskEditor'>) {
             style={[headers.header_3__bolder, { width: '75%' }]}
             placeholder={'Название подзадачи'}
             multiline={true}
+            onChangeText={subTaskName => {
+              setSubtaskForm({ ...subtaskForm, name: subTaskName })
+              setSubtask({ ...subtask, name: subTaskName })
+            }}
+            value={subtaskForm.name}
           />
           <Image
             style={[{ maxWidth: 8, maxHeight: 32 }, margin.ml_10]}
@@ -31,13 +67,17 @@ function SubtaskEditor({ navigation }: TaskNavProps<'subtaskEditor'>) {
           <View style={[flex.d_flex, flex.flex_column]}>
             <Text style={[subtaskEditScreen.fromTaskText]}>В задаче:</Text>
             <Text style={[subtaskEditScreen.fromTaskText]}>
-              Название задачи
+              {route.params.task.name}
             </Text>
           </View>
           <View style={[flex.d_flex, flex.flex_row]}>
-            <Text style={goalScreen.dateLayout}>Начало</Text>
+            <Text style={goalScreen.dateLayout}>
+              Начало {subtaskForm.dateStart?.toLocaleString()}
+            </Text>
             <Text style={goalScreen.dateLayout}> - </Text>
-            <Text style={goalScreen.dateLayout}>Конец</Text>
+            <Text style={goalScreen.dateLayout}>
+              Конец {subtaskForm.dateEnd?.toLocaleString()}
+            </Text>
           </View>
         </View>
       </View>
@@ -48,7 +88,22 @@ function SubtaskEditor({ navigation }: TaskNavProps<'subtaskEditor'>) {
           padding.p_5,
           subtaskEditScreen.taskDescriptionText,
         ]}
+        onChangeText={subTaskDescription => {
+          setSubtaskForm({ ...subtaskForm, description: subTaskDescription })
+          setSubtask({ ...subtask, description: subTaskDescription })
+        }}
+        value={subtaskForm.description}
       />
+      <TouchableOpacity
+        style={[buttons.rounded, { width: '80%', marginHorizontal: 40 }]}
+        onPress={() => {
+          !route.params.subTask
+            ? createSubtask(subtaskForm)
+            : updateSubtask(subtask)
+          navigation.goBack()
+        }}>
+        <Text style={text.buttonText}>Сохранить</Text>
+      </TouchableOpacity>
     </ScreenView>
   )
 }

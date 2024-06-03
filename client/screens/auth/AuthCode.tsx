@@ -1,5 +1,4 @@
 import React from 'react'
-//import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { buttons, text, input, margin, headers } from '../../styles/components'
 import { authSections, authExtensions } from '../../styles/screens/authStyles'
 import { View, TextInput, TouchableOpacity, Text } from 'react-native'
