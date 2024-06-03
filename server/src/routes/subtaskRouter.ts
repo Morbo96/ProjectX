@@ -14,6 +14,16 @@ const subtaskController = new SubtaskController();
 
 SubtaskRoute.use(express.json());
 
+SubtaskRoute.patch(
+  "/subtasks/:id/complete",
+  accessTokenVerify,
+  findUserByToken,
+  subtaskCheck,
+  (req: Request, res: Response, next: NextFunction) => {
+    subtaskController.complete(req, res, next);
+  }
+);
+
 SubtaskRoute.get(
   "/subtasks/:id",
   accessTokenVerify,

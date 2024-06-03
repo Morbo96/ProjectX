@@ -9,6 +9,9 @@ declare global {
       JWT_ACCESS_SECRET: string;
       JWT_REFRESH_SECRET: string;
       HUNGER_MULTIPLIER_RATE: string;
+      EASY_REWARD: string;
+      MEDIUM_REWARD: string;
+      HARD_REWARD: string;
       PORT: string;
     }
   }

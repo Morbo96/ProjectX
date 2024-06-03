@@ -17,6 +17,8 @@ import { TaskHelper } from "./entities/tasks/taskHelper";
 import { Task } from "./entities/tasks/tasks";
 import { FolderParent } from "./entities/tasks/folderParent";
 import { FolderChild } from "./entities/tasks/folderChild";
+import { Food } from "./entities/gamification/Food";
+import { UserFood } from "./entities/gamification/UserFood";
 
 dotenv.config();
 
@@ -36,10 +38,12 @@ const sequelize = new Sequelize({
     DailySubtaskNotificationTime,
     UserBank,
     UserPet,
+    UserFood,
     Attachment,
     FolderParent,
     FolderChild,
     Folder,
+    Food,
     Goal,
     SubtaskInfo,
     Subtask,

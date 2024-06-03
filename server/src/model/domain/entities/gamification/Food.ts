@@ -8,18 +8,26 @@ import {
   Min,
   Default,
   HasOne,
+  HasMany,
+  BelongsToMany,
 } from "sequelize-typescript";
-import { FoodType } from "./FoodType";
+import { UserFood } from "./UserFood";
+import { User } from "../user/users";
 
-@Table
+@Table({ underscored: true })
 export class Food extends Model<Food> {
   @Column
   name!: string;
 
-  @ForeignKey(() => FoodType)
+  @Min(0)
+  @Max(100)
   @Column
-  foodTypeId!: number;
+  nourishmentValue!: number;
 
-  @BelongsTo(() => FoodType, { onDelete: "cascade" })
-  foodType!: FoodType;
+  @Min(0)
+  @Column
+  cost!: number;
+
+  @BelongsToMany(() => User, () => UserFood)
+  users!: Array<User & { UserFood: UserFood }>;
 }

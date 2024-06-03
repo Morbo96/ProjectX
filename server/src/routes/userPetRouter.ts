@@ -5,17 +5,32 @@ import { CRUDController } from "../controllers/CRUDController";
 import { findUserByToken } from "../middleware/FindUserByToken";
 import { accessTokenVerify } from "../middleware/AccessTokenVerify";
 import { userPetCheck } from "../middleware/UserPetCheck";
+import { calculateCurrentHunger } from "../middleware/CalculateHunger";
+import { UserPetController } from "../controllers/UserPetController";
 
 const UserPetRoute = Router();
 const crudController = new CRUDController(userPetService);
+const userPetController = new UserPetController();
 
 UserPetRoute.use(express.json());
+
+UserPetRoute.patch(
+  "/userPets/:id/feed",
+  accessTokenVerify,
+  findUserByToken,
+  userPetCheck,
+  calculateCurrentHunger,
+  (req: Request, res: Response, next: NextFunction) => {
+    userPetController.feed(req, res, next);
+  }
+);
 
 UserPetRoute.get(
   "/userPets/:id",
   accessTokenVerify,
   findUserByToken,
   userPetCheck,
+  calculateCurrentHunger,
   (req: Request, res: Response, next: NextFunction) => {
     crudController.getByID(req, res, next);
   }

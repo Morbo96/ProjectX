@@ -11,7 +11,7 @@ import {
 } from "sequelize-typescript";
 import { Food } from "./Food";
 
-@Table
+@Table({ underscored: true })
 export class FoodType extends Model<FoodType> {
   @Column
   name!: string;

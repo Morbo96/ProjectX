@@ -4,13 +4,17 @@ import {
   Table,
   HasMany,
   HasOne,
-  Unique, AllowNull,
-  IsEmail
+  Unique,
+  AllowNull,
+  IsEmail,
+  BelongsToMany,
 } from "sequelize-typescript";
 import { DailyTask } from "../dailyTasks/dailyTasks";
 import { UserBank } from "./usersBanks";
 import { UserPet } from "./usersPets";
 import { Folder } from "../tasks/folders";
+import { UserFood } from "../gamification/UserFood";
+import { Food } from "../gamification/Food";
 
 @Table
 export class User extends Model<User> {
@@ -46,4 +50,7 @@ export class User extends Model<User> {
 
   @HasMany(() => UserPet)
   userPets?: UserPet[];
+
+  @BelongsToMany(() => Food, () => UserFood)
+  foods!: Array<Food & { UserFood: UserFood }>;
 }

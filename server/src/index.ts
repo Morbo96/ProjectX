@@ -10,6 +10,7 @@ import SubtaskRoute from "./routes/subtaskRouter";
 import DailySubtaskRoute from "./routes/dailySubtaskRouter";
 import AuthRouter from "./routes/authRouter";
 import { handleError, logger } from "./middleware/errorHandler/HandleError";
+import FoodRoute from "./routes/foodRouter";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use("/api", GoalRoute);
 app.use("/api", FolderRoute);
 app.use("/api", TaskRoute);
 app.use("/api", SubtaskRoute);
+app.use("/api", FoodRoute);
 app.use("/api", DailySubtaskRoute);
 app.use(express.json());
 app.use(handleError);
