@@ -16,12 +16,15 @@ const UserRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(UserService_1.userService);
 const userController = new UserController_1.UserController();
 UserRoute.use(express_1.default.json());
+UserRoute.get("/users/bank", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res, next) => {
+    userController.getUserBank(req, res, next);
+});
 UserRoute.get("/users/dailyTasks", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res, next) => {
     userController.getDailyTasks(req, res, next);
 });
 UserRoute.get("/wipeDataBase", (req, res, next) => {
     (0, DbUtils_1.dbDrop)();
-    res.status(200);
+    res.status(200).json("Done");
 });
 UserRoute.get("/users/folders", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res, next) => {
     userController.getFolders(req, res, next);

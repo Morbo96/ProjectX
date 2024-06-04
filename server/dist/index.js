@@ -25,6 +25,7 @@ const dailySubtaskRouter_1 = __importDefault(require("./routes/dailySubtaskRoute
 const authRouter_1 = __importDefault(require("./routes/authRouter"));
 const HandleError_1 = require("./middleware/errorHandler/HandleError");
 const foodRouter_1 = __importDefault(require("./routes/foodRouter"));
+const InsertFood_1 = require("./utils/InsertFood");
 const app = (0, express_1.default)();
 app.use("/api", authRouter_1.default);
 app.use("/api", userRouter_1.default);
@@ -44,6 +45,7 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
             console.log("Connection has been established successfully.");
         });
         yield dbConnection_1.default.sync();
+        yield (0, InsertFood_1.insertFoodInDB)();
         app.listen(process.env.PORT, () => {
             console.log(`server is listening on ${process.env.PORT}`);
         });

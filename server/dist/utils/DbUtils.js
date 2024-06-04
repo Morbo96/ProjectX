@@ -18,6 +18,10 @@ function dbDrop() {
     return __awaiter(this, void 0, void 0, function* () {
         yield dbConnection_1.default.drop({});
         console.log("All tables have been dropped");
+        yield dbConnection_1.default.authenticate().then(() => {
+            console.log("Connection after wiping has been established successfully.");
+        });
+        yield dbConnection_1.default.sync();
     });
 }
 exports.dbDrop = dbDrop;

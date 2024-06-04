@@ -37,7 +37,7 @@ UserRoute.get(
   "/wipeDataBase",
   (req: Request, res: Response, next: NextFunction) => {
     dbDrop();
-    res.status(200);
+    res.status(200).json("Done");
   }
 );
 

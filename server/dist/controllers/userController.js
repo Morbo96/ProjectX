@@ -11,12 +11,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const UserService_1 = require("../model/services/implementations/usersServices/UserService");
+const usersBanks_1 = require("../model/domain/entities/user/usersBanks");
 class UserController {
     getDailyTasks(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const usersDailyTasks = yield UserService_1.userService.getDailyTasks(req.body.userId);
                 res.json(usersDailyTasks);
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    getUserBank(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const userBank = yield usersBanks_1.UserBank.findOne({
+                    where: { userId: req.body.userId },
+                });
+                res.json(userBank);
             }
             catch (error) {
                 next(error);

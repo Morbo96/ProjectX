@@ -11,6 +11,7 @@ import DailySubtaskRoute from "./routes/dailySubtaskRouter";
 import AuthRouter from "./routes/authRouter";
 import { handleError, logger } from "./middleware/errorHandler/HandleError";
 import FoodRoute from "./routes/foodRouter";
+import { insertFoodInDB } from "./utils/InsertFood";
 
 const app = express();
 
@@ -33,6 +34,8 @@ const start = async () => {
       console.log("Connection has been established successfully.");
     });
     await sequelize.sync();
+
+    await insertFoodInDB();
 
     app.listen(process.env.PORT, () => {
       console.log(`server is listening on ${process.env.PORT}`);
