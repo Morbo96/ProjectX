@@ -31,7 +31,7 @@ class CRUDController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const allItems = yield this.itemService.getAll();
-                res.json({ allItems });
+                res.json(allItems);
             }
             catch (error) {
                 next(error);

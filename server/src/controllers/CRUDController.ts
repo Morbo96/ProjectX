@@ -21,7 +21,7 @@ export class CRUDController<T extends {}> {
   async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const allItems = await this.itemService.getAll();
-      res.json({ allItems });
+      res.json(allItems);
     } catch (error) {
       next(error);
     }
