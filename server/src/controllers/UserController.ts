@@ -1,11 +1,22 @@
 import { NextFunction, Request, Response } from "express";
 import { userService } from "../model/services/implementations/usersServices/UserService";
+import { UserBank } from "../model/domain/entities/user/usersBanks";
 
 export class UserController {
   async getDailyTasks(req: Request, res: Response, next: NextFunction) {
     try {
       const usersDailyTasks = await userService.getDailyTasks(req.body.userId);
       res.json(usersDailyTasks);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async getUserBank(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userBank = await UserBank.findOne({
+        where: { userId: req.body.userId },
+      });
+      res.json(userBank);
     } catch (error) {
       next(error);
     }
