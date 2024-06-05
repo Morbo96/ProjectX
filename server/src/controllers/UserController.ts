@@ -1,12 +1,23 @@
 import { NextFunction, Request, Response } from "express";
 import { userService } from "../model/services/implementations/usersServices/UserService";
 import { UserBank } from "../model/domain/entities/user/usersBanks";
+import { UserFood } from "../model/domain/entities/gamification/UserFood";
 
 export class UserController {
   async getDailyTasks(req: Request, res: Response, next: NextFunction) {
     try {
       const usersDailyTasks = await userService.getDailyTasks(req.body.userId);
       res.json(usersDailyTasks);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async getFood(req: Request, res: Response, next: NextFunction) {
+    try {
+      const usersFood = await UserFood.findAll({
+        where: { userId: req.body.userId },
+      });
+      res.json(usersFood);
     } catch (error) {
       next(error);
     }

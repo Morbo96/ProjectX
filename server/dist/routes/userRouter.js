@@ -16,6 +16,9 @@ const UserRoute = (0, express_2.Router)();
 const crudController = new CRUDController_1.CRUDController(UserService_1.userService);
 const userController = new UserController_1.UserController();
 UserRoute.use(express_1.default.json());
+UserRoute.get("/users/food", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res, next) => {
+    userController.getFood(req, res, next);
+});
 UserRoute.get("/users/bank", AccessTokenVerify_1.accessTokenVerify, FindUserByToken_1.findUserByToken, (req, res, next) => {
     userController.getUserBank(req, res, next);
 });

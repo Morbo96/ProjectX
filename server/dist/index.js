@@ -56,7 +56,3 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 start();
-function dropAllTables() {
-    dbConnection_1.default.drop();
-    console.log("All tables dropped");
-}

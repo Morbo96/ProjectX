@@ -47,8 +47,3 @@ const start = async () => {
 };
 
 start();
-
-function dropAllTables() {
-  sequelize.drop();
-  console.log("All tables dropped");
-}

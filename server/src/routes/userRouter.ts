@@ -16,6 +16,14 @@ const userController = new UserController();
 UserRoute.use(express.json());
 
 UserRoute.get(
+  "/users/food",
+  accessTokenVerify,
+  findUserByToken,
+  (req: Request, res: Response, next: NextFunction) => {
+    userController.getFood(req, res, next);
+  }
+);
+UserRoute.get(
   "/users/bank",
   accessTokenVerify,
   findUserByToken,
