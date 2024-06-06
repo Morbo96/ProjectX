@@ -9,6 +9,10 @@ import { ITask } from '../../models/ITasks'
 import { ITaskForm } from '../../models/ITaskForm'
 import { ISubtask } from '../../models/ISubTask'
 import { ISubtaskForm } from '../../models/ISubTaskForm'
+import { IUserPet } from '../../models/IUserPet'
+import { IFood } from '../../models/IFood'
+import { IUserBank } from '../../models/IUserBank'
+import { IFoodBank } from '../../models/IFoodBank'
 
 export const API = createApi({
   reducerPath: 'API',
@@ -23,7 +27,7 @@ export const API = createApi({
     },
   }),
 
-  tagTypes: ['User', 'Data', 'Goals', 'Tasks', 'SubTasks'],
+  tagTypes: ['User', 'Data', 'Goals', 'Tasks', 'SubTasks', 'Bank', 'Food'],
   endpoints: build => ({
     // build.mutation<выходное значение, входное значение>({
     signInUser: build.mutation<IUserSucsess, IUserLoginForm>({
@@ -221,6 +225,74 @@ export const API = createApi({
           method: 'GET',
         }
       },
+    }),
+    ///////////////////////////////////////////////
+
+    compliteSubtask: build.mutation<void, number>({
+      query(id) {
+        return {
+          url: `subtasks/${id}/complete`,
+          method: 'PATCH',
+        }
+      },
+      invalidatesTags: ['Bank'],
+    }),
+
+    getUserBank: build.query<IUserBank, void>({
+      query() {
+        return {
+          url: `users/bank`,
+          method: 'GET',
+        }
+      },
+      providesTags: ['Bank'],
+    }),
+
+    buyFood: build.mutation<void, number>({
+      query(id) {
+        return {
+          url: `food/${id}/buy`,
+          method: 'PATCH',
+        }
+      },
+      invalidatesTags: ['Bank', 'Food'],
+    }),
+
+    getUserPetById: build.query<IUserPet, number>({
+      query(id) {
+        return {
+          url: `userpets/${id}`,
+          method: 'GET',
+        }
+      },
+    }),
+
+    // feedUserPet: build.mutation<void, userPet+idFood>({
+    // 	query(id) {
+    //     return {
+    //       url: `userpets/${id}`,
+    //       method: 'GET',
+    //     }
+    //   },
+    // }),
+
+    getAllFood: build.query<Array<IFood>, void>({
+      query() {
+        return {
+          url: `food`,
+          method: 'GET',
+        }
+      },
+    }),
+
+    getUserFood: build.query<Array<IFoodBank>, void>({
+      query() {
+        return {
+          url: `users/food`,
+          method: 'GET',
+        }
+      },
+      providesTags: ['Food'],
     }),
   }),
 })

@@ -1,7 +1,7 @@
 import { ISubTaskInfo } from './ISubtaskInfo'
 
 export interface ISubtask {
-  id: number | undefined
+  id: number
   name: string | undefined
   description: string | undefined
   taskId: number | undefined

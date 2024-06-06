@@ -20,6 +20,7 @@ const TaskCardDataItem = ({ task, subtask }: Props) => {
     useNavigation<TaskNavProps<'subtaskEditor'>['navigation']>()
 
   const [deleteSubtask] = API.useDeleteSubtaskMutation()
+  const [compliteSubtask] = API.useCompliteSubtaskMutation()
 
   return (
     <View
@@ -57,10 +58,15 @@ const TaskCardDataItem = ({ task, subtask }: Props) => {
           }}>
           <Icon as={TrashIcon} />
         </TouchableOpacity>
-        <Image
-          style={{ width: 20, height: 20 }}
-          source={require('../../assets/icons/draggable-item.png')}
-        />
+        <TouchableOpacity
+          onPress={() => {
+            compliteSubtask(subtask.id)
+          }}>
+          <Image
+            style={{ width: 20, height: 20 }}
+            source={require('../../assets/icons/draggable-item.png')}
+          />
+        </TouchableOpacity>
       </HStack>
     </View>
   )
