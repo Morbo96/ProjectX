@@ -15,6 +15,8 @@ import { UserPet } from "./usersPets";
 import { Folder } from "../tasks/folders";
 import { UserFood } from "../gamification/UserFood";
 import { Food } from "../gamification/Food";
+import { Product } from "../addition/Product";
+import { UserProduct } from "../addition/UserProduct";
 
 @Table
 export class User extends Model<User> {
@@ -50,6 +52,9 @@ export class User extends Model<User> {
 
   @HasMany(() => UserPet)
   userPets?: UserPet[];
+
+  @BelongsToMany(() => Product, () => UserProduct)
+  products!: Array<Product & { UserProduct: UserProduct }>;
 
   @BelongsToMany(() => Food, () => UserFood)
   foods!: Array<Food & { UserFood: UserFood }>;

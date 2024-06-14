@@ -7,8 +7,11 @@ import {
   Max,
   Min,
   Default,
+  BelongsToMany,
 } from "sequelize-typescript";
 import { User } from "./users";
+import { CustomizationType } from "../addition/CustomizationType";
+import { PetCustomization } from "../addition/PetCustomization";
 
 @Table
 export class UserPet extends Model<UserPet> {
@@ -31,4 +34,9 @@ export class UserPet extends Model<UserPet> {
 
   @BelongsTo(() => User, { onDelete: "cascade" })
   user!: User;
+
+  @BelongsToMany(() => CustomizationType, () => PetCustomization)
+  customizationTypes!: Array<
+    CustomizationType & { PetCustomization: PetCustomization }
+  >;
 }
