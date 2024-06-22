@@ -31,7 +31,7 @@ const TaskCard = ({ task, delete: deleteTask, update: updateTask }: Props) => {
     <View style={[taskCard.layout, margin.mt_1]}>
       <HStack justifyContent="space-between">
         <TextInput
-          style={[headers.header_3__bolder, { maxWidth: '75%' }]}
+          style={[headers.header_4, { maxWidth: '75%' }]}
           defaultValue={updatedTask.name}
           value={updatedTask.name}
           onChangeText={taskName => {

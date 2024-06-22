@@ -187,7 +187,7 @@ function TaskPreview() {
             </ModalContent>
           </Modal>
 
-          {/* <View>
+          <View>
             <Text style={[headers.header_3__bolder]}>Списки</Text>
           </View>
           <View style={[dailySections.dailyTasksLayout, margin.mt_3]}>
@@ -215,7 +215,7 @@ function TaskPreview() {
                 image={require('../../../assets/icons/favorite-folder.png')}
               />
             </TouchableOpacity>
-          </View> */}
+          </View>
         </View>
         <View style={dailySections.recommendationsSection}>
           <View

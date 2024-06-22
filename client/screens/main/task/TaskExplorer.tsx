@@ -10,7 +10,7 @@ import {
   Animated,
 } from 'react-native'
 import ScreenView from '../../../components/ScreenView'
-import { dailyTask } from '../../../styles/screens/dailyStyles'
+import { dailySections, dailyTask } from '../../../styles/screens/dailyStyles'
 import {
   buttons,
   flex,
@@ -87,7 +87,7 @@ function TaskExplorer({ navigation, route }: TaskNavProps<'taskExplorer'>) {
   }
 
   return (
-    <ScreenView style={taskScreen.mainView}>
+    <ScreenView style={dailySections.mainView}>
       <Modal
         isOpen={showCreateModal}
         onClose={() => {
@@ -202,7 +202,9 @@ function TaskExplorer({ navigation, route }: TaskNavProps<'taskExplorer'>) {
           }}
           value={taskForm.name}
         /> */}
-        <TouchableOpacity style={buttons.rounded} onPress={AddButtonHandler}>
+        <TouchableOpacity
+          style={[buttons.rounded, { backgroundColor: 'red', opacity: 0.1 }]}
+          onPress={AddButtonHandler}>
           <Text style={text.buttonText}>Добавить задачу</Text>
         </TouchableOpacity>
       </View>

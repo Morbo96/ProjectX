@@ -27,7 +27,7 @@ const TaskOpenButton = ({ goal }: Props) => {
       onPress={() => navigation.navigate('taskExplorer', { goal })}>
       <View style={[taskStartScreen.taskFolderButton]}>
         <Image
-          style={[{ width: 40, height: 40 }, margin.ml_3, margin.mr_5]}
+          style={[{ width: 35, height: 35 }, margin.ml_3, margin.mr_5]}
           source={require('../../assets/icons/favorite-folder.png')}
         />
         <Text style={taskStartScreen.taskFolderButtonText}>{goal.name}</Text>

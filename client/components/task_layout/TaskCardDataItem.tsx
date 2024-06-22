@@ -9,6 +9,8 @@ import { ISubtask } from '../../models/ISubTask'
 import { ITask } from '../../models/ITasks'
 import { HStack, Icon, TrashIcon } from '@gluestack-ui/themed'
 import { API } from '../../store/reducers/ApiSlice'
+import { StyleProp } from 'react-native'
+import { TextStyle } from 'react-native'
 
 type Props = {
   task: ITask
@@ -20,7 +22,14 @@ const TaskCardDataItem = ({ task, subtask }: Props) => {
     useNavigation<TaskNavProps<'subtaskEditor'>['navigation']>()
 
   const [deleteSubtask] = API.useDeleteSubtaskMutation()
-  const [compliteSubtask] = API.useCompliteSubtaskMutation()
+  const [completeSubtask] = API.useCompleteSubtaskMutation()
+  const [textDecorationLine, setTextDecorationLine] = useState<
+    StyleProp<TextStyle>
+  >(
+    !subtask.subtaskInfo.completed
+      ? { textDecorationLine: 'none' }
+      : { textDecorationLine: 'line-through' },
+  )
 
   return (
     <View
@@ -32,7 +41,15 @@ const TaskCardDataItem = ({ task, subtask }: Props) => {
         { width: '100%' },
       ]}>
       <View style={[flex.d_flex, flex.flex_row, flex.align_center]}>
-        {/* <RadioButton checked={subtask.subtaskInfo.completed} /> */}
+        <RadioButton
+          action={() => {
+            setTextDecorationLine({ textDecorationLine: 'line-through' })
+            completeSubtask(subtask.id)
+          }}
+          checked={subtask.subtaskInfo.completed}
+          diameter={20}
+          disable={subtask.subtaskInfo.completed}
+        />
         <TouchableOpacity
           style={[
             flex.d_flex,
@@ -46,8 +63,12 @@ const TaskCardDataItem = ({ task, subtask }: Props) => {
               subTask: subtask,
             })
           }>
-          <Text style={taskCard.subtaskName}>{subtask.name}</Text>
-          <Text style={taskCard.subtaskDescription}>{subtask.description}</Text>
+          <Text style={[taskCard.subtaskName, textDecorationLine]}>
+            {subtask.name}
+          </Text>
+          <Text style={taskCard.subtaskDescription}>
+            {subtask.description?.slice(0, 25)}
+          </Text>
         </TouchableOpacity>
       </View>
       <HStack>
@@ -57,15 +78,6 @@ const TaskCardDataItem = ({ task, subtask }: Props) => {
             deleteSubtask(subtask)
           }}>
           <Icon as={TrashIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            compliteSubtask(subtask.id)
-          }}>
-          <Image
-            style={{ width: 20, height: 20 }}
-            source={require('../../assets/icons/draggable-item.png')}
-          />
         </TouchableOpacity>
       </HStack>
     </View>

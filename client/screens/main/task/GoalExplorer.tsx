@@ -189,7 +189,7 @@ const GoalExplorer = ({ navigation, route }: TaskNavProps<'goalExplorer'>) => {
         {error && <Text>Произошла ошибка при загрузке</Text>}
         {data && (
           <SwipeListView
-            style={{ width: '100%' }}
+            style={{ width: '100%', marginTop: 10 }}
             data={data}
             renderItem={data => {
               return <TaskOpenButton goal={data.item} />

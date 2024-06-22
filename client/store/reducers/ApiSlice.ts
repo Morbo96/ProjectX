@@ -13,6 +13,7 @@ import { IUserPet } from '../../models/IUserPet'
 import { IFood } from '../../models/IFood'
 import { IUserBank } from '../../models/IUserBank'
 import { IFoodBank } from '../../models/IFoodBank'
+import { IFeedPet } from '../../models/IFeedPet'
 
 export const API = createApi({
   reducerPath: 'API',
@@ -27,7 +28,16 @@ export const API = createApi({
     },
   }),
 
-  tagTypes: ['User', 'Data', 'Goals', 'Tasks', 'SubTasks', 'Bank', 'Food'],
+  tagTypes: [
+    'User',
+    'Data',
+    'Goals',
+    'Tasks',
+    'SubTasks',
+    'Bank',
+    'Food',
+    'Pet',
+  ],
   endpoints: build => ({
     // build.mutation<выходное значение, входное значение>({
     signInUser: build.mutation<IUserSucsess, IUserLoginForm>({
@@ -228,14 +238,14 @@ export const API = createApi({
     }),
     ///////////////////////////////////////////////
 
-    compliteSubtask: build.mutation<void, number>({
+    completeSubtask: build.mutation<void, number>({
       query(id) {
         return {
           url: `subtasks/${id}/complete`,
           method: 'PATCH',
         }
       },
-      invalidatesTags: ['Bank'],
+      invalidatesTags: ['Bank', 'Tasks'],
     }),
 
     getUserBank: build.query<IUserBank, void>({
@@ -265,16 +275,19 @@ export const API = createApi({
           method: 'GET',
         }
       },
+      providesTags: ['Pet'],
     }),
 
-    // feedUserPet: build.mutation<void, userPet+idFood>({
-    // 	query(id) {
-    //     return {
-    //       url: `userpets/${id}`,
-    //       method: 'GET',
-    //     }
-    //   },
-    // }),
+    feedUserPet: build.mutation<void, IFeedPet>({
+      query(body) {
+        return {
+          url: `userpets/2/feed`,
+          method: 'PATCH',
+          body: body,
+        }
+      },
+      invalidatesTags: ['Pet', 'Food'],
+    }),
 
     getAllFood: build.query<Array<IFood>, void>({
       query() {

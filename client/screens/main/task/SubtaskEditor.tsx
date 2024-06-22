@@ -18,6 +18,7 @@ import { TaskNavProps } from '../../../navigation/TaskStack'
 import { ISubtaskForm } from '../../../models/ISubTaskForm'
 import { API } from '../../../store/reducers/ApiSlice'
 import { ISubtask } from '../../../models/ISubTask'
+import { ISubTaskInfo } from '../../../models/ISubtaskInfo'
 
 function SubtaskEditor({ navigation, route }: TaskNavProps<'subtaskEditor'>) {
   const [createSubtask] = API.useCreateSubtaskMutation()
@@ -27,22 +28,23 @@ function SubtaskEditor({ navigation, route }: TaskNavProps<'subtaskEditor'>) {
     name: route.params.subTask?.name,
     description: route.params.subTask?.description,
     taskId: route.params.task.id,
+    subtaskInfo: route.params.subTask?.subtaskInfo,
     dateStart: route.params.subTask?.subtaskInfo?.dateStart,
     dateEnd: route.params.subTask?.subtaskInfo?.dateEnd,
   })
 
   const [subtask, setSubtask] = useState<ISubtask>({
-    id: route.params.subTask?.id,
+    id: route.params.subTask?.id as number,
     name: subtaskForm.name,
     description: subtaskForm.description,
     taskId: subtaskForm.taskId,
     createdAt: route.params.subTask?.createdAt,
     updatedAt: route.params.subTask?.updatedAt,
-    subtaskInfo: route.params.subTask?.subtaskInfo,
+    subtaskInfo: route.params.subTask?.subtaskInfo as ISubTaskInfo,
   })
 
   return (
-    <ScreenView style={taskScreen.mainView}>
+    <ScreenView style={[taskScreen.mainView]}>
       <View>
         <TouchableOpacity
           style={[flex.d_flex, flex.flex_row, flex.align_center, padding.pr_4]}
@@ -65,9 +67,8 @@ function SubtaskEditor({ navigation, route }: TaskNavProps<'subtaskEditor'>) {
         </TouchableOpacity>
         <View style={[{ paddingLeft: 55 }]}>
           <View style={[flex.d_flex, flex.flex_column]}>
-            <Text style={[subtaskEditScreen.fromTaskText]}>В задаче:</Text>
             <Text style={[subtaskEditScreen.fromTaskText]}>
-              {route.params.task.name}
+              В задаче: {route.params.task.name}
             </Text>
           </View>
           <View style={[flex.d_flex, flex.flex_row]}>
@@ -95,7 +96,15 @@ function SubtaskEditor({ navigation, route }: TaskNavProps<'subtaskEditor'>) {
         value={subtaskForm.description}
       />
       <TouchableOpacity
-        style={[buttons.rounded, { width: '80%', marginHorizontal: 40 }]}
+        style={[
+          buttons.rounded,
+          {
+            width: '80%',
+            marginHorizontal: 40,
+            position: 'absolute',
+            bottom: 10,
+          },
+        ]}
         onPress={() => {
           !route.params.subTask
             ? createSubtask(subtaskForm)

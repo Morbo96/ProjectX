@@ -7,5 +7,5 @@ export interface ISubtask {
   taskId: number | undefined
   createdAt: Date | undefined
   updatedAt: Date | undefined
-  subtaskInfo: ISubTaskInfo | undefined
+  subtaskInfo: ISubTaskInfo
 }
