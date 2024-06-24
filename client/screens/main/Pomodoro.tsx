@@ -107,7 +107,7 @@ function Pomodoro(): JSX.Element {
                   {minutes}:{seconds}
                 </Text>
                 <Text style={[pomodoroLayout.hitCountText, margin.mt_3]}>
-                  Hit count: {hitCount}
+                  Отвлекся: {hitCount}
                 </Text>
               </View>
             )
@@ -165,6 +165,15 @@ function Pomodoro(): JSX.Element {
             <Image source={require('../../assets/icons/play_button.png')} />
           </TouchableOpacity>
         )}
+        <Text
+          style={{
+            fontWeight: '700',
+            fontSize: 30,
+            marginTop: 20,
+            color: 'black',
+          }}>
+          Настройки
+        </Text>
       </View>
     </ScreenView>
   )

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Image, Text, TouchableOpacity, View } from 'react-native'
 import ScreenView from '../../../components/ScreenView'
 import { headers, margin, flex } from '../../../styles/components'
 import { dailySections } from '../../../styles/screens/dailyStyles'
@@ -20,8 +20,8 @@ function Daily() {
         <View style={[dailySections.dailyTasksLayout, margin.mt_3]}>
           <TouchableOpacity onPress={() => console.log('Button is pressed!')}>
             <TaskWithProgressBar
-              progressValue={70}
-              image={require('../../../assets/emoji/pill.png')}
+              progressValue={60}
+              image={require('../../../assets/icons/book.png')}
               style={[margin.mt_2, margin.mb_2, margin.ml_5, margin.mr_5]}
             />
           </TouchableOpacity>
@@ -36,6 +36,55 @@ function Daily() {
           </TouchableOpacity>
         </View>
       </View>
+      <View
+        style={{
+          height: 60,
+          width: '86%',
+          alignSelf: 'center',
+          backgroundColor: 'white',
+          borderRadius: 20,
+          marginTop: 20,
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexDirection: 'row',
+          padding: 10,
+          paddingRight: 80,
+          paddingLeft: 20,
+        }}>
+        <Image
+          source={require('../../../assets/icons/books.png')}
+          style={{ height: 60, width: 60, paddingBottom: 15 }}
+        />
+        <Text style={{ fontWeight: 'bold', color: 'black', fontSize: 19 }}>
+          База знаний
+        </Text>
+      </View>
+      <TouchableOpacity onPress={() => navigation.navigate('cards')}>
+        <View
+          style={{
+            height: 50,
+            width: '86%',
+            alignSelf: 'center',
+            backgroundColor: 'white',
+            borderRadius: 20,
+            marginTop: 10,
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            padding: 10,
+            paddingRight: 15,
+            paddingLeft: 20,
+          }}>
+          <Text style={{ fontWeight: 'bold', color: 'black', fontSize: 19 }}>
+            Посмотреть карточки
+          </Text>
+          <Image
+            source={require('../../../assets/icons/cards.png')}
+            style={{ height: 30, width: 30 }}
+          />
+        </View>
+      </TouchableOpacity>
+
       <View style={dailySections.recommendationsSection}>
         <Text style={[headers.header_3__bolder, margin.mb_4]}>
           Рекомендации

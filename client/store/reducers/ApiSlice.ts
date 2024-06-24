@@ -18,7 +18,7 @@ import { IFeedPet } from '../../models/IFeedPet'
 export const API = createApi({
   reducerPath: 'API',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://192.168.0.106:3000/api',
+    baseUrl: 'http://172.20.10.3:3001/api',
     prepareHeaders: async headers => {
       const token = await getData('token')
       if (token) {

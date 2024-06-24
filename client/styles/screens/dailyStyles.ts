@@ -29,7 +29,7 @@ export const dailySections = StyleSheet.create({
     flexWrap: 'wrap',
   },
   recommendationsSection: {
-    paddingTop: 42,
+    paddingTop: 22,
   },
 })
 

@@ -150,7 +150,16 @@ function TaskExplorer({ navigation, route }: TaskNavProps<'taskExplorer'>) {
           source={require('../../../assets/icons/expand-more.png')}
         />
       </TouchableOpacity>
-      <View style={taskScreen.content}>
+      <View
+        style={[
+          taskScreen.content,
+          {
+            flexDirection: 'column',
+            display: 'flex',
+            justifyContent: 'space-between',
+            height: '89%',
+          },
+        ]}>
         <View
           style={[
             flex.d_flex,
@@ -159,20 +168,25 @@ function TaskExplorer({ navigation, route }: TaskNavProps<'taskExplorer'>) {
             flex.align_center,
             margin.mt_5,
           ]}>
-          <Text style={[dailyTask.nameInput, padding.p_0, { maxWidth: '80%' }]}>
+          <Text
+            style={[
+              dailyTask.nameInput,
+              padding.p_0,
+              { maxWidth: '80%', fontSize: 26 },
+            ]}>
             {route.params.goal.name}
           </Text>
 
           <Image
             style={[{ maxWidth: 64, maxHeight: 64 }]}
-            source={require('../../../assets/emoji/water-drop.png')}
+            source={require('../../../assets/icons/book.png')}
           />
         </View>
         <View style={[flex.d_flex, flex.flex_row]}>
           <Text style={goalScreen.dateLayout}>
             {route.params.goal.dateStart?.toLocaleString()}
           </Text>
-          <Text style={goalScreen.dateLayout}> - </Text>
+          <Text style={[goalScreen.dateLayout]}>21.06.24 - 22.06.24</Text>
           <Text style={goalScreen.dateLayout}>
             {route.params.goal.dateEnd?.toLocaleString()}
           </Text>
@@ -189,22 +203,7 @@ function TaskExplorer({ navigation, route }: TaskNavProps<'taskExplorer'>) {
             ))}
         </ScrollView>
 
-        {/* <TextInput
-          placeholder="Введите название задачи"
-          style={[
-            input.inputField,
-            margin.mb_3,
-            margin.mt_2,
-            { width: '100%' },
-          ]}
-          onChangeText={taskName => {
-            setTaskForm({ ...taskForm, name: taskName })
-          }}
-          value={taskForm.name}
-        /> */}
-        <TouchableOpacity
-          style={[buttons.rounded, { backgroundColor: 'red', opacity: 0.1 }]}
-          onPress={AddButtonHandler}>
+        <TouchableOpacity style={[buttons.rounded]} onPress={AddButtonHandler}>
           <Text style={text.buttonText}>Добавить задачу</Text>
         </TouchableOpacity>
       </View>

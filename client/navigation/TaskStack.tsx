@@ -11,9 +11,11 @@ import { RouteProp } from '@react-navigation/native'
 import { IGoal } from '../models/IGoals'
 import { ISubtask } from '../models/ISubTask'
 import { ITask } from '../models/ITasks'
+import Cards from '../screens/main/task/Cards'
 
 export type TaskParamList = {
   taskStack: undefined
+  cards: undefined
   dailySubtaskEditor: undefined
   taskExplorer: {
     goal: IGoal
@@ -38,6 +40,7 @@ function TaskStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="taskStack" component={BottomTabView} />
+
       <Stack.Screen name="dailySubtaskEditor" component={DailySubtaskEditor} />
 
       <Stack.Screen name="taskExplorer" component={TaskExplorer} />
@@ -45,6 +48,8 @@ function TaskStack() {
       <Stack.Screen name="subtaskEditor" component={SubtaskEditor} />
 
       <Stack.Screen name="goalExplorer" component={GoalExplorer} />
+
+      <Stack.Screen name="cards" component={Cards} />
     </Stack.Navigator>
   )
 }
